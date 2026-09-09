@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Macro &amp; Weight Tracker</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:        #f9f9f7;
+    --surface:     #fcfcfb;
+    --surface-2:   #f2f1ec;
+    --text-1:      #0b0b0b;
+    --text-2:      #52514e;
+    --text-muted:  #898781;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+    --accent:      #2a78d6;
+    --accent-soft: #cde2fb;
+    --good:        #0ca30c;
+    --warning:     #fab219;
+    --serious:     #ec835a;
+    --critical:    #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:        #0d0d0d;
+      --surface:     #1a1a19;
+      --surface-2:   #232320;
+      --text-1:      #ffffff;
+      --text-2:      #c3c2b7;
+      --text-muted:  #898781;
+      --grid:        #2c2c2a;
+      --baseline:    #383835;
+      --border:      rgba(255,255,255,0.10);
+      --accent:      #3987e5;
+      --accent-soft: #184f95;
+      --good:        #0ca30c;
+      --warning:     #fab219;
+      --serious:     #ec835a;
+      --critical:    #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:        #0d0d0d;
+    --surface:     #1a1a19;
+    --surface-2:   #232320;
+    --text-1:      #ffffff;
+    --text-2:      #c3c2b7;
+    --text-muted:  #898781;
+    --grid:        #2c2c2a;
+    --baseline:    #383835;
+    --border:      rgba(255,255,255,0.10);
+    --accent:      #3987e5;
+    --accent-soft: #184f95;
+    --good:        #0ca30c;
+    --warning:     #fab219;
+    --serious:     #ec835a;
+    --critical:    #e66767;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-1);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.35rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .updated {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 18px 20px;
+  }
+  .card h2 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+
+  /* stat tiles */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat .label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stat .value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .stat .sub {
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .pill.warning { background: color-mix(in srgb, var(--warning) 20%, transparent); color: var(--text-1); }
+  .pill.good { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--text-1); }
+  .pill::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .pill.warning::before { background: var(--warning); }
+  .pill.good::before { background: var(--good); }
+
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* chart */
+  .chart-wrap { position: relative; }
+  canvas#weightChart {
+    width: 100%;
+    height: 260px;
+    display: block;
+  }
+  .chart-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+    flex-wrap: wrap;
+  }
+  .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 12px; height: 2px; border-radius: 2px; display: inline-block; }
+
+  /* macro bars */
+  .macro-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .macro-row:last-child { margin-bottom: 0; }
+  .macro-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .macro-head .name { color: var(--text-1); font-weight: 500; }
+  .macro-head .nums { color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .bar-track {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  .bar-fill.over { background: var(--serious); }
+
+  .empty-state {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    padding: 6px 0;
+  }
+
+  .log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .log-entry {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.85rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--grid);
+  }
+  .log-entry:last-child { border-bottom: none; padding-bottom: 0; }
+  .log-entry .when { color: var(--text-muted); text-align: right; flex: 0 1 auto; max-width: 45%; }
+  .log-entry .what { color: var(--text-1); flex: 1 1 auto; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 560px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  footer {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    text-align: center;
+    padding-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Macro &amp; Weight Tracker</h1>
+    <div class="updated">Updated Sep 8, 2026 &middot; morning entry</div>
+  </header>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="label">Current weight</div>
+      <div class="value">181.8 lb</div>
+      <div class="sub">flat vs. yesterday — genuinely good news, holding the new all-time low. Weighed in earlier than usual (~9:15 AM vs. his normal 10:30-11:30 AM window), so the real number likely would have been even lower with his usual timing</div>
+    </div>
+    <div class="stat">
+      <div class="label">Lost since May 20</div>
+      <div class="value">33.2 lb</div>
+      <div class="sub">from 215 lb</div>
+    </div>
+    <div class="stat">
+      <div class="label">BMI</div>
+      <div class="value">26.1</div>
+      <span class="pill warning">Overweight</span>
+    </div>
+    <div class="stat">
+      <div class="label">To goal (160)</div>
+      <div class="value">21.8 lb</div>
+      <div class="sub">~180 lb by mid-Aug</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Weight trend</h2>
+    <div class="chart-wrap">
+      <canvas id="weightChart"></canvas>
+    </div>
+    <div class="chart-legend">
+      <span><i class="swatch" style="background:var(--accent)"></i> Logged weight</span>
+      <span><i class="swatch" style="background:var(--text-muted); opacity:0.6"></i> Goal (160 lb)</span>
+    </div>
+  </section>
+
+  <div class="two-col">
+    <section class="card">
+      <h2>Today&rsquo;s macros</h2>
+      <div id="macroBars"></div>
+    </section>
+
+    <section class="card">
+      <h2>Drinks &amp; exercise &mdash; today</h2>
+      <div class="log-list" id="drinksExerciseList"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Today&rsquo;s food log</h2>
+    <div class="log-list" id="foodLogList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Day history</h2>
+    <div class="log-list" id="historyList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Weigh-in log</h2>
+    <div class="log-list" id="logList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Low-sodium grocery list</h2>
+    <div class="log-list" id="groceryListEl"></div>
+  </section>
+
+  <section class="card">
+    <h2>Go-to high-protein, low-cal meals</h2>
+    <div class="log-list" id="goToMealsList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Usual orders</h2>
+    <div class="log-list" id="usualOrdersList"></div>
+    <div class="empty-state" style="padding-top:12px;">Got a Chipotle ("chipper") bowl or Noodles order you get all the time? Tell me and I&rsquo;ll save it here too.</div>
+  </section>
+
+  <footer>
+    This page is a snapshot &mdash; log new weight, meals, water, or workouts by telling Claude in chat, and it&rsquo;ll update this dashboard.<br/>
+    Targets set for 21 y/o, moderately active (4-5 sport days/week). Food macros are estimates from typical product nutrition info, not exact labels, unless you confirm otherwise.
+  </footer>
+
+</div>
+
+<script>
+  // ---- data (Claude updates this block as Jack logs new entries) ----
+  const profile = {
+    heightIn: 70,
+    startWeight: 215,
+    startDate: "2026-05-20",
+    goalWeight: 160,
+    nearTermGoalRange: [170, 180],
+  };
+
+  const weightLog = [
+    { date: "2026-05-20", weight: 215, note: "back from college" },
+    { date: "2026-07-21", time: "23:00", weight: 191.6 },
+    { date: "2026-07-22", time: "11:00", weight: 189.6, note: "woke up ~11am" },
+    { date: "2026-07-23", time: "10:30", weight: 192.2, note: "woke up ~10:30, after yesterday's high-sodium day" },
+    { date: "2026-07-24", time: "09:40", weight: 190.0, note: "woke up ~9:30-9:45, water weight receded" },
+    { date: "2026-07-25", time: "10:50", weight: 190.4, note: "only +0.4 lb despite a ~3,470 kcal / 4,835mg sodium day yesterday" },
+    { date: "2026-07-26", time: "10:30 then ~11:30", weight: 189.8, note: "first weigh 190.4 (flat vs. yesterday despite a 5,517mg sodium day), re-weighed 189.8 after shower/bathroom — back in the 180s" },
+    { date: "2026-07-27", time: "~12:00 PM", weight: 191.6, note: "up 1.8 lb — yesterday was a 4,406mg sodium / 2,318 kcal day, textbook water-weight pattern" },
+    { date: "2026-07-28", time: "~9:57 AM", weight: 189.4, note: "down 2.2 lb — Monday's 3,433mg sodium day already resolved" },
+    { date: "2026-07-29", time: "~9:00 AM", weight: 191.2, note: "up 1.8 lb — Tuesday's 6,010mg sodium day (Wingstop), the highest of the week, catching up as predicted" },
+    { date: "2026-07-30", time: "~9:00 AM", weight: 191.0, note: "down only 0.2 lb — Wednesday was controlled but still slightly over sodium, plus late-night eating; likely still working through Tuesday's big spike" },
+    { date: "2026-07-31", time: "~9:00 AM", weight: 189.4, note: "down 1.6 lb — two clean, under-target sodium days in a row paid off, right in line with the predicted range" },
+    { date: "2026-08-01", time: "~9:00 AM", weight: 187.8, note: "down 1.6 lb — best number of the whole two months, first time under 188. Huge calorie deficit (~1,700 under maintenance) won out over a moderate sodium overage, exactly as predicted" },
+    { date: "2026-08-02", time: "~9:00 AM", weight: 187.6, note: "down 0.2 lb — another new low. Modest move since sodium was already well-controlled yesterday, so less water-weight noise to shake out" },
+    { date: "2026-08-03", time: "~10-11 AM", weight: 187.0, note: "down 0.6 lb — officially out of the 189-191 plateau band, a new low again despite a full Halo Top pint the night before" },
+    { date: "2026-08-04", time: "~9-10 AM", weight: 186.8, note: "down 0.2 lb — crossed under 187 for the first time, sixth new low in six days" },
+    { date: "2026-08-05", time: "~12:30 PM", weight: 187.6, note: "up 0.8 lb — 727 kcal under target and under on sodium/carbs/fat the day before, so not a diet miss; most likely leg-day glycogen/water retention (RDL, split squats, leg extensions/curls) compounded by rebound fluid retention after diarrhea earlier that day. Late fasted weigh-in (~12:30 PM, later wake time) shouldn't itself explain it. Expect this to resolve within a day or two if the clean trend continues" },
+    { date: "2026-08-06", time: "~1:10 PM", weight: 188.0, note: "up another 0.4 lb — makes sense given Aug 5's Taco Bell night (~5,010mg sodium, ~2,700mg over target, plus 783 kcal over). A surplus that size is nowhere near enough to be real fat (would need ~2,700 kcal over to gain 1 lb), so this is water retention from the sodium load stacking on top of the still-resolving leg-day/GI water weight from before. Expect this to start correcting over the next couple days as sodium normalizes" },
+    { date: "2026-08-07", time: "~9 AM", weight: 189.2, note: "up another 1.2 lb — third high-sodium/high-carb day in a row (Aug 6 came in around 4,818mg sodium and 360g carb once fully logged), so this is the water-weight pile continuing to build rather than resolve. Still not fat — two days of this size of overage isn't remotely enough calorie surplus to account for it. Cabin trip got cut short by a family situation, which likely didn't help food consistency either. Expect this to start reversing once sodium/carbs come back down; worth prioritizing a clean, lower-sodium day today" },
+    { date: "2026-08-08", time: "~11:58 AM", weight: 188.8, note: "down 0.4 lb — first drop after three straight high-sodium/high-carb days. Confirms the water-weight read on the previous bump rather than fat gain; the ~650-700 kcal golf + driving range burn on Aug 7 likely helped too despite that day still running over on carbs/fat. Correction is starting, as expected" },
+    { date: "2026-08-09", time: "~morning", weight: 186.8, note: "down a full 2.0 lb overnight — a genuine water-weight 'whoosh,' where several days of accumulated retention (Aug 5-8 all ran high sodium, Aug 8 hit ~3,357mg) released at once rather than resolving gradually day by day. Lands back at the exact all-time low first hit on Aug 4, effectively erasing the whole Aug 5-8 bump in one move. Confirms the underlying trend was intact the whole time under the water noise" },
+    { date: "2026-08-10", time: "~morning", weight: 185.8, note: "down another 1.0 lb — a genuine new all-time low, past the previous 186.8 floor. Confirms the whoosh wasn't just a one-off correction back to baseline; the underlying trend is still moving down even after a rough Aug 5-8 stretch" },
+    { date: "2026-08-13", time: "~morning", weight: 186.6, note: "up only 0.8 lb from the 185.8 low despite three rough travel/vacation days in Colorado (Aug 10-12 all ran well over target, Aug 12 alone was ~2,960 kcal/4,100mg sodium) — better than Jack's own predicted range. Real proof the underlying trend held through a genuinely hard stretch to stay consistent on; back home and back to the normal routine starting today" },
+    { date: "2026-08-14", time: "~morning", weight: 185.6, note: "new all-time low, past the previous 185.8 mark — just one clean day back from the Colorado trip (net-negative calories thanks to ~650-700 kcal from an intense King of the Court pickleball session) and already past the pre-trip low. Strong confirmation the trip's damage really was short-term water weight" },
+    { date: "2026-08-15", time: "~morning", weight: 185.6, note: "held flat at 185.6 despite Aug 14 being a genuinely clean day (260 kcal under target, 947mg under sodium, plus a short walk) — a good reminder that weight doesn't respond 1:1 to a single clean day; day-to-day noise (hydration, GI timing, glycogen) can mask real progress short-term. Still sitting at the all-time low, not a stall" },
+    { date: "2026-08-16", time: "~morning", weight: 185.8, note: "up a small 0.2 lb — makes sense given Aug 15 ran over on calories, carbs, and sodium (~272mg over target). Minor, expected bump, still right at the all-time low range" },
+    { date: "2026-08-17", time: "~morning", weight: 184.6, note: "big drop — 1.2 lb down, a new all-time low past both 185.6 and 185.8. Followed a genuinely clean, under-target Aug 16 plus a solo basketball session. Strong confirmation the trend is still very much intact" },
+    { date: "2026-08-18", time: "~morning", weight: 184.0, note: "down another 0.6 lb, yet another new all-time low — notable because it came right after a high-sodium bulgogi family dinner (~3,347mg total that day). The ~600-700 kcal 1v1 pickleball session clearly did real work offsetting it. Trend keeps compounding" },
+    { date: "2026-08-19", time: "~morning", weight: 183.6, note: "down another 0.4 lb — sixth new all-time low in a row, holding steady even after a big Korean fried chicken/pizza/Halo Top night (~3,889mg sodium) with two pickleball sessions that day. Jack noted a pre-dinner check also showed 183.6, so the number held flat rather than dropping further overnight — reasonable given the extra sodium/calories eaten after that check" },
+    { date: "2026-08-21", time: "~9:30-9:45 AM (earlier than usual)", weight: 186.0, note: "up 2.4 lb from the last known 183.6 — but the math rules out fat: Aug 19 was actually under target (1,817 kcal) and Aug 20's overage was only ~840 kcal over target, nowhere near the ~8,400 kcal surplus 2.4 lb of real fat would require. Real drivers: two stacked high-sodium days (Aug 19 ~2,426mg, Aug 20 ~5,432mg — more than double target), a dental post-placement procedure that day (surgical inflammation holds water), a long car ride (reduced circulation/movement), and a weigh-in ~45-60 min earlier than his usual 10:30-11 AM window (less time for the previous night's food/fluid to clear). No Aug 20 weigh-in exists for comparison since he was at the cabin without a scale, so this is jumping two data points at once, exaggerating the apparent size of the move" },
+    { date: "2026-08-22", time: "~morning", weight: 186.2, note: "up only 0.2 lb despite Aug 21 running ~3,920mg sodium — genuinely a small, reassuring move given the inputs. Not a continued slide; still recovering from the dental procedure" },
+    { date: "2026-08-23", time: "~morning", weight: 184.6, note: "big 1.6 lb drop — Aug 22 was a genuinely clean day (under calorie target, right at the sodium line even with pizza added), and it paid off exactly like Jack hoped. Real confirmation the accumulated water from the rough Aug 20-21 stretch is clearing" },
+    { date: "2026-08-24", time: "~morning", weight: 183.8, note: "down another 0.8 lb from 184.6 — continuing the clean-stretch payoff. Logged retroactively (Jack was out of Claude credits for part of two days)" },
+    { date: "2026-08-25", time: "~morning", weight: 184.4, note: "up 0.6 lb from yesterday but still down from 184.6 two days ago — makes sense given Aug 24 ran heavy (~2,194 kcal, ~2,834mg sodium) with a fish sandwich dinner, a coffee milkshake, and a bowl of creamy homemade pasta. Small, explainable bump, not a reversal" },
+    { date: "2026-08-26", time: "~morning", weight: 183.0, note: "down a big 1.4 lb — a brand new all-time low, past the previous 183.6 record. Aug 25 finished under calorie target (1,883 kcal) despite running over on sodium (3,086.5mg) and carbs/fat, and the ~30 min pickleball session (~250-300 kcal) helped tip the day into a real deficit. Confirms the trend is still very much intact" },
+    { date: "2026-08-27", time: "~morning", weight: 182.0, note: "down another 1.0 lb — a second straight brand new all-time low, past the previous 183.0 record. Aug 26 ran over on calories (2,236) and way over on carbs (312g, mostly from the chicken/rice bag and the Halo Top pint), but sodium stayed well under target and 2.5 hours of pickleball (~1,300-1,400 kcal estimated burn) put the day deeply net-negative. Real proof the trend keeps compounding even through a heavy-looking day on paper" },
+    { date: "2026-08-28", time: "~8:30 AM (earlier than usual)", weight: 183.0, note: "up 1.0 lb from the 182.0 low — makes sense given Aug 27 ran over on sodium (~2,436.7mg, ~137mg over target) and carbs (221g) with no exercise logged that day, plus this weigh-in came earlier than his usual 10-11:30 AM window (less time for the previous day's food/fluid to clear). Jack called it himself as a reasonable, explainable bump, not a reversal" },
+    { date: "2026-08-29", time: "~morning", weight: 183.4, note: "up another 0.4 lb — felt rough to Jack, but Aug 28 ran ~505mg over on sodium and ~31.5g over on fat from the Lord Fletcher's lunch (Caesar dressing, waffle fries, walleye sandwich), and net calories were still under target once the ~450-500 kcal golf burn is factored in. A small, explainable bump from sodium/water, not a real setback" },
+    { date: "2026-09-01", time: "~morning", weight: 185.4, note: "up 2.0 lb from the last logged weight (183.4, Aug 29) — but Aug 30 and Aug 31 weren't logged (Jack was out of Claude credits), so this jump covers two unaccounted-for days rather than one bad day. No food/sodium data to explain it day-by-day; treat this as a reset point rather than a true single-day swing" },
+    { date: "2026-09-02", time: "~morning", weight: 184.6, note: "down 0.8 lb despite Sep 1 ending with a heavy Five Guys/QuikTrip splurge at night (~2,683 kcal, ~2,756mg sodium, ~148g fat total for the day) — the day started genuinely clean (beef/broccoli/rice bowls, cantaloupe) and included an hour of solo basketball, which cushioned the late splurge enough that the scale still moved the right direction. Real proof one heavy night doesn't undo a clean stretch" },
+    { date: "2026-09-07", time: "~morning", weight: 181.8, note: "down 2.8 lb from the last logged weight (184.6, Sep 2) — a brand new all-time low, past the previous 182.0 record (Aug 27). Spans 4 unlogged days (Sep 3-6) during the college move-in adjustment, so this isn't a single clean day's result, but real proof the underlying trend held up and kept moving through a genuinely disrupted stretch" },
+    { date: "2026-09-08", time: "~9:15 AM (earlier than usual)", weight: 181.8, note: "flat vs. yesterday, holding the new all-time low. Sep 7 ran a bit heavy at night (turkey/rice/egg bowl, 2 Barebells bars, campus chicken bowl) but nothing extreme, and this weigh-in came earlier than his usual 10:30-11:30 AM window — with the normal timing it likely would have read a bit lower. Genuinely good, stable number" },
+  ];
+
+  // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
+  // formal "workouts" currently ~2x/wk — treated as moderately active for TDEE.
+  // Jack chose 2000 kcal on 2026-07-22 (~1.5-1.8 lb/wk pace) over the gentler 2200.
+  const macroTargets = {
+    calories: 2000,
+    protein: 185,
+    carbs: 170,
+    fat: 65,
+    sodium: 2300,
+  };
+
+  // Today (Sep 8) so far.
+  const todayMacros = { calories: 1974, protein: 82.1, carbs: 235.7, fat: 72.2, sodium: 3296 };
+
+  const todayFoodLog = [
+    { time: "~breakfast/brunch", item: "Taco John's Steak Boss Bowl, plus his usual SJU coffee", detail: "Steak Boss Bowl (official nutrition) 670 kcal/34g protein/74g carb/26g fat/1,560mg sodium; usual SJU coffee (Caribou K-cup, 2 servings Barissimo Vanilla Almond Creamer) ~70 kcal/3g fat/10g carb/30mg sodium", cal: 740 },
+    { time: "~later", item: "Ground turkey and rice with a generous red sauce drizzle, plus a Fanta Zero Sugar Orange", detail: "estimated from the photo — turkey ~1 serving (230 kcal/19g protein/0g carb/17g fat/70mg sodium), rice ~1 portion (140 kcal/2.7g protein/28g carb/2g fat/200mg sodium), a generous red sauce drizzle (looks sweet-tangy, ketchup/BBQ-style — ~40 kcal/2g carb/~350mg sodium); Fanta Zero Sugar Orange ~0 kcal/~35mg sodium", cal: 410 },
+    { time: "~later", item: "Orange chicken and white rice from SJU Sexton (campus dining), and a Charlie Brown Pudding Cup (leftover from a previous purchase)", detail: "estimated, no menu/label available — breaded orange chicken with sweet glaze ~450 kcal/20g protein/45g carb/20g fat/~700mg sodium; white rice, 1 cup ~200 kcal/4g protein/45g carb/~5mg sodium; Charlie Brown Pudding Cup (label-confirmed, same as before) 174 kcal/2.4g protein/31.7g carb/4.2g fat/346mg sodium", cal: 824 },
+  ];
+
+  const drinksExercise = [
+    { what: "Golf — 9 holes walking, front nine, Albany Golf Course", detail: "estimated ~450-500 kcal burned" },
+  ];
+
+  // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
+  const dayHistory = [
+    { date: "Jul 22", calories: 2800, protein: 119, carbs: 268, fat: 133, sodium: 4822, note: "cheesesteak + fries + pizza dinner — well over target" },
+    { date: "Jul 23", calories: 920, protein: 59, carbs: 52, fat: 49, sodium: 1373, note: "clean day — 2 turkey/rice/cabbage/egg bowls, Diet Coke/Arnold Palmer, 1 Orange Creamsicle Oreo. Well under calories, protein still light" },
+    { date: "Jul 24", calories: 3473, protein: 166, carbs: 380, fat: 139, sodium: 4835, note: "3M Open (~5.5 hrs walking, big estimated burn) + Potbelly Smokestack BIGS + late-night Halo Top. Huge on paper, but scale barely moved next morning — activity likely offset most of it" },
+    { date: "Jul 25", calories: 2527, protein: 111, carbs: 278, fat: 104, sodium: 5517, note: "TJ's Gözleme + gyoza + Mo' Bettahs Hawaiian (mac salad the sneaky one). Highest sodium day of the week — yet next morning was flat, then dropped into the 180s" },
+    { date: "Jul 26", calories: 2318, protein: 132, carbs: 254, fat: 84, sodium: 4406, note: "hockey (~350-450 kcal burned) + Chipotle bowl (pico alone is 550mg sodium) + dried mango. Best protein day of the week (132g), net under 2,000 with the hockey burn factored in" },
+    { date: "Jul 27", calories: 1453, protein: 92, carbs: 128, fat: 54, sodium: 3433, note: "gyoza + soba noodle broth pushed sodium over target again — same soy-sauce-family pattern. Also hit the gym for ~1hr (dips, pec deck, tricep/lateral raise superset, skull crushers, short bike) despite no AC and feeling nauseous" },
+    { date: "Jul 28", calories: 2664, protein: 117, carbs: 252, fat: 134, sodium: 6010, note: "Wingstop night — 8 boneless wings + Voodoo fries (90% eaten). Highest sodium day of the whole week, but hockey (~65-70 min, hard skating) plus dog wrestling/walk offset a good chunk of the calories. Jack was hard on himself about it; reminded him the trend's still down 25+ lb regardless" },
+    { date: "Jul 29", calories: 1938, protein: 116, carbs: 234, fat: 65, sodium: 2535, note: "Genuinely well-controlled day — turkey bake, bananas, Halo Top, no restaurant sauces. Only just over sodium target, ~550-700 kcal burned from golf + gym on top. High carbs were from fruit/ice cream, not bread — good instinct catching that distinction" },
+    { date: "Jul 30", calories: 1544, protein: 98, carbs: 146, fat: 67, sodium: 2064, note: "Under target across the board except fat (2g over, basically nothing). Skipped the ice cream. Correctly realized the dashi-soy broth was the real sodium driver, not the beef/rice itself — meaningfully lower-sodium day as a result" },
+    { date: "Jul 31", calories: 1207, protein: 56, carbs: 137, fat: 52, sodium: 2955, note: "Movie day — huge calorie deficit (~1,700 under maintenance) from barely eating, moderate sodium overage from Chipotle + fried rice. The deficit won: paid off as the best weigh-in of the whole tracking period the next morning" },
+    { date: "Aug 1", calories: 1308, protein: 80, carbs: 156, fat: 44, sodium: 1918, note: "Genuinely clean day — under target on everything, including sodium with room to spare. Golf (walked most of it despite the cart) plus corrected the beef+Sriracha estimate down after Jack checked the real labels (leaner beef, lower Sriracha sodium than first guessed)" },
+    { date: "Aug 2", calories: 1794, protein: 113, carbs: 204, fat: 57, sodium: 1726, note: "Golf driving range + a hard playoff hockey game (~750-950 kcal burned combined). Beef/rice bowls, homemade chicken lettuce wraps (real PF Chang's sauce sodium confirmed via label: 990mg/pouch), and a full pint of Halo Top Sea Salt Caramel — still finished under every target" },
+    { date: "Aug 3", calories: 1829, protein: 95, carbs: 252, fat: 60, sodium: 2572, note: "Sodium and carbs both over (Noodles & Company Pasta Fresca + baguette did most of the damage), but two hockey games in two days (~1,000-1,300 kcal burned combined) helped offset it. Still, sixth new low in six days hit the next morning — the underlying trend just kept winning" },
+    { date: "Aug 4", calories: 1273, protein: 85, carbs: 141, fat: 44, sodium: 2115, note: "Genuinely clean day — 727 kcal under target, under on sodium/carbs/fat too. Duru Duru dumplings and Beksul tilapia label-confirmed. Day 3 leg session done in full (RDL, split squats, leg extensions/curls, abductor/adductor; only back extension trimmed one set) despite dealing with diarrhea beforehand. Next morning's weigh-in came in higher (187.6) than the clean numbers would predict — almost certainly leg-day glycogen/water retention plus rebound fluid from the stomach issues, not a diet failure" },
+    { date: "Aug 5", calories: 2783, protein: 111.5, carbs: 311.5, fat: 118, sodium: 5010, note: "Started clean (coffee, tilapia/napa/konjac stir-fry leftovers, Halo Top pint) but a big Taco Bell run at night — Crunchwrap Supreme, Doritos Locos Taco, chips, Beefy Potato Loaded Griller, Pepper Jack Steak Grilled Cheese Burrito — pushed the day way over on calories, carbs, fat, and sodium (~2,700mg over target, one of the highest sodium days on record). Came after a genuinely rough stretch — diarrhea the day before, an unexplained weight bump, a full week of consistency — and Jack was clear-eyed about it afterward: named exactly what was off, felt mentally better for having eaten, no guilt spiral. Also identified two feedback gaps this day: the go-to tilapia stir-fry recipe never had a sodium estimate, now added; the turkey larb lettuce cups go-to meal is also missing a sodium figure, still outstanding" },
+    { date: "Aug 6", calories: 2793, protein: 64.5, carbs: 360, fat: 113.3, sodium: 4818, note: "Second high day in a row — started clean (dumplings, leftover sheet pan/rice, coffee) but a second Taco Bell run plus a pile of evening snacks (cookie, pretzels/toffee, Mexican dip/Fritos, half a toffee bar) pushed calories, carbs, fat, and sodium all well over target again. Protein was notably light for how much volume was eaten (64.5g). Also the day the cabin trip (originally planned Aug 6-9) got cut short by a family situation, so the weekend plans changed. Logged retroactively the next day from memory, so amounts are looser estimates than usual" },
+    { date: "Aug 7", calories: 1954, protein: 63.7, carbs: 236.6, fat: 91.9, sodium: 2544, note: "Genuinely active day — 9 holes walked at Evergreen (Baker Park Reserve) plus ~75 min at the driving range, ~650-700 kcal estimated burn. Food was still heavy (double serving of a homemade vodka sauce/heavy cream/Italian sausage rigatoni, a full Halo Top Chocolate Fudge Brownie pint), pushing carbs and fat well over target, sodium close to the line. But net calories were solidly in deficit once the golf burn is factored in — a day that looks worse on paper than it actually was" },
+    { date: "Aug 8", calories: 2169, protein: 100.1, carbs: 227.8, fat: 90.1, sodium: 3357, note: "Started reasonable (leftover pasta, sheet pan/rice) but a late-night spread of pretzels, Mexican-style dip, lobster dip, cheese/sourdough, and a chicken sandwich pushed the day well over on calories, carbs, fat, and sodium (~1,057mg over target). Protein was actually strong (100g) despite the overage. Jack correctly predicted the next morning wouldn't show a drop — instead got a 2 lb whoosh downward, so the accumulated water weight from this stretch resolved all at once rather than showing up as a bump" },
+    { date: "Aug 9", calories: 1467, protein: 78.6, carbs: 176.3, fat: 45.6, sodium: 2670, note: "9 holes walked (carrying his own bag, no cart) at Baker National plus ~30 min driving range — a genuinely active day, ~600-680 kcal estimated burn. Food included a fresh pappardelle/sausage/artichoke-dip pasta with bread, pushing sodium and carbs over target, but net calories stayed reasonable once the golf burn is factored in. Next morning hit a new all-time low (185.8), continuing the trend. [Corrected Aug 10: the artichoke dip was confirmed as Trader Joe's Creamy Spinach & Artichoke Dip — whole box is 320 kcal/16g protein/16g carb/24g fat/1,000mg sodium, well below the generic ~750 kcal estimate originally used, so this day's totals came down accordingly]" },
+    { date: "Aug 10", calories: 2793, protein: 112, carbs: 224.2, fat: 147.4, sodium: 4336, note: "Travel day to Colorado — started reasonable (eggs/avocado/toast/cheese breakfast, pasta leftovers) but ended with a big In-N-Out order (3x3 Animal Style, Animal Style fries, large Diet Coke) after the flight, called in advance as an expected travel-day splurge. Well over on everything except protein, which was genuinely strong (112g). No weigh-in — traveling" },
+    { date: "Aug 11", calories: 2047, protein: 69.5, carbs: 169.3, fat: 98, sodium: 3913, note: "Colorado trip — hotel breakfast (bacon, sausage, eggs, potatoes, oatmeal) plus dinner at Smokin Fins in Arvada (Vegas roll, miso soup, Left Hand Sawtooth Ale, beer-battered cod, fries). Over on calories, fat, and sodium — miso soup and the Vegas roll were the big sodium drivers. Normal vacation day, no weigh-in (traveling)" },
+    { date: "Aug 12", calories: 2960, protein: 137, carbs: 328, fat: 123, sodium: 4100, note: "Last day of the Colorado trip and the biggest of the three — hotel breakfast, In-N-Out Protein Style, La Colombe latte, then a late-night pile of Halo Top, rice, Bibigo Korean chicken, chips/dip, and meringues once back home. Way over on everything, but protein stayed remarkably strong (137g). Next morning's weigh-in (186.6) came in better than Jack's own prediction, confirming the trip's overall damage was mostly water/short-term, not real setback" },
+    { date: "Aug 13", calories: 2011, protein: 85.5, carbs: 208.75, fat: 92, sodium: 2125, note: "First full day back from Colorado — sushi (label-confirmed), chips/dip, meringues, then a rich homemade creamy chicken orzo bake for dinner pushed fat and carbs over target. But ~1hr15min of high-intensity King of the Court pickleball (~650-700 kcal) more than offset the 11 kcal overage, making it a genuinely net-negative day despite looking heavy on paper. Next morning hit a new all-time low (185.6)" },
+    { date: "Aug 14", calories: 1740, protein: 87.2, carbs: 181, fat: 68.3, sodium: 1388, note: "Genuinely great day — orzo leftovers, sushi-adjacent snacking, then a homemade ground turkey/broccoli/pepper bowl for dinner that Jack called one of the best things he's cooked. Under calories, way under sodium (912mg to spare even with 4 Fantas), fat close to target, only carbs slightly over. Also researched a Gyro King chicken bowl and worked out that skipping white sauce + corn is the best lever to cut it down. Next morning held flat at 185.6 instead of dropping further — normal noise" },
+    { date: "Aug 15", calories: 2245, protein: 73.5, carbs: 262.25, fat: 91.5, sodium: 2611.5, note: "Big Turkish/Mediterranean lunch (gyro bowl, baklava, spinach pie, pita/hummus) that ran heavy as expected, offset partly by hauling electronics and walking around IKEA. First successful banana 'nice cream' experiment (frozen bananas + chocolate chips) — genuinely worked, noted for next time to thaw the bananas longer. Ended up over on calories, carbs, and sodium (~272mg over target) from evening toast/hummus and candy stacking on an already full day" },
+    { date: "Aug 16", calories: 1377, protein: 79.8, carbs: 139, fat: 51.35, sodium: 1234.5, note: "Genuinely clean day — finished off the ground turkey/broccoli/pepper batch across two more bowls (one with rice+Boursin, one lighter with double greens/cucumber), plus toast/hummus, meringues, Diet Cokes/Fantas. Also played solo basketball (~250-300 kcal). Under target on everything. Next morning delivered a big 1.2 lb drop to a new all-time low (184.6)" },
+    { date: "Aug 17", calories: 2066, protein: 114.5, carbs: 219, fat: 62.3, sodium: 3347, note: "Crisp & Green Bold & Buffalo bowl, snacks (apple, konjac jelly, meringues), a family Korean bulgogi beef dinner (soy marinade drove sodium way over target), and a late-night Halo Top pint. But also 1hr15min of full 1v1 pickleball (~600-700 kcal). Gross numbers looked heavy, especially sodium, but net calories were still negative and protein was excellent (114.5g). Next morning hit yet another all-time low (184.0), proving the day's damage was mostly water/noise" },
+    { date: "Aug 18", calories: 2451, protein: 102.2, carbs: 279.69, fat: 98.7, sodium: 3889, note: "Two egg/toast/cheese breakfasts, then an active evening — 2v2 pickleball (~500-550 kcal) followed by Korean fried chicken from Abang Yoli, pizza, and half a Halo Top pint. Highest sodium day in a while (~3,889mg), but protein stayed strong (102g) and the mood was good, not a guilt spiral. Next morning still delivered a sixth straight new all-time low (183.6), reinforcing that the trend can absorb a big night without real damage" },
+    { date: "Aug 19", calories: 1817, protein: 70.9, carbs: 202.72, fat: 71, sodium: 2426, note: "Light day (banana, protein bar, fig bar) until a cabin dinner at Block North Brew Pub — pulled pork banh mi on brioche + sweet potato fries. Over on carbs/fat/sodium, on target for calories. Genuinely enjoyable cabin trip day" },
+    { date: "Aug 20", calories: 2840, protein: 86.3, carbs: 310.1, fat: 140.3, sodium: 5432, note: "Rough day — 2+ hour drive back from the cabin straight to a dental appointment (post placement for a molar), leaving him in real pain and numb, unable to chew normally. Comfort food followed: a Circle K breakfast sandwich, a big Taco Bell order, the rest of a Halo Top pint, Fantas, and a homemade cookie. Highest sodium day logged yet (~5,432mg) and well over on calories/fat/carbs, but fully justified by the circumstances — not a discipline lapse. No weigh-in (cabin, no scale)" },
+    { date: "Aug 21", calories: 2274, protein: 114.3, carbs: 303.2, fat: 73.7, sodium: 3920, note: "Still recovering from the dental procedure — eating and exercising both felt harder. Potbelly combo (lower cal than expected, higher sodium than expected), a homemade Italian sausage/vodka sauce pasta batch, a Halo Top pint, and two dog walks. Over on sodium/carbs but protein stayed excellent (114g). Next morning was only up 0.2 lb — smaller move than the sodium load would suggest" },
+    { date: "Aug 22", calories: 1712.9, protein: 82.85, carbs: 155.6, fat: 87.7, sodium: 2135.5, note: "Genuinely clean day despite still feeling unwell — two tofu stir-fry bowls from a big meal-prepped batch, honest tracking of small bites (1 meringue, a few bites of leftovers), a Barebells bar, Bloom Pop sodas, and 2 small pizza slices in the evening. Finished under calorie target and right at the sodium line. Next morning delivered a big 1.6 lb drop" },
+    { date: "Aug 23", calories: 853, protein: 52.9, carbs: 70.58, fat: 40.4, sodium: 1157.5, note: "Clean day — pizza slice with spinach dip, half a TJ's rice pack, 3 eggs, plain chai tea (deliberately skipped soda), a Barebells Caramel Cashew bar. Well under target on everything. Trying to lean off diet soda as a stated goal" },
+    { date: "Aug 24", calories: 2194, protein: 138.07, carbs: 190.86, fat: 94.88, sodium: 2834.1, note: "Logged retroactively (Jack was out of Claude credits). Multiple small meals throughout the day (egg/rice/ahi tuna, cheese stick, tofu stir-fry leftovers, cake bite) plus a fish sandwich dinner (2 TJ's ahi tuna steaks, Munster cheese, Kewpie mayo), a Nuri coffee milkshake, and a bowl of mom's homemade creamy chicken linguine. High protein day (138g) but also went well over on calories/carbs/fat/sodium. Also went on an evening walk/fishing trip. Next morning still showed a small net drop from two days prior" },
+    { date: "Aug 25", calories: 1883, protein: 108.25, carbs: 187.8, fat: 74.8, sodium: 3086.5, note: "Mom's creamy chicken linguine across two bowls, a small tofu stir-fry bowl, vanilla meringues, and a late-night turkey & cheese slider/cottage cheese/bread roll snack. Finished under calorie target despite running well over on sodium (~786mg over) and slightly over on carbs/fat — the deli turkey slider was the big sodium driver. A ~30 min pickleball session (~250-300 kcal) helped push the day into a real net deficit. Next morning delivered a brand new all-time low (183.0)" },
+    { date: "Aug 26", calories: 2236, protein: 98.3, carbs: 312, fat: 72.3, sodium: 1845, note: "TJ's Mandarin Orange Chicken over TJ's rice (finished the whole 960 kcal bag across two sittings) plus TJ's rice, a Fusion Sushi Rainbow Roll (label-confirmed), a Fanta Zero Sugar Orange, 2 coffees, and a whole pint of Halo Top Sweet Cream Cold Brew to close out the night. Over on calories and way over on carbs, but sodium stayed well under target (~455mg to spare) — genuinely good day on that front. The real story was 2.5 hours of pickleball (~1,300-1,400 kcal estimated burn), which put the day deeply net-negative on calories despite the gross numbers looking heavy. Also hit 32 oz of water" },
+    { date: "Aug 27", calories: 1891.3, protein: 96.2, carbs: 221, fat: 66.3, sodium: 2436.7, note: "A Chipotle order (double protein steak/chicken, guac, green salsa) plus a second round of TJ's rice/Mandarin Orange Chicken finishing off both bags, and three zero-sugar sodas (Barq's x2, Fanta Orange). Over target on carbs (221g) and sodium (~137mg over, the Chipotle guac/salsas plus the second protein hit stacked up), calories close to target. No exercise logged this day. Next morning was up 1.0 lb from the 182.0 low — a reasonable, explainable bump given the inputs plus an earlier-than-usual weigh-in" },
+    { date: "Aug 28", calories: 1998, protein: 85, carbs: 182.5, fat: 96.5, sodium: 2805, note: "Barebells bar/egg-cheese-sourdough toast breakfast, then Lord Fletcher's with mom for lunch (split a walleye sandwich and a chicken Caesar wrap, plus waffle fries/seasoned sour cream, a Diet Pepsi, and 2 bites of sister's burger). Way over on fat (~31.5g over) and sodium (~505mg over) from the restaurant meal's dressing/fried sides, calories landed almost exactly on target before factoring in a front-nine walk carrying his own bag at Meadowbrook (~450-500 kcal). Next morning was only up 0.4 lb — smaller move than the sodium/fat load would suggest" },
+    { date: "Aug 29", calories: 1308, protein: 76, carbs: 117, fat: 62, sodium: 1570, note: "2 bowls of the usual creamy chicken pasta, a coffee, two zero-sugar sodas (Barq's, Fanta Orange), and a Barebells Creamy Crisp bar — under target across the board. Plus a full hour of solo basketball (~400-450 kcal estimated burn) and 22 oz of water. A genuinely clean, well-controlled day" },
+    { date: "Aug 30", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — Jack was out of Claude credits" },
+    { date: "Aug 31", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — Jack was out of Claude credits" },
+    { date: "Sep 1", calories: 2683, protein: 136.1, carbs: 200.7, fat: 147.6, sodium: 2756, note: "Started genuinely clean — egg/cheese/toast breakfast, two beef/broccoli/rice bowls, cantaloupe, an hour of solo basketball — then a late-night Five Guys run (bunless bacon cheeseburger, some fries, Diet Dr Pepper) plus two QuikTrip ice cream bars (100 Grand, Butterfinger) blew the day open. Way over on calories, fat (more than double target), carbs, and sodium, though protein stayed strong (136g) and the bunless/lettuce-wrap burger plus diet soda were real good calls in a rough moment. Next morning was still down 0.8 lb, proof the clean stretch beforehand absorbed most of the damage" },
+    { date: "Sep 2", calories: 2615, protein: 123.75, carbs: 253.5, fat: 116.05, sodium: 4880, note: "Started clean (egg/cheese/toast, two beef/broccoli bowls, sugar-free creamers, zero-sugar sodas) but a late-night Taco Bell run (Crunchwrap Supreme, Spicy Potato Soft Taco, Cheesy Fiesta Potatoes, Baja Blast Zero Sugar, Grilled Cheese Burrito) plus a light beer blew sodium out to ~4,880mg — more than double target, the highest sodium day on record. Also well over on calories, carbs, and fat. No weigh-in the next morning (Jack forgot)" },
+    { date: "Sep 3", calories: 2170, protein: 105.7, carbs: 193, fat: 104.5, sodium: 4035, note: "Egg/cheese/toast breakfast, an Iced Sexton Sunrise (rough estimate, no menu data found), a Chick-fil-A Spicy Deluxe Sandwich + 8-count nuggets, a turkey/squash/rice meal-prep plate, and a small Costco cookie. Sodium ran way over (~4,035mg) mostly from the Chick-fil-A order. Also 45 min of spikeball. No weigh-in the next morning (forgot)" },
+    { date: "Sep 4", calories: 1704, protein: 90.1, carbs: 143.9, fat: 85.1, sodium: 2436, note: "A turkey/squash/rice meal-prep bowl, an SJU Chicken Bacon Ranch Wrap + Charlie Brown Pudding Cup (wrap's printed sodium of 1mg was clearly a misprint, substituted a realistic ~1,500mg estimate), and a Barebells Caramel Cookie bar. Reasonable day overall — close to target on calories and sodium, fat ran a bit high from the wrap. Third day in a row with no weigh-in (college move-in adjustment)" },
+    { date: "Sep 5", calories: 1540, protein: 85, carbs: 145, fat: 73.5, sodium: 2645, note: "Mom's turkey meatball pasta bake, a Barebells Chocolate Dough bar, Mr. Pibb Zero Sugar, usual coffee, then Abang Yoli (chargrilled chicken sandwich w/ garlic nori-ranch sauce + kimchi slaw), a Chi Forest sparkling zero-sugar soda, and a small Halo Top Cookies & Brownies serving. Plus 9 holes walked at Baker/Evergreen carrying his own bag and a short neighborhood walk. Solid day given the golf burn factored in. No weigh-in (college move-in stretch continues)" },
+    { date: "Sep 6", calories: 1465, protein: 84.7, carbs: 96, fat: 83, sodium: 2605, note: "Shake Shack Double West Coast Burger (no pickles), a Barebells Chocolate Dough bar, a turkey/squash/rice bowl, and 2 Fanta Zero Sugar Orange, plus an hour of basketball (~400-450 kcal estimated burn). Over on sodium and fat from the burger, but a real net deficit once the basketball burn is factored in. Next morning delivered a brand new all-time low (181.8)" },
+    { date: "Sep 7", calories: 1854, protein: 96.3, carbs: 178.7, fat: 83.7, sodium: 2266, note: "SJU banana pudding cup, a campus chicken/rice bowl, then late at night another turkey/rice/egg bowl with red chili sauce, 2 Barebells Chocolate Dough bars, and a Fanta Zero Sugar. A bit over on carbs but calories and sodium stayed close to target. Next morning held flat at the new all-time low (181.8)" },
+  ];
+
+  // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
+  // unprocessed ingredients + citrus/vinegar/chili for flavor. Every high-sodium day traced back to
+  // canned goods, bottled sauces, cheese, deli/cured meat, or restaurant/frozen prepared food.
+  const groceryList = [
+    { category: "Proteins (fresh, not cured/processed)", items: "Chicken breast, 93/7+ ground turkey, eggs, shrimp, salmon or tilapia, plain Greek yogurt (Fage 0% or similar — worked great in the fried rice bowl)" },
+    { category: "Fresh vegetables", items: "Broccoli, spinach, cabbage, bell peppers, cucumber, zucchini, sweet potatoes, onion, garlic, cherry tomatoes, carrots" },
+    { category: "Fresh fruit", items: "Bananas (your new go-to — keep buying these), apples, berries" },
+    { category: "Flavor without salt", items: "Fresh garlic, fresh ginger, lemons/limes, fresh herbs (cilantro, mint, basil), chili flakes or fresh chilies, black pepper, cumin, paprika, chili powder, rice vinegar or apple cider vinegar" },
+    { category: "If you want canned/jarred convenience anyway", items: "No-salt-added canned tomatoes, no-salt-added or low-sodium canned beans (rinse them regardless), low-sodium soy sauce (still salty, but meaningfully less than regular)" },
+    { category: "Pantry basics", items: "Plain rice, quinoa, olive oil / avocado oil spray, unsalted or lightly salted nuts" },
+  ];
+
+  // Reference list, not tied to any specific day — high protein, low cal/carb/sodium, spicy/Asian-leaning
+  // but not exclusively, sized for ~5 smaller meals/day rather than 3 big ones.
+  const goToMeals = [
+    { name: "Turkey larb lettuce cups", macros: "~350 kcal / 40g protein / 8g carb / 15g fat", note: "Ground turkey, lime, fish sauce, chili, mint, cilantro, scooped into lettuce. Heat comes from chili, not salt — keeps sodium in check." },
+    { name: "Shrimp + egg drop soup", macros: "~280 kcal / 32g protein / 6g carb / 9g fat", note: "Light broth, shrimp, egg ribbons, scallion, white pepper. Go easy on the soy — this is the one place sodium creeps in fast." },
+    { name: "Spicy grilled shrimp + cabbage slaw", macros: "~300 kcal / 35g protein / 10g carb / 10g fat", note: "Shrimp, lime, chili flakes, shredded cabbage, rice vinegar. Very low sodium if you skip fish sauce and lean on lime/vinegar for brightness." },
+    { name: "Cottage cheese + hot sauce + everything seasoning", macros: "~180 kcal / 24g protein / 8g carb / 5g fat", note: "Fastest option on this list — good as one of your 5 smaller meals, not a full sit-down dinner." },
+    { name: "Korean-style grilled chicken thigh + cucumber salad", macros: "~380 kcal / 38g protein / 9g carb / 18g fat", note: "Gochujang-based marinade, but gochujang is salty — use less than the recipe calls for and add extra chili flakes/garlic to keep the heat without the sodium spike." },
+    { name: "Turkey + spinach skillet, egg on top", macros: "~320 kcal / 34g protein / 4g carb / 18g fat", note: "Ground turkey, wilted spinach, garlic, chili flakes, egg cracked in at the end. Almost no added salt needed." },
+    { name: "Tilapia + napa cabbage stir-fry over konjac noodles", macros: "~220 kcal / 35g protein / 2g fat / 22g carb / ~250mg sodium (estimate)", note: "Huge-volume option — pan-seared or baked tilapia, napa stir-fried with garlic/ginger/chili flakes, rinsed konjac noodles tossed in at the end. Massive bowl for very few calories, exactly the 'big portion, low cal' style you asked for. Sodium is a rough estimate assuming just a light salt-to-taste — no soy sauce or bottled sauce in the recipe, so it should stay naturally low; confirm once you know how much salt you actually use." },
+    { name: "Crispy pan-fried tofu + napa slaw + cottage cheese", macros: "~340 kcal / 30g protein / 16g fat / 18g carb", note: "Press the firm/extra-firm tofu, pan-fry in a little oil (no breading = keeps it lean), raw napa slaw with lime + chili flakes, cottage cheese on the side for extra protein." },
+    { name: "Ground turkey + tofu + napa cabbage soup", macros: "~280 kcal / 36g protein / 8g fat / 12g carb", note: "Ground turkey, cubed tofu, chopped napa, garlic/ginger in a light broth (water + aromatics, skip bouillon which is salty). Scallion + pepper to finish. Naturally very low sodium since there's no bottled sauce in it." },
+  ];
+
+  // Saved go-to orders — tell Claude "log my [name]" and it's a one-liner instead of itemizing every time.
+  const usualOrders = [
+    { name: "Turkey Sweet Potato Wrap (aka burrito)", macros: "~278 kcal / 19g protein / 14g fat / 23g carb / ~510mg sodium per wrap", note: "Batch: 2 sweet potatoes, 2 bell peppers, 1/2 white onion, olive oil spray, garlic powder/salt/pepper/paprika/chili powder, roasted; 1 lb 93/7 ground turkey; 12 eggs + 3 heaping scoops cottage cheese baked over top; cut into 12 slices (~158 cal/slice on its own). One slice + his usual ~100-cal carb-friendly tortilla, crisped in avocado oil. (Jul 26's batch used a 110-cal tortilla since the usual one was out of stock — that day's log reflects the actual 110-cal version; this saved default assumes his normal tortilla.) Added-salt sodium is an estimate — the real number could swing a few hundred mg either way." },
+  ];
+
+  const recentLog = [
+    { when: "Aug 25, ~morning", what: "Weighed in: 184.4 lb (up 0.6 lb from yesterday, still down from 184.6 two days ago — explainable by a heavy Aug 24)" },
+    { when: "Aug 24, ~morning", what: "Weighed in: 183.8 lb (down 0.8 lb — continuing the clean-stretch payoff)" },
+    { when: "Aug 23, ~morning", what: "Weighed in: 184.6 lb (down 1.6 lb — big drop, exactly the payoff from a clean Aug 22)" },
+    { when: "Aug 22, ~morning", what: "Weighed in: 186.2 lb (up only 0.2 lb — small, reassuring move given yesterday's ~3,920mg sodium day)" },
+    { when: "Aug 21, ~9:30-9:45 AM", what: "Weighed in: 186.0 lb (up 2.4 lb from 183.6 — earlier weigh time + two stacked high-sodium days + dental inflammation; math rules out fat)" },
+    { when: "Aug 19, ~morning", what: "Weighed in: 183.6 lb (down 0.4 lb — sixth new all-time low in a row, held steady despite a big food night)" },
+    { when: "Aug 18, ~morning", what: "Weighed in: 184.0 lb (down 0.6 lb — another new all-time low, even after a high-sodium dinner the night before)" },
+    { when: "Aug 17, ~morning", what: "Weighed in: 184.6 lb (down 1.2 lb — big new all-time low, past both 185.6 and 185.8)" },
+    { when: "Aug 16, ~morning", what: "Weighed in: 185.8 lb (up 0.2 lb — small expected bump after an over-target day, still near the all-time low)" },
+    { when: "Aug 15, ~morning", what: "Weighed in: 185.6 lb (flat, holding at the all-time low despite a very clean day before — normal noise, not a stall)" },
+    { when: "Aug 14, ~morning", what: "Weighed in: 185.6 lb (new all-time low, past 185.8 — just one clean day back from Colorado)" },
+    { when: "Aug 13, ~morning", what: "Weighed in: 186.6 lb (up only 0.8 lb from the all-time low despite three rough travel days — better than predicted, real progress held)" },
+    { when: "Aug 10, ~morning", what: "Weighed in: 185.8 lb (down 1.0 lb — new all-time low, past the previous 186.8 mark)" },
+    { when: "Aug 9, ~morning", what: "Weighed in: 186.8 lb (down 2.0 lb — big water-weight whoosh, back to the all-time low despite a heavy sodium stretch)" },
+    { when: "Aug 8, ~11:58 AM", what: "Weighed in: 188.8 lb (down 0.4 lb — first drop after three straight high-sodium days, correction starting as expected)" },
+    { when: "Aug 7, ~9 AM", what: "Weighed in: 189.2 lb (up 1.2 lb — third high-sodium day in a row piling up water weight, not fat; cabin trip cut short by a family situation)" },
+    { when: "Aug 6, ~1:10 PM", what: "Weighed in: 188.0 lb (up 0.4 lb — expected water retention after Aug 5's high-sodium Taco Bell night, not fat)" },
+    { when: "Aug 5, ~12:30 PM", what: "Weighed in: 187.6 lb (up 0.8 lb — leg-day water retention + rebound fluid from stomach issues the day before, not fat gain; still 727 kcal under target that day)" },
+    { when: "Aug 4, ~9-10 AM", what: "Weighed in: 186.8 lb — crossed under 187 for the first time, sixth new low in six days" },
+    { when: "Aug 3, ~10-11 AM", what: "Weighed in: 187.0 lb — down 0.6 lb, officially out of the 189-191 plateau band" },
+    { when: "Aug 2, ~9:00 AM", what: "Weighed in: 187.6 lb — another new low, down 0.2 lb" },
+    { when: "Aug 1, ~9:00 AM", what: "Weighed in: 187.8 lb — best number of the whole two months, first time under 188" },
+    { when: "Jul 31, ~9:00 AM", what: "Weighed in: 189.4 lb (down 1.6 lb — right in the predicted range after two clean sodium days)" },
+    { when: "Jul 30, ~9:00 AM", what: "Weighed in: 191.0 lb (down only 0.2 lb — Wednesday was good but still slightly over sodium)" },
+    { when: "Jul 29, ~9:00 AM", what: "Weighed in: 191.2 lb (up 1.8 lb — Tuesday's 6,010mg sodium day catching up, exactly as expected)" },
+    { when: "Jul 28, ~9:57 AM", what: "Weighed in: 189.4 lb (down 2.2 lb — Monday's sodium bump already resolved)" },
+    { when: "Jul 27, ~12:00 PM", what: "Weighed in: 191.6 lb (up 1.8 lb — yesterday's 4,406mg sodium day catching up)" },
+    { when: "Jul 26, ~11:30 AM", what: "Weighed in: 189.8 lb (back in the 180s — first weigh was 190.4, re-weighed after shower/bathroom)" },
+    { when: "Jul 25, 10:50 AM", what: "Weighed in: 190.4 lb (up only 0.4 lb, despite a huge day yesterday)" },
+    { when: "Jul 24, 9:40 AM", what: "Weighed in: 190.0 lb (down 2.2 lb — water weight receded, as expected)" },
+    { when: "Jul 23, 10:30 AM", what: "Weighed in: 192.2 lb (up 2.6 lb — likely water/sodium from yesterday)" },
+    { when: "Jul 22, 11:00 AM", what: "Weighed in: 189.6 lb (woke up late, ~11am)" },
+    { when: "Jul 21, 11:00 PM", what: "Weighed in: 191.6 lb" },
+    { when: "May 20", what: "Starting weight: 215 lb (back from college)" },
+  ];
+
+  // ---- render: weigh-in log ----
+  const logListEl = document.getElementById("logList");
+  recentLog.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `<span class="what">${entry.what}</span><span class="when">${entry.when}</span>`;
+    logListEl.appendChild(row);
+  });
+
+  // ---- render: today's food log ----
+  const foodLogEl = document.getElementById("foodLogList");
+  todayFoodLog.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    const label = entry.detail ? `${entry.item} <span style="color:var(--text-muted)">(${entry.detail})</span>` : entry.item;
+    const calText = entry.cal === null ? '<span style="color:var(--text-muted)">not logged</span>' : entry.cal + " kcal";
+    row.innerHTML = `<span class="what">${label}</span><span class="when">${entry.time}<br/>${calText}</span>`;
+    foodLogEl.appendChild(row);
+  });
+
+  if (todayFoodLog.length === 0) {
+    foodLogEl.innerHTML = `<div class="empty-state">Nothing logged yet today &mdash; tell me what you've eaten and I&rsquo;ll fill this in.</div>`;
+  }
+
+  // ---- render: drinks & exercise ----
+  const drinksExerciseEl = document.getElementById("drinksExerciseList");
+  drinksExercise.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `<span class="what">${entry.what}</span><span class="when">${entry.detail}</span>`;
+    drinksExerciseEl.appendChild(row);
+  });
+
+  if (drinksExercise.length === 0) {
+    drinksExerciseEl.innerHTML = `<div class="empty-state">Nothing logged yet today &mdash; tell me about any drinks or workouts.</div>`;
+  }
+
+  // ---- render: day history ----
+  const historyEl = document.getElementById("historyList");
+  dayHistory.slice().reverse().forEach(day => {
+    const notLogged = day.calories === null;
+    const over = !notLogged && day.calories > macroTargets.calories;
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    const totalsText = notLogged
+      ? '<span style="color:var(--text-muted)">not logged</span>'
+      : `${day.calories} kcal, ${day.protein}g protein, ${day.carbs}g carb, ${day.fat}g fat, ${day.sodium}mg sodium`;
+    row.innerHTML = `
+      <span class="what">${day.date} &mdash; ${totalsText}
+        <br/><span style="color:var(--text-muted)">${day.note}</span>
+      </span>
+      ${notLogged ? "" : `<span class="pill ${over ? "warning" : "good"}">${over ? "Over target" : "On target"}</span>`}`;
+    historyEl.appendChild(row);
+  });
+
+  // ---- render: usual orders ----
+  const usualOrdersEl = document.getElementById("usualOrdersList");
+  usualOrders.forEach(order => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `
+      <span class="what">${order.name}
+        <br/><span style="color:var(--text-muted)">${order.note}</span>
+      </span>
+      <span class="when">${order.macros}</span>`;
+    usualOrdersEl.appendChild(row);
+  });
+
+  // ---- render: low-sodium grocery list ----
+  const groceryListEl = document.getElementById("groceryListEl");
+  groceryList.forEach(group => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `<span class="what"><strong>${group.category}</strong><br/><span style="color:var(--text-muted)">${group.items}</span></span>`;
+    groceryListEl.appendChild(row);
+  });
+
+  // ---- render: go-to meals reference list ----
+  const goToMealsEl = document.getElementById("goToMealsList");
+  goToMeals.forEach(meal => {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `
+      <span class="what">${meal.name}
+        <br/><span style="color:var(--text-muted)">${meal.note}</span>
+      </span>
+      <span class="when">${meal.macros}</span>`;
+    goToMealsEl.appendChild(row);
+  });
+
+  // ---- render: macro bars ----
+  const macroDefs = [
+    { key: "calories", label: "Calories", unit: "kcal" },
+    { key: "protein", label: "Protein", unit: "g" },
+    { key: "carbs", label: "Carbs", unit: "g" },
+    { key: "fat", label: "Fat", unit: "g" },
+    { key: "sodium", label: "Sodium", unit: "mg" },
+  ];
+  const macroBarsEl = document.getElementById("macroBars");
+  const hasAnyMacros = Object.values(todayMacros).some(v => v > 0);
+
+  if (!hasAnyMacros) {
+    macroBarsEl.innerHTML = `<div class="empty-state">Nothing logged yet today &mdash; tell me what you&rsquo;ve eaten and I&rsquo;ll fill this in.</div>`;
+  } else {
+    macroDefs.forEach(def => {
+      const val = todayMacros[def.key];
+      const target = macroTargets[def.key];
+      const pct = Math.min(100, (val / target) * 100);
+      const over = val > target;
+      const row = document.createElement("div");
+      row.className = "macro-row";
+      row.innerHTML = `
+        <div class="macro-head">
+          <span class="name">${def.label}</span>
+          <span class="nums">${val} / ${target} ${def.unit}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ${over ? "over" : ""}" style="width:${pct}%"></div>
+        </div>`;
+      macroBarsEl.appendChild(row);
+    });
+  }
+
+  // ---- render: weight chart (vanilla canvas, no deps) ----
+  function drawWeightChart() {
+    const canvas = document.getElementById("weightChart");
+    const dpr = window.devicePixelRatio || 1;
+    const cssWidth = canvas.clientWidth || canvas.parentElement.clientWidth;
+    const cssHeight = 260;
+    canvas.width = cssWidth * dpr;
+    canvas.height = cssHeight * dpr;
+    canvas.style.height = cssHeight + "px";
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    const styles = getComputedStyle(document.documentElement);
+    const col = name => styles.getPropertyValue(name).trim();
+    const accent = col("--accent");
+    const grid = col("--grid");
+    const muted = col("--text-muted");
+    const text2 = col("--text-2");
+
+    const padding = { top: 20, right: 16, bottom: 28, left: 44 };
+    const plotW = cssWidth - padding.left - padding.right;
+    const plotH = cssHeight - padding.top - padding.bottom;
+
+    const dates = weightLog.map(d => new Date(d.date + "T12:00:00"));
+    const weights = weightLog.map(d => d.weight);
+    const minT = Math.min(...dates.map(d => d.getTime()));
+    const maxT = Math.max(...dates.map(d => d.getTime()));
+    const allValues = weights.concat([profile.goalWeight]);
+    const minW = Math.floor(Math.min(...allValues) - 3);
+    const maxW = Math.ceil(Math.max(...allValues) + 3);
+
+    const x = t => padding.left + ((t - minT) / (maxT - minT || 1)) * plotW;
+    const y = w => padding.top + plotH - ((w - minW) / (maxW - minW || 1)) * plotH;
+
+    ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+    // gridlines + y labels
+    ctx.strokeStyle = grid;
+    ctx.fillStyle = muted;
+    ctx.font = "11px system-ui, -apple-system, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    const steps = 4;
+    for (let i = 0; i <= steps; i++) {
+      const w = minW + ((maxW - minW) * i) / steps;
+      const yy = y(w);
+      ctx.beginPath();
+      ctx.moveTo(padding.left, yy);
+      ctx.lineTo(cssWidth - padding.right, yy);
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillText(Math.round(w) + "", padding.left - 8, yy);
+    }
+
+    // goal line (dashed)
+    const goalY = y(profile.goalWeight);
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = muted;
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(padding.left, goalY);
+    ctx.lineTo(cssWidth - padding.right, goalY);
+    ctx.stroke();
+    ctx.restore();
+
+    // x labels (first + last)
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = muted;
+    const fmt = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    ctx.fillText(fmt(dates[0]), x(dates[0].getTime()), cssHeight - padding.bottom + 8);
+    ctx.fillText(fmt(dates[dates.length - 1]), x(dates[dates.length - 1].getTime()), cssHeight - padding.bottom + 8);
+
+    // line
+    ctx.beginPath();
+    dates.forEach((d, i) => {
+      const px = x(d.getTime());
+      const py = y(weights[i]);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    });
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = "round";
+    ctx.stroke();
+
+    // points
+    dates.forEach((d, i) => {
+      const px = x(d.getTime());
+      const py = y(weights[i]);
+      ctx.beginPath();
+      ctx.arc(px, py, i === dates.length - 1 ? 5 : 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = accent;
+      ctx.fill();
+      if (i === dates.length - 1) {
+        ctx.fillStyle = col("--text-1");
+        ctx.font = "600 12px system-ui, -apple-system, sans-serif";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "bottom";
+        ctx.fillText(weights[i] + " lb", cssWidth - padding.right, py - 10);
+      }
+    });
+
+    // goal label
+    ctx.fillStyle = text2;
+    ctx.font = "11px system-ui, -apple-system, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("Goal: " + profile.goalWeight + " lb", padding.left, goalY - 4);
+  }
+
+  drawWeightChart();
+  window.addEventListener("resize", drawWeightChart);
+</script>
+</body>
+</html>
