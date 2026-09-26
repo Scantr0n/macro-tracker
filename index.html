@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Sep 26, 2026 · logged from phone</div>
+    <div class="updated">Updated Sep 26, 2026</div>
   </header>
 
   <section class="stats">
@@ -427,22 +427,12 @@
   };
 
   // Today (Sep 26) so far.
-  const todayMacros = { calories: 832, protein: 58, carbs: 82, fat: 30, sodium: 1600 };
+  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
 
   const todayFoodLog = [
-    { time: "10:18am (phone)", item: "Ground beef", detail: "est. ~280 kcal/25g protein/0g carb/20g fat/400mg sodium", cal: 280 },
-    { time: "10:18am (phone)", item: "Mashed sweet potato", detail: "est. ~180 kcal/3g protein/40g carb/1g fat/60mg sodium", cal: 180 },
-    { time: "10:18am (phone)", item: "Broccoli and romanesco", detail: "est. ~40 kcal/3g protein/8g carb/0g fat/30mg sodium", cal: 40 },
-    { time: "10:18am (phone)", item: "Bell peppers", detail: "est. ~30 kcal/1g protein/6g carb/0g fat/5mg sodium", cal: 30 },
-    { time: "10:18am (phone)", item: "Hot sauce", detail: "est. ~10 kcal/0g protein/2g carb/0g fat/300mg sodium", cal: 10 },
-    { time: "10:18am (phone)", item: "Chick-fil-A Egg White Grill", detail: "est. ~290 kcal/26g protein/26g carb/9g fat/760mg sodium", cal: 290 },
-    { time: "10:18am (phone)", item: "Black coffee", detail: "est. ~2 kcal/0g protein/0g carb/0g fat/5mg sodium", cal: 2 },
-    { time: "10:21am (phone)", item: "Diet Dr Pepper", detail: "est. ~0 kcal/0g protein/0g carb/0g fat/40mg sodium", cal: 0 },
   ];
 
   const drinksExercise = [
-    { what: "black coffee", detail: "0 kcal, ~5mg sodium" },
-    { what: "pickleball", detail: "~60 min, est. ~400 kcal burned" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -512,7 +502,7 @@
     { date: "Sep 22", calories: 3250, protein: 159, carbs: 281, fat: 158, sodium: 3960, note: "Coffee, a ground beef/sweet potato/roasted tomato meal-prep bowl, and a chicken/rice bowl with cream garlic sauce during the day — then a Culver's run at night: Double Bacon Deluxe (no pickle, w/ cheese), Wisconsin Cheese Curds, a small Pumpkin Spice S'more Concrete, and a Diet Coke. One of the heaviest days on record, way over on calories and sodium, but protein still landed strong (159g). Next morning was up 0.8 lb, well within what that night's sodium/carb load would predict" },
     { date: "Sep 23", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — no messages this day" },
     { date: "Sep 24", calories: 2510, protein: 110, carbs: 217, fat: 132, sodium: 4310, note: "Barebells Chocolate Dough bar, hazelnut SJU coffee, a Sexton cheeseburger and fries with mayo, then a Taco John's Grilled Chicken Burrito and Chicken Quesadilla, plus 32oz water and a Diet Dr Pepper. Also 1.5 hours of hard 1v1 singles pickleball (~800 kcal estimated burn). Over target on calories and way over on sodium on paper, but the singles burn likely made this closer to net-neutral. Next morning was down 0.8 lb anyway" },
-    { date: "Sep 25", calories: 1880, protein: 73, carbs: 194, fat: 89, sodium: 2880, note: "Auto-archived by the phone bridge at day rollover. Logged: Fried chicken drumstick (small), Potato salad (side), Bacon alfredo pizza (thin slice), Toasted ham & cheese sandwich w/ tomato, Homemade carrot cupcake, Fries, Small chicken sandwich (plain, just chicken & bread), Diet Dr Pepper. Needs a proper note." },
+    { date: "Sep 25", calories: 1880, protein: 73, carbs: 194, fat: 89, sodium: 2880, note: "A lunch-out plate (small fried chicken drumstick, potato salad, a thin bacon alfredo pizza slice) plus a toasted ham & cheese sandwich with tomato and a homemade carrot cupcake — then a second round from Sexton (fries + a plain chicken sandwich) once he was still hungry after the first plate, plus a Diet Dr Pepper. First-pass estimate ran high until Jack corrected the specifics (smaller drumstick, potato not macaroni salad, a thin pizza slice not a full quesadilla). Sodium ran well over target across the two rounds of eating. Weigh-in that morning (181.6) was a small, unremarkable bump" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
