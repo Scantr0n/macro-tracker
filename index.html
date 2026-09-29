@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Sep 28, 2026</div>
+    <div class="updated">Updated Sep 29, 2026 · logged from phone</div>
   </header>
 
   <section class="stats">
@@ -427,13 +427,14 @@
     sodium: 2300,
   };
 
-  // Today (Sep 28) so far.
+  // Today (Sep 29) so far.
   const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
 
   const todayFoodLog = [
   ];
 
   const drinksExercise = [
+    { what: "Black coffee", detail: "0 kcal, ~5mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -506,6 +507,7 @@
     { date: "Sep 25", calories: 3220, protein: 116, carbs: 327, fat: 157, sodium: 5250, note: "A lunch-out plate (small fried chicken drumstick, potato salad, a thin bacon alfredo pizza slice) plus a toasted ham & cheese sandwich with tomato and a homemade carrot cupcake, then a second round from Sexton (fries + a plain chicken sandwich) once he was still hungry after the first plate, plus a Diet Dr Pepper — then a Taco Bell run added retroactively: a crispy chicken nugget Crunchwrap, a beef Chalupa, a beef soft taco, Cinnamon Twists, and a zero sugar Baja Blast. One of the heaviest days on record once everything is counted (~5,250mg sodium, more than double target). Weigh-in that morning (181.6) was a small, unremarkable bump, well before any of this was eaten" },
     { date: "Sep 26", calories: 570, protein: 24, carbs: 46, fat: 31, sodium: 1260, note: "Only a partial day logged — home coffee, a cappuccino plus half a Market sandwich (salami/ham/cheddar/giardiniera) at The Grocer's Table in Wayzata, and a Mr. Pibb Zero Sugar. Nothing else was reported for the rest of the day, so this total is a floor, not the real full-day number. No weigh-in (away from his dorm scale for the weekend)" },
     { date: "Sep 27", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — no food/drink data reported. Only a weigh-in came through, and only the next day retroactively" },
+    { date: "Sep 28", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
