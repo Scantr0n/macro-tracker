@@ -260,28 +260,28 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Sep 26, 2026</div>
+    <div class="updated">Updated Sep 28, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">181.6 lb</div>
-      <div class="sub">Last logged Sep 25 — no scale this weekend (home, away from his dorm scale). Likely to weigh in tomorrow on a parent's scale</div>
+      <div class="value">177.4 lb</div>
+      <div class="sub">Unconfirmed — a big, fast drop right after a huge-sodium day. Likely at least partly a scale/battery issue rather than real change; needs a couple repeat weigh-ins to trust</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">33.4 lb</div>
+      <div class="value">37.6 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value">26.1</div>
+      <div class="value">25.4</div>
       <span class="pill warning">Overweight</span>
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">21.6 lb</div>
+      <div class="value">17.4 lb</div>
       <div class="sub">~180 lb by mid-Aug</div>
     </div>
   </section>
@@ -413,6 +413,7 @@
     { date: "2026-09-22", time: "~morning", weight: 181.8, note: "up 0.8 lb — small, unremarkable move given yesterday's 181.0 was already an estimate within a noisy 179-182 range. Same band, not a real change" },
     { date: "2026-09-24", time: "~morning", weight: 181.0, note: "down 0.8 lb from Sep 22 (no weigh-in Sep 23) despite Sep 22 being a genuinely heavy Culver's splurge night (~3,250 kcal, ~3,960mg sodium). Fully corrected and then some — consistent with the pattern where one heavy night doesn't undo the underlying trend" },
     { date: "2026-09-25", time: "~morning", weight: 181.6, note: "up 0.6 lb — small, unremarkable bump given Sep 24 ran over on calories and way over on sodium (Sexton burger/fries, Taco John's burrito + quesadilla), even with the pickleball burn factored in. Same band as the last couple weeks, not a real reversal" },
+    { date: "2026-09-27", time: "~morning", weight: 177.4, note: "Measured 177.2 on his parents' scale (home for the weekend), converted to 177.4 on his usual dorm-scale basis using his known +0.2 lb offset between the two scales. Genuinely exciting to see the 170s, but this is a ~4.2 lb drop from the last logged 181.6 (Sep 25) in just two days — right after Sep 25 itself was one of the heaviest sodium days on record (~5,250mg), which should physiologically cause water retention initially, not a further big drop. Jack's own read is the more likely one: his dorm scale has been reading erratically lately (a stray 179 reading before, possible battery/hard-surface issue), so this may be measurement noise rather than 4+ lb of real change. Logging it as reported, but treating it as unconfirmed rather than a settled new all-time low until a battery swap and a few repeat weigh-ins back it up" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -426,17 +427,13 @@
     sodium: 2300,
   };
 
-  // Today (Sep 26) so far.
-  const todayMacros = { calories: 570, protein: 24, carbs: 46, fat: 31, sodium: 1260 };
+  // Today (Sep 28) so far.
+  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Coffee at home", detail: "normal home coffee (not SJU), similar creamer setup — est. ~70 kcal/3g fat/10g carb/30mg sodium", cal: 70 },
-    { time: "~midday", item: "Cappuccino (The Grocer's Table, Wayzata)", detail: "est. ~100 kcal/6g protein/8g carb/5g fat/90mg sodium", cal: 100 },
-    { time: "~midday", item: "Half Market sandwich (The Grocer's Table, Wayzata)", detail: "salami/ham/sharp cheddar/pickled giardiniera deli sandwich, half eaten — est. ~400 kcal/18g protein/28g carb/23g fat/1100mg sodium", cal: 400 },
   ];
 
   const drinksExercise = [
-    { what: "Mr. Pibb Zero Sugar", detail: "0 kcal, ~40mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -507,6 +504,8 @@
     { date: "Sep 23", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — no messages this day" },
     { date: "Sep 24", calories: 2510, protein: 110, carbs: 217, fat: 132, sodium: 4310, note: "Barebells Chocolate Dough bar, hazelnut SJU coffee, a Sexton cheeseburger and fries with mayo, then a Taco John's Grilled Chicken Burrito and Chicken Quesadilla, plus 32oz water and a Diet Dr Pepper. Also 1.5 hours of hard 1v1 singles pickleball (~800 kcal estimated burn). Over target on calories and way over on sodium on paper, but the singles burn likely made this closer to net-neutral. Next morning was down 0.8 lb anyway" },
     { date: "Sep 25", calories: 3220, protein: 116, carbs: 327, fat: 157, sodium: 5250, note: "A lunch-out plate (small fried chicken drumstick, potato salad, a thin bacon alfredo pizza slice) plus a toasted ham & cheese sandwich with tomato and a homemade carrot cupcake, then a second round from Sexton (fries + a plain chicken sandwich) once he was still hungry after the first plate, plus a Diet Dr Pepper — then a Taco Bell run added retroactively: a crispy chicken nugget Crunchwrap, a beef Chalupa, a beef soft taco, Cinnamon Twists, and a zero sugar Baja Blast. One of the heaviest days on record once everything is counted (~5,250mg sodium, more than double target). Weigh-in that morning (181.6) was a small, unremarkable bump, well before any of this was eaten" },
+    { date: "Sep 26", calories: 570, protein: 24, carbs: 46, fat: 31, sodium: 1260, note: "Only a partial day logged — home coffee, a cappuccino plus half a Market sandwich (salami/ham/cheddar/giardiniera) at The Grocer's Table in Wayzata, and a Mr. Pibb Zero Sugar. Nothing else was reported for the rest of the day, so this total is a floor, not the real full-day number. No weigh-in (away from his dorm scale for the weekend)" },
+    { date: "Sep 27", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — no food/drink data reported. Only a weigh-in came through, and only the next day retroactively" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
