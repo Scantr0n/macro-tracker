@@ -260,28 +260,28 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Sep 29, 2026 · logged from phone</div>
+    <div class="updated">Updated Sep 29, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">177.4 lb</div>
-      <div class="sub">Unconfirmed — a big, fast drop right after a huge-sodium day. Likely at least partly a scale/battery issue rather than real change; needs a couple repeat weigh-ins to trust</div>
+      <div class="value">181.6 lb</div>
+      <div class="sub">Back to 181.6 on his usual dorm scale — confirms the 177.4 reading was scale/surface noise, not real progress. This is the real number</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">37.6 lb</div>
+      <div class="value">33.4 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value">25.4</div>
+      <div class="value">26.1</div>
       <span class="pill warning">Overweight</span>
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">17.4 lb</div>
+      <div class="value">21.6 lb</div>
       <div class="sub">~180 lb by mid-Aug</div>
     </div>
   </section>
@@ -414,6 +414,7 @@
     { date: "2026-09-24", time: "~morning", weight: 181.0, note: "down 0.8 lb from Sep 22 (no weigh-in Sep 23) despite Sep 22 being a genuinely heavy Culver's splurge night (~3,250 kcal, ~3,960mg sodium). Fully corrected and then some — consistent with the pattern where one heavy night doesn't undo the underlying trend" },
     { date: "2026-09-25", time: "~morning", weight: 181.6, note: "up 0.6 lb — small, unremarkable bump given Sep 24 ran over on calories and way over on sodium (Sexton burger/fries, Taco John's burrito + quesadilla), even with the pickleball burn factored in. Same band as the last couple weeks, not a real reversal" },
     { date: "2026-09-27", time: "~morning", weight: 177.4, note: "Measured 177.2 on his parents' scale (home for the weekend), converted to 177.4 on his usual dorm-scale basis using his known +0.2 lb offset between the two scales. Genuinely exciting to see the 170s, but this is a ~4.2 lb drop from the last logged 181.6 (Sep 25) in just two days — right after Sep 25 itself was one of the heaviest sodium days on record (~5,250mg), which should physiologically cause water retention initially, not a further big drop. Jack's own read is the more likely one: his dorm scale has been reading erratically lately (a stray 179 reading before, possible battery/hard-surface issue), so this may be measurement noise rather than 4+ lb of real change. Logging it as reported, but treating it as unconfirmed rather than a settled new all-time low until a battery swap and a few repeat weigh-ins back it up" },
+    { date: "2026-09-29", time: "~morning", weight: 181.6, note: "Back at SJU on his usual dorm scale, right back to 181.6 — exactly where the trend sat before the 177.4 anomaly. Strong confirmation that the 177.4 reading was a scale/surface artifact (Jack's own theory: different ground/floor at SJU vs. his parents' house) rather than 4 lb of real progress. Treat 177.4 as noise and 181.6 as the real, continuing number" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -428,12 +429,19 @@
   };
 
   // Today (Sep 29) so far.
-  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
+  const todayMacros = { calories: 2045, protein: 74, carbs: 244.5, fat: 92, sodium: 3060 };
 
   const todayFoodLog = [
+    { time: "~morning", item: "Hazelnut SJU coffee", detail: "hazelnut K-cup + hazelnut creamer — est. ~70 kcal/3g fat/10g carb/30mg sodium", cal: 70 },
+    { time: "~morning", item: "Barebells Cookies & Cream bar", detail: "est. ~200 kcal/20g protein/18g carb/8g fat/240mg sodium", cal: 200 },
+    { time: "~lunch", item: "Panda Express (half chow mein, half fried rice, Beijing Beef, Orange Chicken)", detail: "est. ~1,475 kcal/51g protein/171.5g carb/69g fat/2540mg sodium", cal: 1475 },
+    { time: "~snack", item: "Bag of S'mores Drizzilicious snack mix", detail: "est. ~300 kcal/3g protein/45g carb/12g fat/150mg sodium", cal: 300 },
   ];
 
   const drinksExercise = [
+    { what: "Water", detail: "16oz" },
+    { what: "Diet Coke", detail: "32oz, 0 kcal, ~100mg sodium" },
+    { what: "Pickleball (moderate)", detail: "1 hr, est. ~400 kcal burned" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
