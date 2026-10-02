@@ -260,28 +260,28 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 1, 2026</div>
+    <div class="updated">Updated Oct 2, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">181.6 lb</div>
-      <div class="sub">Back to 181.6 on his usual dorm scale — confirms the 177.4 reading was scale/surface noise, not real progress. This is the real number</div>
+      <div class="value">182.6 lb</div>
+      <div class="sub">&uarr; 1.0 lb from Sep 29 (181.6) — fits Oct 1's ~4,735mg sodium day, water not fat. Same 181-183 band as recent weeks</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">33.4 lb</div>
+      <div class="value">32.4 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value">26.1</div>
+      <div class="value">26.2</div>
       <span class="pill warning">Overweight</span>
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">21.6 lb</div>
+      <div class="value">22.6 lb</div>
       <div class="sub">~180 lb by mid-Aug</div>
     </div>
   </section>
@@ -415,6 +415,7 @@
     { date: "2026-09-25", time: "~morning", weight: 181.6, note: "up 0.6 lb — small, unremarkable bump given Sep 24 ran over on calories and way over on sodium (Sexton burger/fries, Taco John's burrito + quesadilla), even with the pickleball burn factored in. Same band as the last couple weeks, not a real reversal" },
     { date: "2026-09-27", time: "~morning", weight: 177.4, note: "Measured 177.2 on his parents' scale (home for the weekend), converted to 177.4 on his usual dorm-scale basis using his known +0.2 lb offset between the two scales. Genuinely exciting to see the 170s, but this is a ~4.2 lb drop from the last logged 181.6 (Sep 25) in just two days — right after Sep 25 itself was one of the heaviest sodium days on record (~5,250mg), which should physiologically cause water retention initially, not a further big drop. Jack's own read is the more likely one: his dorm scale has been reading erratically lately (a stray 179 reading before, possible battery/hard-surface issue), so this may be measurement noise rather than 4+ lb of real change. Logging it as reported, but treating it as unconfirmed rather than a settled new all-time low until a battery swap and a few repeat weigh-ins back it up" },
     { date: "2026-09-29", time: "~morning", weight: 181.6, note: "Back at SJU on his usual dorm scale, right back to 181.6 — exactly where the trend sat before the 177.4 anomaly. Strong confirmation that the 177.4 reading was a scale/surface artifact (Jack's own theory: different ground/floor at SJU vs. his parents' house) rather than 4 lb of real progress. Treat 177.4 as noise and 181.6 as the real, continuing number" },
+    { date: "2026-10-02", time: "~morning", weight: 182.6, note: "up 1.0 lb from the last logged 181.6 (Sep 29; no weigh-ins Sep 30 or Oct 1). Fits the inputs: Oct 1 was ~4,735mg sodium (Qdoba burrito plus the Ben's pouch and kimchi late) with ~280g carbs, so water retention explains this without any real fat gain. Same 181-183 band as the last few weeks" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -428,22 +429,18 @@
     sodium: 2300,
   };
 
-  // Today (Oct 1) so far.
-  const todayMacros = { calories: 2210, protein: 93, carbs: 280.1, fat: 81, sodium: 4735 };
+  // Today (Oct 2) so far.
+  const todayMacros = { calories: 587, protein: 38.5, carbs: 71, fat: 16, sodium: 1470 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Hazelnut SJU coffee", detail: "hazelnut K-cup + hazelnut creamer — est. ~70 kcal/3g fat/10g carb/30mg sodium", cal: 70 },
-    { time: "~morning", item: "Barebells Creamy Crisp bar", detail: "est. ~200 kcal/20g protein/18g carb/8g fat/240mg sodium", cal: 200 },
-    { time: "~midday", item: "Qdoba burrito", detail: "white rice, no beans, queso, birria, guac, pico, corn — est. ~1,010 kcal/44g protein/122g carb/37.5g fat/2675mg sodium", cal: 1010 },
-    { time: "~afternoon", item: "Bag of S'mores Drizzilicious snack mix", detail: "est. ~300 kcal/3g protein/45g carb/12g fat/150mg sodium", cal: 300 },
-    { time: "~afternoon", item: "~10oz coffee with a splash of almond milk", detail: "est. ~25 kcal/1g protein/2g carb/1.5g fat/20mg sodium", cal: 25 },
-    { time: "~dinner", item: "Ben's Original 90-Second Fried Rice + 3 eggs + kimchi", detail: "cooked with avocado oil zero-cal spray, no butter/oil — est. ~495 kcal/25g protein/55.5g carb/19g fat/1575mg sodium", cal: 495 },
+    { time: "~morning", item: "Ben's Lemon & Herb rice", detail: "about a cup from the pouch — est. ~250 kcal/5g protein/50g carb/3.5g fat/650mg sodium", cal: 250 },
+    { time: "~morning", item: "2 eggs", detail: "cooked with avocado spray — est. ~145 kcal/12g protein/1g carb/10g fat/145mg sodium", cal: 145 },
+    { time: "~morning", item: "Kimchi", detail: "~3/4 cup — est. ~20 kcal/1.5g protein/4g carb/0g fat/550mg sodium", cal: 20 },
+    { time: "~morning", item: "Chobani Zero Sugar Mixed Berry Vanilla yogurt drink", detail: "10oz bottle, per Chobani/retailer listings — ~170 kcal/20g protein/16g carb/2.5g fat/120mg sodium", cal: 170 },
+    { time: "~morning", item: "Hazelnut K-cup coffee, no creamer", detail: "est. ~2 kcal/5mg sodium", cal: 2 },
   ];
 
   const drinksExercise = [
-    { what: "Diet Coke (medium)", detail: "0 kcal, ~45mg sodium" },
-    { what: "Pickleball (very moderate)", detail: "~30-45 min, est. ~180 kcal burned" },
-    { what: "Wang Lao Ji", detail: "est. ~110 kcal/27.6g carb, ~0mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -519,6 +516,7 @@
     { date: "Sep 28", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Sep 29", calories: 2045, protein: 74, carbs: 244.5, fat: 92, sodium: 3060, note: "Hazelnut SJU coffee, a Barebells Cookies & Cream bar, a Panda Express plate (half chow mein, half fried rice, Beijing Beef, Orange Chicken), a bag of S'mores Drizzilicious, 16oz water, a 32oz Diet Coke, and an hour of moderate pickleball. Over target on calories, carbs, fat, and sodium, mostly from the Panda Express plate; the pickleball hour offset some of it. That morning's weigh-in (181.6) confirmed the Sep 27 177.4 reading was scale noise, not real progress" },
     { date: "Sep 30", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 1", calories: 2210, protein: 93, carbs: 280.1, fat: 81, sodium: 4735, note: "Hazelnut SJU coffee, a Barebells Creamy Crisp bar, a Qdoba birria burrito (white rice, queso, guac, pico, corn, no beans), a second bag of S'mores Drizzilicious, a ~10oz almond-milk coffee, a medium Diet Coke, and 30-45 min of very moderate pickleball. Then a late Ben's fried rice pouch with 3 eggs and kimchi (avocado spray, no oil) and a Wang Lao Ji. Sodium ran way over target (~4,735mg) from the Qdoba plus the pouch/kimchi combo, carbs ran high too, protein landed decent (93g). No weigh-in that morning" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
