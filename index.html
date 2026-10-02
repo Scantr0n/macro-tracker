@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Sep 29, 2026</div>
+    <div class="updated">Updated Oct 1, 2026</div>
   </header>
 
   <section class="stats">
@@ -428,20 +428,20 @@
     sodium: 2300,
   };
 
-  // Today (Sep 29) so far.
-  const todayMacros = { calories: 2045, protein: 74, carbs: 244.5, fat: 92, sodium: 3060 };
+  // Today (Oct 1) so far.
+  const todayMacros = { calories: 1605, protein: 68, carbs: 197, fat: 62, sodium: 3160 };
 
   const todayFoodLog = [
     { time: "~morning", item: "Hazelnut SJU coffee", detail: "hazelnut K-cup + hazelnut creamer — est. ~70 kcal/3g fat/10g carb/30mg sodium", cal: 70 },
-    { time: "~morning", item: "Barebells Cookies & Cream bar", detail: "est. ~200 kcal/20g protein/18g carb/8g fat/240mg sodium", cal: 200 },
-    { time: "~lunch", item: "Panda Express (half chow mein, half fried rice, Beijing Beef, Orange Chicken)", detail: "est. ~1,475 kcal/51g protein/171.5g carb/69g fat/2540mg sodium", cal: 1475 },
-    { time: "~snack", item: "Bag of S'mores Drizzilicious snack mix", detail: "est. ~300 kcal/3g protein/45g carb/12g fat/150mg sodium", cal: 300 },
+    { time: "~morning", item: "Barebells Creamy Crisp bar", detail: "est. ~200 kcal/20g protein/18g carb/8g fat/240mg sodium", cal: 200 },
+    { time: "~midday", item: "Qdoba burrito", detail: "white rice, no beans, queso, birria, guac, pico, corn — est. ~1,010 kcal/44g protein/122g carb/37.5g fat/2675mg sodium", cal: 1010 },
+    { time: "~afternoon", item: "Bag of S'mores Drizzilicious snack mix", detail: "est. ~300 kcal/3g protein/45g carb/12g fat/150mg sodium", cal: 300 },
+    { time: "~afternoon", item: "~10oz coffee with a splash of almond milk", detail: "est. ~25 kcal/1g protein/2g carb/1.5g fat/20mg sodium", cal: 25 },
   ];
 
   const drinksExercise = [
-    { what: "Water", detail: "16oz" },
-    { what: "Diet Coke", detail: "32oz, 0 kcal, ~100mg sodium" },
-    { what: "Pickleball (moderate)", detail: "1 hr, est. ~400 kcal burned" },
+    { what: "Diet Coke (medium)", detail: "0 kcal, ~45mg sodium" },
+    { what: "Pickleball (very moderate)", detail: "~30-45 min, est. ~180 kcal burned" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -515,6 +515,8 @@
     { date: "Sep 26", calories: 570, protein: 24, carbs: 46, fat: 31, sodium: 1260, note: "Only a partial day logged — home coffee, a cappuccino plus half a Market sandwich (salami/ham/cheddar/giardiniera) at The Grocer's Table in Wayzata, and a Mr. Pibb Zero Sugar. Nothing else was reported for the rest of the day, so this total is a floor, not the real full-day number. No weigh-in (away from his dorm scale for the weekend)" },
     { date: "Sep 27", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged — no food/drink data reported. Only a weigh-in came through, and only the next day retroactively" },
     { date: "Sep 28", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Sep 29", calories: 2045, protein: 74, carbs: 244.5, fat: 92, sodium: 3060, note: "Hazelnut SJU coffee, a Barebells Cookies & Cream bar, a Panda Express plate (half chow mein, half fried rice, Beijing Beef, Orange Chicken), a bag of S'mores Drizzilicious, 16oz water, a 32oz Diet Coke, and an hour of moderate pickleball. Over target on calories, carbs, fat, and sodium, mostly from the Panda Express plate; the pickleball hour offset some of it. That morning's weigh-in (181.6) confirmed the Sep 27 177.4 reading was scale noise, not real progress" },
+    { date: "Sep 30", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
