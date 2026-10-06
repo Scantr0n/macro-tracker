@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 2, 2026</div>
+    <div class="updated">Updated Oct 6, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">182.6 lb</div>
-      <div class="sub">&uarr; 1.0 lb from Sep 29 (181.6) — fits Oct 1's ~4,735mg sodium day, water not fat. Same 181-183 band as recent weeks</div>
+      <div class="sub">Last logged Oct 2 (up 1.0 lb after a ~4,735mg sodium day, water not fat). No weigh-in since, so this is a few days old</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -429,24 +429,16 @@
     sodium: 2300,
   };
 
-  // Today (Oct 2) so far.
-  const todayMacros = { calories: 2472, protein: 103, carbs: 311.6, fat: 89.5, sodium: 4950 };
+  // Today (Oct 6) so far.
+  const todayMacros = { calories: 828, protein: 58, carbs: 95, fat: 22, sodium: 1385 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Ben's Lemon & Herb rice", detail: "about a cup from the pouch — est. ~250 kcal/5g protein/50g carb/3.5g fat/650mg sodium", cal: 250 },
-    { time: "~morning", item: "2 eggs", detail: "cooked with avocado spray — est. ~145 kcal/12g protein/1g carb/10g fat/145mg sodium", cal: 145 },
-    { time: "~morning", item: "Kimchi", detail: "~3/4 cup — est. ~20 kcal/1.5g protein/4g carb/0g fat/550mg sodium", cal: 20 },
-    { time: "~morning", item: "Chobani Zero Sugar Mixed Berry Vanilla yogurt drink", detail: "10oz bottle, per Chobani/retailer listings — ~170 kcal/20g protein/16g carb/2.5g fat/120mg sodium", cal: 170 },
-    { time: "~morning", item: "Hazelnut K-cup coffee, no creamer", detail: "est. ~2 kcal/5mg sodium", cal: 2 },
-    { time: "~evening", item: "Culver's Curderburger (no pickle)", detail: "published ~820 kcal/46g fat/63g carb/1550mg sodium; protein est. ~40g", cal: 820 },
-    { time: "~evening", item: "Culver's regular crinkle cut fries", detail: "published ~360 kcal/14g fat/53g carb/530mg sodium; protein est. ~5g", cal: 360 },
-    { time: "~evening", item: "Dried mango", detail: "~180 kcal as reported — est. ~1g protein/42g carb/0g fat/15mg sodium", cal: 180 },
-    { time: "~late night", item: "Rice, kimchi & egg bowl", detail: "assumed same as the morning bowl (~1 cup rice, 2 eggs, ~3/4 cup kimchi) — est. ~415 kcal/18.5g protein/55g carb/13.5g fat/1345mg sodium", cal: 415 },
+    { time: "~breakfast", item: "2 eggs, tomato slice & 2 everything-seasoning sourdough toasts", detail: "eggs cooked with a little spray — est. ~370 kcal/20g protein/44g carb/11.5g fat/630mg sodium", cal: 370 },
+    { time: "~lunch", item: "Ground beef, mushroom & broccoli rice bowl", detail: "1/3 pouch Earthly Grains basmati (~133 kcal), 1/3 bag broccoli (~28), ~1.25 servings of 96/4 ground beef (~175, label 140/4oz), mushrooms (~14), olive oil drizzle (~35), 1/4 bag coleslaw mix (~25), sriracha (~10), ~2.5 tbsp fat-free Hidden Valley ranch (~38) — est. ~458 kcal/37.7g protein/51g carb/10.4g fat/715mg sodium", cal: 458 },
   ];
 
   const drinksExercise = [
-    { what: "Diet Coke (Culver's)", detail: "0 kcal, ~40mg sodium" },
-    { what: "Wang Lao Ji", detail: "est. ~110 kcal/27.6g carb, ~0mg sodium" },
+    { what: "Diet Coke", detail: "0 kcal, ~40mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -523,6 +515,10 @@
     { date: "Sep 29", calories: 2045, protein: 74, carbs: 244.5, fat: 92, sodium: 3060, note: "Hazelnut SJU coffee, a Barebells Cookies & Cream bar, a Panda Express plate (half chow mein, half fried rice, Beijing Beef, Orange Chicken), a bag of S'mores Drizzilicious, 16oz water, a 32oz Diet Coke, and an hour of moderate pickleball. Over target on calories, carbs, fat, and sodium, mostly from the Panda Express plate; the pickleball hour offset some of it. That morning's weigh-in (181.6) confirmed the Sep 27 177.4 reading was scale noise, not real progress" },
     { date: "Sep 30", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 1", calories: 2210, protein: 93, carbs: 280.1, fat: 81, sodium: 4735, note: "Hazelnut SJU coffee, a Barebells Creamy Crisp bar, a Qdoba birria burrito (white rice, queso, guac, pico, corn, no beans), a second bag of S'mores Drizzilicious, a ~10oz almond-milk coffee, a medium Diet Coke, and 30-45 min of very moderate pickleball. Then a late Ben's fried rice pouch with 3 eggs and kimchi (avocado spray, no oil) and a Wang Lao Ji. Sodium ran way over target (~4,735mg) from the Qdoba plus the pouch/kimchi combo, carbs ran high too, protein landed decent (93g). No weigh-in that morning" },
+    { date: "Oct 2", calories: 2472, protein: 103, carbs: 311.6, fat: 89.5, sodium: 4950, note: "Ben's lemon & herb rice with 2 eggs and kimchi plus a Chobani Zero Sugar yogurt drink in the morning, then a Culver's Curderburger meal (published numbers, no pickle) with a Diet Coke, a Wang Lao Ji, ~180 kcal of dried mango, and a second rice/kimchi/egg bowl late at night. Sodium ran more than double target (~4,950mg) from the Curderburger plus the kimchi/rice-pouch combo twice, and carbs ran high from the Wang Lao Ji and mango on top. Protein landed at 103g. Weigh-in that morning was 182.6, up 1.0 lb after the heavy Oct 1" },
+    { date: "Oct 3", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 4", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
