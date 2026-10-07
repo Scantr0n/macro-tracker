@@ -260,28 +260,28 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 6, 2026</div>
+    <div class="updated">Updated Oct 7, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">182.6 lb</div>
-      <div class="sub">Last logged Oct 2 (up 1.0 lb after a ~4,735mg sodium day, water not fat). No weigh-in since, so this is a few days old</div>
+      <div class="value">181.2 lb</div>
+      <div class="sub">&darr; 1.4 lb from Oct 2 (182.6) — that water bump cleared. Back at the low end of the 181-183 band</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">32.4 lb</div>
+      <div class="value">33.8 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value">26.2</div>
+      <div class="value">26.0</div>
       <span class="pill warning">Overweight</span>
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">22.6 lb</div>
+      <div class="value">21.2 lb</div>
       <div class="sub">~180 lb by mid-Aug</div>
     </div>
   </section>
@@ -416,6 +416,7 @@
     { date: "2026-09-27", time: "~morning", weight: 177.4, note: "Measured 177.2 on his parents' scale (home for the weekend), converted to 177.4 on his usual dorm-scale basis using his known +0.2 lb offset between the two scales. Genuinely exciting to see the 170s, but this is a ~4.2 lb drop from the last logged 181.6 (Sep 25) in just two days — right after Sep 25 itself was one of the heaviest sodium days on record (~5,250mg), which should physiologically cause water retention initially, not a further big drop. Jack's own read is the more likely one: his dorm scale has been reading erratically lately (a stray 179 reading before, possible battery/hard-surface issue), so this may be measurement noise rather than 4+ lb of real change. Logging it as reported, but treating it as unconfirmed rather than a settled new all-time low until a battery swap and a few repeat weigh-ins back it up" },
     { date: "2026-09-29", time: "~morning", weight: 181.6, note: "Back at SJU on his usual dorm scale, right back to 181.6 — exactly where the trend sat before the 177.4 anomaly. Strong confirmation that the 177.4 reading was a scale/surface artifact (Jack's own theory: different ground/floor at SJU vs. his parents' house) rather than 4 lb of real progress. Treat 177.4 as noise and 181.6 as the real, continuing number" },
     { date: "2026-10-02", time: "~morning", weight: 182.6, note: "up 1.0 lb from the last logged 181.6 (Sep 29; no weigh-ins Sep 30 or Oct 1). Fits the inputs: Oct 1 was ~4,735mg sodium (Qdoba burrito plus the Ben's pouch and kimchi late) with ~280g carbs, so water retention explains this without any real fat gain. Same 181-183 band as the last few weeks" },
+    { date: "2026-10-07", time: "~morning", weight: 181.2, note: "down 1.4 lb from 182.6 (Oct 2; no weigh-ins Oct 3-6). The Oct 2 water bump cleared, and Oct 6 started very clean before the evening burger plate. Back at the low end of the 181-183 band, no real change in trend" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -429,20 +430,17 @@
     sodium: 2300,
   };
 
-  // Today (Oct 6) so far.
-  const todayMacros = { calories: 2378, protein: 125, carbs: 226, fat: 105, sodium: 3130 };
+  // Today (Oct 7) so far.
+  const todayMacros = { calories: 430, protein: 31.2, carbs: 49, fat: 11.5, sodium: 735 };
 
   const todayFoodLog = [
-    { time: "~breakfast", item: "2 eggs, tomato slice & 2 everything-seasoning sourdough toasts", detail: "eggs cooked with a little spray — est. ~370 kcal/20g protein/44g carb/11.5g fat/630mg sodium", cal: 370 },
-    { time: "~lunch", item: "Ground beef, mushroom & broccoli rice bowl", detail: "1/3 pouch Earthly Grains basmati (~133 kcal), 1/3 bag broccoli (~28), ~1.25 servings of 96/4 ground beef (~175, label 140/4oz), mushrooms (~14), olive oil drizzle (~35), 1/4 bag coleslaw mix (~25), sriracha (~10), ~2.5 tbsp fat-free Hidden Valley ranch (~38) — est. ~458 kcal/37.7g protein/51g carb/10.4g fat/715mg sodium", cal: 458 },
-    { time: "~day", item: "12oz latte", detail: "assumed 2% milk, no syrup (tall-latte equivalent) — est. ~150 kcal/10g protein/15g carb/6g fat/135mg sodium", cal: 150 },
-    { time: "~evening", item: "Darigold Ultra-Filtered Chocolate Milk (14oz, 25g protein)", detail: "per Darigold label/retailer listings — 290 kcal/25g protein/28g carb/9g fat/280mg sodium", cal: 290 },
-    { time: "~night", item: "Cheeseburger, waffle fries & mayo", detail: "assumed same as the usual campus-style burger/fries/mayo plate — est. ~1,110 kcal/32g protein/88g carb/68g fat/1,330mg sodium", cal: 1110 },
+    { time: "~morning", item: "2 eggs, tomato slice & 2 everything-seasoning sourdough toasts", detail: "same breakfast as Oct 6 — est. ~370 kcal/20g protein/44g carb/11.5g fat/630mg sodium", cal: 370 },
+    { time: "~morning", item: "Chobani strawberry yogurt", detail: "assumed the Zero Sugar cup (5.3oz) like your usual — est. ~60 kcal/11g protein/5g carb/0g fat/60mg sodium", cal: 60 },
   ];
 
   const drinksExercise = [
+    { what: "Earl Grey tea", detail: "0 kcal, ~5mg sodium" },
     { what: "Diet Coke", detail: "0 kcal, ~40mg sodium" },
-    { what: "Pickleball (light-moderate)", detail: "1 hr, est. ~300 kcal burned" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -523,6 +521,7 @@
     { date: "Oct 3", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 4", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 6", calories: 2378, protein: 125, carbs: 226, fat: 105, sodium: 3130, note: "A very clean first half (2 eggs with tomato on everything-seasoning sourdough, then a ground beef/mushroom/broccoli basmati rice bowl with coleslaw, sriracha and fat-free ranch built from the real labels), then a 12oz latte, a Darigold 25g-protein chocolate milk, and a cheeseburger with waffle fries and mayo late, plus a Diet Coke and an hour of light-moderate pickleball (~300 kcal burned). The burger plate pushed calories, fat and sodium over target, but protein landed at 125g, one of the better days. No weigh-in that morning" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
