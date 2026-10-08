@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 7, 2026</div>
+    <div class="updated">Updated Oct 8, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">181.2 lb</div>
-      <div class="sub">&darr; 1.4 lb from Oct 2 (182.6) — that water bump cleared. Back at the low end of the 181-183 band</div>
+      <div class="sub">Flat vs Oct 7 (181.2) even after late trivia brats. Low end of the 181-183 band</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -417,6 +417,7 @@
     { date: "2026-09-29", time: "~morning", weight: 181.6, note: "Back at SJU on his usual dorm scale, right back to 181.6 — exactly where the trend sat before the 177.4 anomaly. Strong confirmation that the 177.4 reading was a scale/surface artifact (Jack's own theory: different ground/floor at SJU vs. his parents' house) rather than 4 lb of real progress. Treat 177.4 as noise and 181.6 as the real, continuing number" },
     { date: "2026-10-02", time: "~morning", weight: 182.6, note: "up 1.0 lb from the last logged 181.6 (Sep 29; no weigh-ins Sep 30 or Oct 1). Fits the inputs: Oct 1 was ~4,735mg sodium (Qdoba burrito plus the Ben's pouch and kimchi late) with ~280g carbs, so water retention explains this without any real fat gain. Same 181-183 band as the last few weeks" },
     { date: "2026-10-07", time: "~morning", weight: 181.2, note: "down 1.4 lb from 182.6 (Oct 2; no weigh-ins Oct 3-6). The Oct 2 water bump cleared, and Oct 6 started very clean before the evening burger plate. Back at the low end of the 181-183 band, no real change in trend" },
+    { date: "2026-10-08", time: "~morning", weight: 181.2, note: "flat vs Oct 7 (181.2). Oct 7 ended around 2,170 kcal with ~3,630mg sodium, mostly the late trivia brats, and the scale held anyway. Same low end of the 181-183 band" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -430,20 +431,16 @@
     sodium: 2300,
   };
 
-  // Today (Oct 7) so far.
-  const todayMacros = { calories: 1333, protein: 96.3, carbs: 163, fat: 31.3, sodium: 1792 };
+  // Today (Oct 8) so far.
+  const todayMacros = { calories: 505, protein: 33.3, carbs: 25, fat: 31, sodium: 1340 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "2 eggs, tomato slice & 2 everything-seasoning sourdough toasts", detail: "same breakfast as Oct 6 — est. ~370 kcal/20g protein/44g carb/11.5g fat/630mg sodium", cal: 370 },
-    { time: "~morning", item: "Chobani strawberry yogurt (regular cup)", detail: "regular nonfat Greek cup, 5.3oz — est. ~120 kcal/12g protein/16g carb/0g fat/55mg sodium", cal: 120 },
-    { time: "~afternoon", item: "Ground beef, mushroom & broccoli rice bowl (again)", detail: "assumed same build as Oct 6 (1/3 basmati pouch, 1/3 broccoli, ~1.25 servings 96/4 beef, mushrooms, olive oil, 1/4 bag coleslaw, sriracha, fat-free ranch) — est. ~458 kcal/37.7g protein/51g carb/10.4g fat/715mg sodium", cal: 458 },
-    { time: "~evening", item: "Darigold Ultra-Filtered Chocolate Milk (14oz)", detail: "assumed the same Darigold as Oct 6 — 290 kcal/25g protein/28g carb/9g fat/280mg sodium", cal: 290 },
-    { time: "~evening", item: "Cantaloupe (~5 cubes) & pineapple (~5 spears)", detail: "~85g cantaloupe + ~135g pineapple — est. ~95 kcal/1.4g protein/24g carb/0.4g fat/27mg sodium", cal: 95 },
+    { time: "~lunch", item: "Bratwurst with ranch drizzle & Taco Bell sauce", detail: "assumed 1 brat, no bun (Johnsonville-style ~280 kcal), ~1 tbsp fat-free ranch, 2 Taco Bell sauce packets — est. ~305 kcal/13g protein/7g carb/23g fat/1,100mg sodium", cal: 305 },
+    { time: "~afternoon", item: "Barebells Cookies & Cream bar", detail: "est. ~200 kcal/20g protein/18g carb/8g fat/240mg sodium", cal: 200 },
   ];
 
   const drinksExercise = [
-    { what: "Earl Grey tea", detail: "0 kcal, ~5mg sodium" },
-    { what: "Diet Coke (x2)", detail: "0 kcal, ~80mg sodium total" },
+    { what: "Water", detail: "~32oz" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -525,6 +522,7 @@
     { date: "Oct 4", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 6", calories: 2378, protein: 125, carbs: 226, fat: 105, sodium: 3130, note: "A very clean first half (2 eggs with tomato on everything-seasoning sourdough, then a ground beef/mushroom/broccoli basmati rice bowl with coleslaw, sriracha and fat-free ranch built from the real labels), then a 12oz latte, a Darigold 25g-protein chocolate milk, and a cheeseburger with waffle fries and mayo late, plus a Diet Coke and an hour of light-moderate pickleball (~300 kcal burned). The burger plate pushed calories, fat and sodium over target, but protein landed at 125g, one of the better days. No weigh-in that morning" },
+    { date: "Oct 7", calories: 2173, protein: 132.3, carbs: 219, fat: 79.3, sodium: 3632, note: "Eggs and tomato on everything-seasoning toast with a regular Chobani strawberry cup, then the ground beef/mushroom/broccoli rice bowl again, a Darigold 25g-protein chocolate milk, some cantaloupe and pineapple, Earl Grey tea and 2 Diet Cokes, then brats after Wednesday trivia (assumed 2 brats on buns, quantity not confirmed). A very clean day until the late brats added ~1,840mg sodium, and protein still landed at 132g. Morning weigh-in was 181.2, down 1.4 lb from Oct 2" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
