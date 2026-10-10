@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 9, 2026</div>
+    <div class="updated">Updated Oct 10, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">181.2 lb</div>
-      <div class="sub">Last logged Oct 8, flat vs Oct 7. No weigh-in Oct 9 (home, different scale)</div>
+      <div class="sub">Last logged Oct 8. No weigh-ins Oct 9-10 (at the cabin, no scale), plans to weigh in at home tomorrow</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -431,17 +431,20 @@
     sodium: 2300,
   };
 
-  // Today (Oct 9) so far.
-  const todayMacros = { calories: 1290, protein: 41, carbs: 142, fat: 63, sodium: 2600 };
+  // Today (Oct 10) so far.
+  const todayMacros = { calories: 1655, protein: 97, carbs: 162, fat: 74.5, sodium: 2930 };
 
   const todayFoodLog = [
-    { time: "~lunch", item: "Culver's Spicy Crispy Chicken Sandwich (no pickle)", detail: "FatSecret/MyNetDiary listing for the current sandwich — ~680 kcal/32g protein/65g carb/33g fat/1,680mg sodium (an older ~490 kcal listing exists, check Culver's app if it matters)", cal: 680 },
-    { time: "~lunch", item: "Culver's regular crinkle cut fries", detail: "meal side, published ~360 kcal/5g protein/53g carb/14g fat/530mg sodium", cal: 360 },
-    { time: "~afternoon", item: "Chips & street corn dip (a little)", detail: "assumed ~1oz chips + ~3 tbsp dip — est. ~250 kcal/4g protein/24g carb/16g fat/350mg sodium", cal: 250 },
+    { time: "~breakfast", item: "Half a 'Prime Time' sandwich, no chips (Block North's Locker Room, Aitkin)", detail: "couldn't find this item's menu or numbers online; rough restaurant-sandwich estimate for a half — est. ~450 kcal/28g protein/35g carb/20g fat/1,000mg sodium", cal: 450 },
+    { time: "~lunch", item: "Trader Joe's rice (half a pack) with 2 eggs and sriracha", detail: "assumed a half pouch of TJ's steamed rice (~180 kcal) + 2 eggs (~145) + sriracha drizzle (~10) — est. ~335 kcal/16g protein/43g carb/10g fat/235mg sodium", cal: 335 },
+    { time: "~lunch", item: "Trader Joe's pork bun", detail: "140 kcal as you said; other macros estimated — ~6g protein/22g carb/3.5g fat/330mg sodium", cal: 140 },
+    { time: "~dinner", item: "Crisp & Green Chicken Bacon Ranch (blackened chicken thigh, bacon, avocado, ranch)", detail: "listed on their menu as a salad: 380 kcal/22g protein/12g carb; fat ~28g per a tracker, sodium estimated ~1,000mg", cal: 380 },
+    { time: "~dinner", item: "Crisp & Green Coco Cloud smoothie", detail: "menu: 350 kcal/25g protein/50g carb; fat (~12g) and sodium (~200mg) estimated", cal: 350 },
   ];
 
   const drinksExercise = [
-    { what: "Diet Coke (Culver's)", detail: "0 kcal, ~40mg sodium" },
+    { what: "Fresca", detail: "0 kcal, ~35mg sodium" },
+    { what: "A&W Zero Sugar Root Beer (x2)", detail: "0 kcal, ~130mg sodium total" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -525,6 +528,7 @@
     { date: "Oct 6", calories: 2378, protein: 125, carbs: 226, fat: 105, sodium: 3130, note: "A very clean first half (2 eggs with tomato on everything-seasoning sourdough, then a ground beef/mushroom/broccoli basmati rice bowl with coleslaw, sriracha and fat-free ranch built from the real labels), then a 12oz latte, a Darigold 25g-protein chocolate milk, and a cheeseburger with waffle fries and mayo late, plus a Diet Coke and an hour of light-moderate pickleball (~300 kcal burned). The burger plate pushed calories, fat and sodium over target, but protein landed at 125g, one of the better days. No weigh-in that morning" },
     { date: "Oct 7", calories: 2173, protein: 132.3, carbs: 219, fat: 79.3, sodium: 3632, note: "Eggs and tomato on everything-seasoning toast with a regular Chobani strawberry cup, then the ground beef/mushroom/broccoli rice bowl again, a Darigold 25g-protein chocolate milk, some cantaloupe and pineapple, Earl Grey tea and 2 Diet Cokes, then brats after Wednesday trivia (assumed 2 brats on buns, quantity not confirmed). A very clean day until the late brats added ~1,840mg sodium, and protein still landed at 132g. Morning weigh-in was 181.2, down 1.4 lb from Oct 2" },
     { date: "Oct 8", calories: 1303, protein: 96, carbs: 120, fat: 51.4, sodium: 2565, note: "A brat on a bun with a ranch drizzle and Taco Bell sauce (a random lunch), Barebells Cookies & Cream and Chocolate Dough bars, the ground beef/mushroom/broccoli rice bowl again, a Diet Coke and ~32oz of water. Sodium finished just over target (~2,565mg, the brat was ~1,330mg of that) but calories and fat stayed well under, and protein landed at 96g. Morning weigh-in was 181.2, flat vs Oct 7 even after the late trivia brats the night before" },
+    { date: "Oct 9", calories: 1290, protein: 41, carbs: 142, fat: 63, sodium: 2600, note: "Home for the weekend, so no weigh-in on his usual scale. A Culver's Spicy Crispy Chicken Sandwich meal (no pickle) with crinkle fries and a Diet Coke, plus a little chips and street corn dip. This is a partial day: nothing else was reported after lunch (he was at the cabin that night, so a real dinner likely went unlogged), so treat the total as a floor. Sodium already ran over target from the sandwich and fries and protein was light at 41g" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
