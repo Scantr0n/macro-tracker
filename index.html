@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 11, 2026</div>
+    <div class="updated">Updated Oct 17, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">179.6 lb</div>
-      <div class="sub">Home scale, not directly comparable to the SJU scale (home reads lower by an uneven amount). Real progress shows once the SJU scale confirms it</div>
+      <div class="sub">Last logged Oct 11 on the home scale (not directly comparable to the SJU scale). No weigh-ins since, a weird week</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -432,18 +432,18 @@
     sodium: 2300,
   };
 
-  // Today (Oct 11) so far.
-  const todayMacros = { calories: 1130, protein: 53, carbs: 146, fat: 33, sodium: 2490 };
+  // Today (Oct 17) so far.
+  const todayMacros = { calories: 1520, protein: 56, carbs: 147, fat: 76.5, sodium: 3560 };
 
   const todayFoodLog = [
-    { time: "~afternoon", item: "Special combo pho (Noke, Eden Prairie), mostly noodles and meat, little broth", detail: "rice noodles, mixed beef and some meatballs, bean sprouts, jalapeños removed, broth mostly left — est. ~600 kcal/38g protein/75g carb/12g fat/1,000mg sodium (a full bowl with all the broth runs ~2,000mg+)", cal: 600 },
-    { time: "~afternoon", item: "Hoisin packet & spicy sauce on the pho", detail: "est. ~80 kcal/17g carb/0g fat/600mg sodium total", cal: 80 },
-    { time: "~afternoon", item: "3 pork egg rolls with dipping sauce", detail: "fried appetizer, 3 rolls ~390 kcal/15g protein/39g carb/21g fat/600mg sodium + sauce ~60 kcal/15g carb/200mg sodium", cal: 450 },
+    { time: "~morning", item: "Hazelnut K-cup coffee with coconut milk creamer", detail: "~1.5 tbsp of the new coconut milk creamer (15-20 kcal/tbsp) — est. ~30 kcal/2g carb/2.5g fat/10mg sodium", cal: 30 },
+    { time: "~evening", item: "Taco Bell box: Crunchwrap Supreme, Doritos Locos Taco, chips & cheese dip (a little of the dip)", detail: "est. ~930 kcal/27g protein/110g carb/42g fat/1,960mg sodium — Crunchwrap ~530, Doritos Locos Taco ~170, chips plus a little cheese ~230", cal: 930 },
+    { time: "~evening", item: "Taco Bell steak dipping burritos (no crunch topping, a little sauce)", detail: "based on the Steak Cheesy Dipping Burritos listing (~480 kcal/29g protein/35g carb/25g fat/1,370mg sodium per order of 2) plus a little sauce — est. ~560 kcal/29g protein/35g carb/32g fat/1,450mg sodium. Couldn't find this exact new version's numbers", cal: 560 },
   ];
 
   const drinksExercise = [
-    { what: "A&W Zero Sugar Root Beer", detail: "0 kcal, ~65mg sodium" },
-    { what: "Zero Sugar Orange Fanta", detail: "0 kcal, ~25mg sodium" },
+    { what: "Diet Coke (x2)", detail: "0 kcal, ~80mg sodium total" },
+    { what: "Pepsi Zero (medium)", detail: "0 kcal, ~60mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -529,6 +529,12 @@
     { date: "Oct 8", calories: 1303, protein: 96, carbs: 120, fat: 51.4, sodium: 2565, note: "A brat on a bun with a ranch drizzle and Taco Bell sauce (a random lunch), Barebells Cookies & Cream and Chocolate Dough bars, the ground beef/mushroom/broccoli rice bowl again, a Diet Coke and ~32oz of water. Sodium finished just over target (~2,565mg, the brat was ~1,330mg of that) but calories and fat stayed well under, and protein landed at 96g. Morning weigh-in was 181.2, flat vs Oct 7 even after the late trivia brats the night before" },
     { date: "Oct 9", calories: 1290, protein: 41, carbs: 142, fat: 63, sodium: 2600, note: "Home for the weekend, so no weigh-in on his usual scale. A Culver's Spicy Crispy Chicken Sandwich meal (no pickle) with crinkle fries and a Diet Coke, plus a little chips and street corn dip. This is a partial day: nothing else was reported after lunch (he was at the cabin that night, so a real dinner likely went unlogged), so treat the total as a floor. Sodium already ran over target from the sandwich and fries and protein was light at 41g" },
     { date: "Oct 10", calories: 1655, protein: 97, carbs: 162, fat: 74.5, sodium: 2930, note: "At the cabin, no scale. Half a 'Prime Time' sandwich from Block North's Locker Room for breakfast (rough estimate, couldn't find its numbers), then half a Trader Joe's rice pack with 2 eggs, sriracha and a Trader Joe's pork bun for lunch, and a Crisp & Green Chicken Bacon Ranch with a Coco Cloud smoothie for dinner (menu numbers), plus a Fresca and 2 A&W Zero Sugar root beers. Called it an early night on eating. Calories came in comfortably under target and protein was solid at 97g, sodium ran a little over (~2,930mg). The next morning's weigh-in was 179.6 on the home scale" },
+    { date: "Oct 11", calories: 1130, protein: 53, carbs: 146, fat: 33, sodium: 2490, note: "Back at his parents' house with a 179.6 home-scale weigh-in (not directly comparable to the SJU scale). A big, very good Noke pho meal in Eden Prairie: the special combo pho (mostly noodles and meat, most of the broth left) with a hoisin packet and spicy sauce, plus 3 pork egg rolls with sauce, and an A&W Zero Sugar Root Beer and a Zero Sugar Orange Fanta. Calories stayed well under target, but sodium ran a bit over (~2,490mg) from the sauces and egg rolls, and protein landed light at 53g" },
+    { date: "Oct 12", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day (a weird week by his own account)." },
+    { date: "Oct 13", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 14", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 15", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 16", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
