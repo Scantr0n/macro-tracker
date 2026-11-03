@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Oct 17, 2026</div>
+    <div class="updated">Updated Nov 3, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">179.6 lb</div>
-      <div class="sub">Last logged Oct 11 on the home scale (not directly comparable to the SJU scale). No weigh-ins since, a weird week</div>
+      <div class="sub">Last logged Oct 11 on the home scale. No weigh-ins for about 3 weeks (travel), getting back on track now</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -432,18 +432,16 @@
     sodium: 2300,
   };
 
-  // Today (Oct 17) so far.
-  const todayMacros = { calories: 1520, protein: 56, carbs: 147, fat: 76.5, sodium: 3560 };
+  // Today (Nov 3) so far.
+  const todayMacros = { calories: 510, protein: 32, carbs: 50, fat: 22, sodium: 890 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Hazelnut K-cup coffee with coconut milk creamer", detail: "~1.5 tbsp of the new coconut milk creamer (15-20 kcal/tbsp) — est. ~30 kcal/2g carb/2.5g fat/10mg sodium", cal: 30 },
-    { time: "~evening", item: "Taco Bell box: Crunchwrap Supreme, Doritos Locos Taco, chips & cheese dip (a little of the dip)", detail: "est. ~930 kcal/27g protein/110g carb/42g fat/1,960mg sodium — Crunchwrap ~530, Doritos Locos Taco ~170, chips plus a little cheese ~230", cal: 930 },
-    { time: "~evening", item: "Taco Bell steak dipping burritos (no crunch topping, a little sauce)", detail: "based on the Steak Cheesy Dipping Burritos listing (~480 kcal/29g protein/35g carb/25g fat/1,370mg sodium per order of 2) plus a little sauce — est. ~560 kcal/29g protein/35g carb/32g fat/1,450mg sodium. Couldn't find this exact new version's numbers", cal: 560 },
+    { time: "~morning", item: "Frozen breakfast burrito", detail: "brand not confirmed yet (photo coming), typical frozen breakfast burrito — est. ~300 kcal/12g protein/33g carb/13g fat/600mg sodium, will update from the label", cal: 300 },
+    { time: "~afternoon", item: "Barebells Salty Peanut bar", detail: "est. ~210 kcal/20g protein/17g carb/9g fat/230mg sodium", cal: 210 },
   ];
 
   const drinksExercise = [
-    { what: "Diet Coke (x2)", detail: "0 kcal, ~80mg sodium total" },
-    { what: "Pepsi Zero (medium)", detail: "0 kcal, ~60mg sodium" },
+    { what: "Mountain Dew Baja Blast Zero Sugar", detail: "0 kcal, ~60mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -535,6 +533,8 @@
     { date: "Oct 14", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 15", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Oct 16", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Oct 17", calories: 1520, protein: 56, carbs: 147, fat: 76.5, sodium: 3560, note: "A light coffee (hazelnut K-cup with a little coconut milk creamer), then a Taco Bell box (Crunchwrap Supreme, Doritos Locos Taco, chips with a little cheese dip), steak dipping burritos with a little sauce and no crunch topping, 2 Diet Cokes and a medium Pepsi Zero. Calories came in under target, but sodium ran well over (~3,560mg) and protein was light at 56g. No weigh-in" },
+    { date: "Oct 18 to Nov 2", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. Two-plus weeks of heavy travel and a disrupted routine, no weigh-ins and nothing captured. Treat the weight and food data as a gap here, not as a trend." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
