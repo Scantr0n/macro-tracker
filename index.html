@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 4, 2026</div>
+    <div class="updated">Updated Nov 6, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">180.4 lb</div>
-      <div class="sub">New starting weight, back on the SJU scale. Down 0.8 lb from the last SJU reading (181.2, Oct 8) through a travel gap</div>
+      <div class="sub">Last logged Nov 4 (new starting weight, SJU scale). No weigh-in since, next checkpoint is Wed Nov 11</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -433,13 +433,20 @@
     sodium: 2300,
   };
 
-  // Today (Nov 4) so far.
-  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
+  // Today (Nov 6) so far.
+  const todayMacros = { calories: 1740, protein: 64, carbs: 154, fat: 97.5, sodium: 3555 };
 
   const todayFoodLog = [
+    { time: "~morning", item: "El Monterey Signature egg, sausage, potato & cheese burrito", detail: "label numbers, 1 burrito (128g): 290 kcal/11g protein/34g carb/12g fat/500mg sodium", cal: 290 },
+    { time: "~morning", item: "Asian sriracha (~1 tbsp) on the burrito", detail: "est. ~15 kcal/3g carb/240mg sodium", cal: 15 },
+    { time: "~afternoon", item: "Kind dark chocolate sea salt mini bar", detail: "90 kcal as you said — est. ~2g protein/8g carb/6.5g fat/35mg sodium", cal: 90 },
+    { time: "~dinner", item: "KFC chicken sandwich (no pickles), fries, 5 nuggets, KFC sauce & Comeback sauce (all used)", detail: "sandwich 650 kcal/34g protein/50g carb/35g fat/1,260mg sodium (published); regular fries 320 kcal/4g protein/40g carb/15g fat/540mg sodium (published); 5 nuggets ~190 kcal/13g protein/11g carb/11g fat/480mg sodium (my estimate, no source); sauces ~185 kcal/8g carb/18g fat/380mg sodium (KFC Sauce is ~90 kcal per cup, Comeback is my guess) — total ~1,345 kcal/51g protein/109g carb/79g fat/2,660mg sodium. Wasn't sure which combo number or the fry size you got", cal: 1345 },
   ];
 
   const drinksExercise = [
+    { what: "Mountain Dew Baja Blast Zero Sugar", detail: "0 kcal, ~60mg sodium" },
+    { what: "Pepsi Zero (medium, KFC)", detail: "0 kcal, ~60mg sodium" },
+    { what: "Water", detail: "a little" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -534,6 +541,8 @@
     { date: "Oct 17", calories: 1520, protein: 56, carbs: 147, fat: 76.5, sodium: 3560, note: "A light coffee (hazelnut K-cup with a little coconut milk creamer), then a Taco Bell box (Crunchwrap Supreme, Doritos Locos Taco, chips with a little cheese dip), steak dipping burritos with a little sauce and no crunch topping, 2 Diet Cokes and a medium Pepsi Zero. Calories came in under target, but sodium ran well over (~3,560mg) and protein was light at 56g. No weigh-in" },
     { date: "Oct 18 to Nov 2", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. Two-plus weeks of heavy travel and a disrupted routine, no weigh-ins and nothing captured. Treat the weight and food data as a gap here, not as a trend." },
     { date: "Nov 3", calories: 1495, protein: 88.7, carbs: 188, fat: 44, sodium: 1955, note: "First real tracking day after about three weeks of travel. An El Monterey egg, sausage and potato burrito (label numbers) and a Barebells Salty Peanut bar early, then a protein penne bowl with air fried chicken, Stonewall vodka sauce, parmesan and two slices of sourdough, a Starbucks Mocha Frappuccino and honey pineapple, plus a zero sugar Baja Blast. Calories and sodium both came in under target and protein reached 89g; carbs ran a bit over (188g) from the penne, frap and pineapple. Also ~30 min of 1v1 basketball (remembered the next day, ~300 kcal estimated burn), which puts the net closer to ~1,200 kcal. Next morning's weigh-in was 180.4 on the SJU scale" },
+    { date: "Nov 4", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. Weigh-in was 180.4 on the SJU scale, his new starting weight." },
+    { date: "Nov 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
