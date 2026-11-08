@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 7, 2026</div>
+    <div class="updated">Updated Nov 8, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">184.0 lb</div>
-      <div class="sub">Scale not stated, up 3.6 lb vs the 180.4 SJU baseline after a ~3,585mg sodium day. Likely water, the real check is Wed Nov 11 on the SJU scale</div>
+      <div class="sub">Last logged Nov 7 (scale unstated), no weigh-in Nov 8. Likely water after high-sodium days, real check is Wed Nov 11 on the SJU scale</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -434,17 +434,14 @@
     sodium: 2300,
   };
 
-  // Today (Nov 7) so far.
-  const todayMacros = { calories: 650, protein: 73.5, carbs: 41, fat: 23.5, sodium: 1165 };
+  // Today (Nov 8) so far.
+  const todayMacros = { calories: 35, protein: 0, carbs: 5, fat: 1.5, sodium: 45 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Daily coffee: Dunkin' Original Blend K-cup + ~2 tbsp Forager Project Cinnamon Vanilla creamer", detail: "creamer per label (2 tbsp): 30 kcal/5g carb/3g sugar/1.5g fat/40mg sodium; K-cup ~5 kcal/5mg sodium — total ~35 kcal", cal: 35 },
-    { time: "~afternoon", item: "KIND Minis: Dark Chocolate Nuts & Sea Salt + Caramel Almond & Sea Salt (one of each)", detail: "per KIND label: dark 90 kcal/3g protein/8g carb/7g fat/70mg sodium + caramel almond 90 kcal/3g protein/8g carb/8g fat/60mg sodium — total 180 kcal/6g protein/16g carb/15g fat/130mg sodium", cal: 180 },
-    { time: "~dinner", item: "2 air fried chicken breasts over iceberg/romaine + purple cabbage salad, fat-free ranch & Heartbeat pineapple habanero sauce", detail: "chicken ~215-230g cooked (the 2 breasts from Nov 3, eaten day 4) ~340 kcal/65g protein/7g fat/300mg sodium; salad ~30 kcal/6g carb; ~3 tbsp fat-free ranch ~45 kcal/9g carb/480mg sodium; ~1.5 tbsp habanero sauce ~20 kcal/5g carb/180mg sodium — total ~435 kcal/67.5g protein/20g carb/7g fat/990mg sodium (chicken weight is a photo estimate, range +/- 60 kcal)", cal: 435 },
+    { time: "~morning", item: "Daily coffee: K-cup + ~2 tbsp Forager Project Cinnamon Vanilla creamer", detail: "creamer per label (2 tbsp): 30 kcal/5g carb/1.5g fat/40mg sodium; K-cup ~5 kcal — total ~35 kcal", cal: 35 },
   ];
 
   const drinksExercise = [
-    { what: "Doubles pickleball (really moderate)", detail: "~1 hr, est. ~200 kcal burned (mostly standing and light movement)" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -542,6 +539,7 @@
     { date: "Nov 4", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. Weigh-in was 180.4 on the SJU scale, his new starting weight." },
     { date: "Nov 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Nov 6", calories: 1740, protein: 64, carbs: 154, fat: 97.5, sodium: 3585, note: "An El Monterey egg/sausage/potato burrito with Asian sriracha, a Kind dark chocolate mini bar, and an early KFC dinner (chicken sandwich no pickles, fries, 5 nuggets, KFC and Comeback sauces, all eaten) with a medium Pepsi Zero, plus a zero sugar Baja Blast and about 40 oz of water. Also his first real workout in a while: Day 1 Push (incline DB press 3x10 at 40 with a 14-rep last set, assisted dips 4x10, pec deck at 120, skull crushers at 20, tricep extension at 35, delt raises at 20) and a 1-mile treadmill run at 7.0 incline (~170 kcal on the machine), roughly 420 kcal burned total, so net around 1,320. Sodium ran well over target (~3,585mg, mostly KFC) and protein was light at 64g" },
+    { date: "Nov 7", calories: 2427, protein: 120, carbs: 219, fat: 64.5, sodium: 4205, note: "A very low first half (daily coffee, two KIND minis, then two air fried chicken breasts over salad with fat-free ranch and pineapple habanero, ~650 kcal and 73g protein by dinner, plus doubles pickleball, ~200 kcal burned) followed by a party that more than reversed it: 3 beers (a Summit EPA and two lagers), a couple of shots, a Tielke's Italian sub (492 kcal, ranch and habanero on it), a pack of 6 powdered mini donuts, a frozen breakfast burrito with hot sauce, and half a zero sugar Dr Pepper. The planned salmon burger never happened. Net after the pickleball was about 2,230, sodium ran way over (~4,200mg), and protein still reached 120g. Weigh-in that morning was 184.0, scale unstated" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
