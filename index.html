@@ -260,28 +260,28 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 8, 2026</div>
+    <div class="updated">Updated Nov 9, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">184.0 lb</div>
-      <div class="sub">Last logged Nov 7 (scale unstated), no weigh-in Nov 8. Likely water after high-sodium days, real check is Wed Nov 11 on the SJU scale</div>
+      <div class="value">181.8 lb</div>
+      <div class="sub">SJU scale, now weighed in one consistent spot. Up 1.4 vs the 180.4 baseline after three high-sodium days, likely water. Checkpoint is Wed Nov 11 (target 178.5)</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">31.0 lb</div>
+      <div class="value">33.2 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value">26.4</div>
+      <div class="value">26.1</div>
       <span class="pill warning">Overweight</span>
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">24.0 lb</div>
+      <div class="value">21.8 lb</div>
       <div class="sub">~180 lb by mid-Aug</div>
     </div>
   </section>
@@ -421,6 +421,7 @@
     { date: "2026-10-11", time: "~morning", weight: 179.6, note: "Measured on the home scale (back at his parents' house), logged raw with no offset applied. Not directly comparable to the SJU scale: the last home weigh-in (Sep 27, 177.2) read about 4 lb under the SJU scale, while this one reads about 1.6 lb under the last SJU weigh-in (181.2, Oct 8), so the gap is not a fixed number. Likely part real (a lighter Oct 9-10, no big sodium nights) and part scale difference. Treat it as its own home-scale data point and compare it to the next SJU reading rather than the old trend" },
     { date: "2026-11-04", time: "~morning", weight: 180.4, note: "Back on the SJU scale after about three weeks of travel with no weigh-ins. Compared fairly with the last SJU reading (181.2 on Oct 8) that is down 0.8 lb over four weeks of mostly untracked eating, so a decent baseline. Jack is calling this his new starting weight and aiming for 160 by winter break; a realistic pace at his 2,000 kcal target is about 1.5-2 lb a week" },
     { date: "2026-11-07", time: "~morning", weight: 184.0, note: "Up 3.6 lb vs the 180.4 SJU baseline (Nov 4). Which scale was not stated; the home scale usually reads lower, so if this was home the gap would be even larger, treat it as a check, not a trend. The most likely cause is water: Nov 6 closed at ~3,585mg sodium (KFC) plus a hard first workout back, and Nov 5 had no logged eating at all. The Wednesday Nov 11 SJU weigh-in is the real checkpoint (ladder target 178.5)" },
+    { date: "2026-11-09", time: "~morning", weight: 181.8, note: "On the SJU scale, now weighed in one consistent spot on the bathroom floor (the uneven floor was a likely cause of the earlier jumpy readings). Up 1.4 lb vs the 180.4 baseline (Nov 4) and down 2.2 lb vs the unstated-scale 184.0 (Nov 7). The last three days ran heavy on sodium (~3,590, ~4,200, ~4,040mg), so water is the likely driver. Not a checkpoint: that is Wednesday Nov 11 (ladder target 178.5). Jack says the scale may still not be exact, but consistent placement makes day to day changes meaningful" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -434,23 +435,13 @@
     sodium: 2300,
   };
 
-  // Today (Nov 8) so far.
-  const todayMacros = { calories: 1840, protein: 84, carbs: 156, fat: 103, sodium: 4040 };
+  // Today (Nov 9) so far.
+  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Daily coffee: K-cup + ~2 tbsp Forager Project Cinnamon Vanilla creamer", detail: "creamer per label (2 tbsp): 30 kcal/5g carb/1.5g fat/40mg sodium; K-cup ~5 kcal — total ~35 kcal", cal: 35 },
-    { time: "~midday", item: "El Monterey Signature egg, sausage, potato & cheese burrito + a little mango/pineapple habanero hot sauce", detail: "label numbers for 1 burrito: 290 kcal/11g protein/34g carb/12g fat/500mg sodium; sauce ~1 tbsp est. 15 kcal/3g carb/100mg sodium", cal: 305 },
-    { time: "~dinner", item: "Campus deli 6-inch sub: white bread, pepperoni, salami, 1 slice provolone, pesto, olive oil, balsamic, onions, banana peppers, lettuce", detail: "bread ~200 kcal, pepperoni/salami ~150, provolone ~70, pesto ~60, olive oil ~40, veg/balsamic ~15 — est. ~535 kcal/20g protein/46g carb/30.5g fat/1,555mg sodium (no label, rough build-up)", cal: 535 },
-    { time: "~dinner", item: "Old Dutch Bistro Blend chips (1 bag)", detail: "200 kcal per the bag as you said — est. ~2g protein/18g carb/13g fat/190mg sodium", cal: 200 },
-    { time: "~evening", item: "KIND Minis: Dark Chocolate Nuts & Sea Salt + Caramel Almond & Sea Salt (one of each)", detail: "per KIND label: 180 kcal/6g protein/16g carb/15g fat/130mg sodium combined", cal: 180 },
-    { time: "~late night", item: "2 Trident salmon burgers on 2 toasted sourdough slices with kimchi, Kewpie and sriracha", detail: "patties ~340 kcal/40g protein/6g carb/18g fat/760mg sodium (170 kcal and 20g protein each per the bag; fat/sodium estimated), sourdough 120 kcal/4g protein/24g carb/280mg sodium, sauces ~125 kcal (about 1 tbsp Kewpie ~100, kimchi ~8, sriracha ~5)/12g fat/~380mg sodium — total ~585 kcal/44g protein/34g carb/31g fat/1,420mg sodium", cal: 585 },
   ];
 
   const drinksExercise = [
-    { what: "Diet Dr Pepper (12 oz)", detail: "0 kcal, ~40mg sodium" },
-    { what: "Mountain Dew Baja Blast Zero Sugar", detail: "0 kcal, ~60mg sodium" },
-    { what: "Water", detail: "~32 oz" },
-    { what: "Day 2 lifting (Back & Biceps A)", detail: "everything except barbell rows, no cardio; est. ~200-250 kcal burned, numbers not relayed yet" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -549,6 +540,7 @@
     { date: "Nov 5", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Nov 6", calories: 1740, protein: 64, carbs: 154, fat: 97.5, sodium: 3585, note: "An El Monterey egg/sausage/potato burrito with Asian sriracha, a Kind dark chocolate mini bar, and an early KFC dinner (chicken sandwich no pickles, fries, 5 nuggets, KFC and Comeback sauces, all eaten) with a medium Pepsi Zero, plus a zero sugar Baja Blast and about 40 oz of water. Also his first real workout in a while: Day 1 Push (incline DB press 3x10 at 40 with a 14-rep last set, assisted dips 4x10, pec deck at 120, skull crushers at 20, tricep extension at 35, delt raises at 20) and a 1-mile treadmill run at 7.0 incline (~170 kcal on the machine), roughly 420 kcal burned total, so net around 1,320. Sodium ran well over target (~3,585mg, mostly KFC) and protein was light at 64g" },
     { date: "Nov 7", calories: 2427, protein: 120, carbs: 219, fat: 64.5, sodium: 4205, note: "A very low first half (daily coffee, two KIND minis, then two air fried chicken breasts over salad with fat-free ranch and pineapple habanero, ~650 kcal and 73g protein by dinner, plus doubles pickleball, ~200 kcal burned) followed by a party that more than reversed it: 3 beers (a Summit EPA and two lagers), a couple of shots, a Tielke's Italian sub (492 kcal, ranch and habanero on it), a pack of 6 powdered mini donuts, a frozen breakfast burrito with hot sauce, and half a zero sugar Dr Pepper. The planned salmon burger never happened. Net after the pickleball was about 2,230, sodium ran way over (~4,200mg), and protein still reached 120g. Weigh-in that morning was 184.0, scale unstated" },
+    { date: "Nov 8", calories: 1840, protein: 84, carbs: 156, fat: 103, sodium: 4040, note: "A prep-and-recover Sunday after the party: coffee, an El Monterey breakfast burrito with hot sauce, a 6-inch deli sub (pepperoni, salami, provolone, pesto) with Old Dutch chips, two KIND minis, and a late night of two Trident salmon burgers on toasted sourdough with kimchi, Kewpie and sriracha, plus about 32 oz of water and a Day 2 back and biceps workout (everything except barbell rows, ~225 kcal burned). Protein was 84g, the best of the weekend, and the net after the workout was about 1,615 kcal, but sodium ran far over (~4,040mg, the sub, chips, burrito and sauces) and fat was high at 103g" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
