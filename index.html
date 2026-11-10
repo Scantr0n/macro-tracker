@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 9, 2026</div>
+    <div class="updated">Updated Nov 10, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">181.8 lb</div>
-      <div class="sub">SJU scale, now weighed in one consistent spot. Up 1.4 vs the 180.4 baseline after three high-sodium days, likely water. Checkpoint is Wed Nov 11 (target 178.5)</div>
+      <div class="sub">Flat vs yesterday, same scale and spot. Four high-sodium days plus a hard first week of lifting, so water. First real checkpoint is Wed Nov 11 (target 178.5)</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -422,6 +422,7 @@
     { date: "2026-11-04", time: "~morning", weight: 180.4, note: "Back on the SJU scale after about three weeks of travel with no weigh-ins. Compared fairly with the last SJU reading (181.2 on Oct 8) that is down 0.8 lb over four weeks of mostly untracked eating, so a decent baseline. Jack is calling this his new starting weight and aiming for 160 by winter break; a realistic pace at his 2,000 kcal target is about 1.5-2 lb a week" },
     { date: "2026-11-07", time: "~morning", weight: 184.0, note: "Up 3.6 lb vs the 180.4 SJU baseline (Nov 4). Which scale was not stated; the home scale usually reads lower, so if this was home the gap would be even larger, treat it as a check, not a trend. The most likely cause is water: Nov 6 closed at ~3,585mg sodium (KFC) plus a hard first workout back, and Nov 5 had no logged eating at all. The Wednesday Nov 11 SJU weigh-in is the real checkpoint (ladder target 178.5)" },
     { date: "2026-11-09", time: "~morning", weight: 181.8, note: "On the SJU scale, now weighed in one consistent spot on the bathroom floor (the uneven floor was a likely cause of the earlier jumpy readings). Up 1.4 lb vs the 180.4 baseline (Nov 4) and down 2.2 lb vs the unstated-scale 184.0 (Nov 7). The last three days ran heavy on sodium (~3,590, ~4,200, ~4,040mg), so water is the likely driver. Not a checkpoint: that is Wednesday Nov 11 (ladder target 178.5). Jack says the scale may still not be exact, but consistent placement makes day to day changes meaningful" },
+    { date: "2026-11-10", time: "~morning", weight: 181.8, note: "Flat vs Nov 9 (181.8) on the same SJU scale and spot. Jack expected lower after a net deficit, but the last four days ran ~3,600, ~4,200, ~4,000 and ~3,375mg of sodium, plus a hard first week of lifting (muscle holds water) and a lot of carbs. A one day deficit is worth only about 0.1-0.3 lb of real fat, which is smaller than the 1-3 lb water swings, so a flat reading here is expected. The Wednesday Nov 11 checkpoint (target 178.5) is the first real read" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -435,21 +436,13 @@
     sodium: 2300,
   };
 
-  // Today (Nov 9) so far.
-  const todayMacros = { calories: 1701, protein: 101.8, carbs: 129, fat: 80, sodium: 3375 };
+  // Today (Nov 10) so far.
+  const todayMacros = { calories: 0, protein: 0, carbs: 0, fat: 0, sodium: 0 };
 
   const todayFoodLog = [
-    { time: "~afternoon", item: "2 air fried Trident salmon burgers over basmati and broccoli, with Kewpie, sriracha, a little kimchi and 1 seaweed snack pack", detail: "patties ~340 kcal/40g protein/6g carb/18g fat/760mg sodium (170 kcal and 20g protein each per the bag, fat/sodium estimated); half an Earthly Grains basmati pouch ~180 kcal/4g protein/40g carb (the pouch is 360 kcal total); about half a 10oz bag of broccoli ~42 kcal; ~2 tsp Kewpie ~70 kcal/8g fat; sriracha ~10 kcal/180mg sodium; kimchi ~8 kcal/150mg sodium; Kwang Chun Kim olive oil seaweed pack ~26 kcal (255 kcal per 10 packs) — total ~676 kcal/49.5g protein/58g carb/28g fat/1,235mg sodium. The matching second half of rice and broccoli is boxed up for later", cal: 676 },
-    { time: "~evening", item: "Crab rangoon dip (~2 servings) with pretzel chips (~1.5 servings)", detail: "Aldi Park Street Deli dip: older listings say ~200 kcal/13g fat/440mg sodium per 1/3 cup, so ~2 servings ~400 kcal/8g protein/16g carb/26g fat/880mg sodium; pretzel chips ~165 kcal/3g protein/34g carb/390mg sodium — total ~565 kcal/11g protein/50g carb/27g fat/1,270mg sodium (serving sizes are estimates, range roughly 480-650 kcal)", cal: 565 },
-    { time: "~night", item: "2 Trident salmon burgers (air fried)", detail: "170 kcal and 20g protein each per the bag — ~340 kcal/40g protein/6g carb/18g fat/760mg sodium (fat/sodium estimated); sides not reported yet", cal: 340 },
-    { time: "~night", item: "True Fruit chocolate covered strawberries (~4 pieces)", detail: "about 90 kcal per 3 pieces per the box, so ~4 pieces — est. ~120 kcal/1g protein/15g carb/7g fat/10mg sodium", cal: 120 },
   ];
 
   const drinksExercise = [
-    { what: "Mountain Dew Baja Blast Zero Sugar", detail: "0 kcal, ~60mg sodium" },
-    { what: "Water", detail: "~32 oz total" },
-    { what: "Summit Diet Cola (Aldi)", detail: "0 kcal, ~40mg sodium" },
-    { what: "Spikeball", detail: "~30 min, about 3 games to 21, est. ~200 kcal burned (basketball may follow tonight, not logged yet)" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -549,6 +542,7 @@
     { date: "Nov 6", calories: 1740, protein: 64, carbs: 154, fat: 97.5, sodium: 3585, note: "An El Monterey egg/sausage/potato burrito with Asian sriracha, a Kind dark chocolate mini bar, and an early KFC dinner (chicken sandwich no pickles, fries, 5 nuggets, KFC and Comeback sauces, all eaten) with a medium Pepsi Zero, plus a zero sugar Baja Blast and about 40 oz of water. Also his first real workout in a while: Day 1 Push (incline DB press 3x10 at 40 with a 14-rep last set, assisted dips 4x10, pec deck at 120, skull crushers at 20, tricep extension at 35, delt raises at 20) and a 1-mile treadmill run at 7.0 incline (~170 kcal on the machine), roughly 420 kcal burned total, so net around 1,320. Sodium ran well over target (~3,585mg, mostly KFC) and protein was light at 64g" },
     { date: "Nov 7", calories: 2427, protein: 120, carbs: 219, fat: 64.5, sodium: 4205, note: "A very low first half (daily coffee, two KIND minis, then two air fried chicken breasts over salad with fat-free ranch and pineapple habanero, ~650 kcal and 73g protein by dinner, plus doubles pickleball, ~200 kcal burned) followed by a party that more than reversed it: 3 beers (a Summit EPA and two lagers), a couple of shots, a Tielke's Italian sub (492 kcal, ranch and habanero on it), a pack of 6 powdered mini donuts, a frozen breakfast burrito with hot sauce, and half a zero sugar Dr Pepper. The planned salmon burger never happened. Net after the pickleball was about 2,230, sodium ran way over (~4,200mg), and protein still reached 120g. Weigh-in that morning was 184.0, scale unstated" },
     { date: "Nov 8", calories: 1840, protein: 84, carbs: 156, fat: 103, sodium: 4040, note: "A prep-and-recover Sunday after the party: coffee, an El Monterey breakfast burrito with hot sauce, a 6-inch deli sub (pepperoni, salami, provolone, pesto) with Old Dutch chips, two KIND minis, and a late night of two Trident salmon burgers on toasted sourdough with kimchi, Kewpie and sriracha, plus about 32 oz of water and a Day 2 back and biceps workout (everything except barbell rows, ~225 kcal burned). Protein was 84g, the best of the weekend, and the net after the workout was about 1,615 kcal, but sodium ran far over (~4,040mg, the sub, chips, burrito and sauces) and fat was high at 103g" },
+    { date: "Nov 9", calories: 1701, protein: 101.8, carbs: 129, fat: 80, sodium: 3375, note: "Weigh-in 181.8 on the SJU scale in his new consistent spot. A salmon burger bowl lunch (2 Trident patties, basmati, broccoli, Kewpie, sriracha, kimchi, a seaweed pack), a Target and Aldi run, then crab rangoon dip with pretzel chips, 2 more salmon burgers for dinner, True Fruit chocolate covered strawberries and a diet cola, plus about 32 oz of water and 30 min of Spikeball (~200 kcal burned). Basketball may have followed that night but was never quantified, so it is not counted. Protein reached 102g, calories were comfortably under target, but sodium ran about 1,000mg over (~3,375mg), mostly the dip and the salmon patties" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
