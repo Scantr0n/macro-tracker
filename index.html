@@ -260,14 +260,14 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 10, 2026</div>
+    <div class="updated">Updated Nov 13, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
       <div class="value">181.8 lb</div>
-      <div class="sub">Flat vs yesterday, same scale and spot. Four high-sodium days plus a hard first week of lifting, so water. First real checkpoint is Wed Nov 11 (target 178.5)</div>
+      <div class="sub">Last known weight, from Nov 10 (SJU scale, same spot). No weigh-in Nov 11 to 13, so the Wed Nov 11 checkpoint (target 178.5) has no reading yet; the next weigh-in is the real read</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
@@ -436,19 +436,20 @@
     sodium: 2300,
   };
 
-  // Today (Nov 10) so far.
-  const todayMacros = { calories: 1505, protein: 60, carbs: 200, fat: 50, sodium: 3380 };
+  // Today (Nov 13) so far.
+  const todayMacros = { calories: 1630, protein: 63, carbs: 206, fat: 64, sodium: 3120 };
 
   const todayFoodLog = [
-    { time: "~morning", item: "Daily coffee: Dunkin' Original Blend K-cup + ~2 tbsp Forager Project Cinnamon Vanilla creamer", detail: "per label ~35 kcal/5g carb/1.5g fat/45mg sodium", cal: 35 },
-    { time: "~lunch", item: "Mapo tofu (about 1/7 of the pot: 1 lb 93/7 beef, firm tofu, both LKK mapo tofu packets)", detail: "estimate ~250 kcal/24g protein/14g carb/12g fat/~850mg sodium; the sauce packets carry most of the sodium and the packet label has not been checked yet", cal: 250 },
-    { time: "~lunch", item: "1/3 of an Earthly Grains basmati pouch", detail: "per pouch label (360 kcal total) ~120 kcal/3g protein/26g carb/2g fat/0mg sodium", cal: 120 },
-    { time: "~afternoon", item: "Aldi diet cola", detail: "0 kcal, ~30mg sodium", cal: 0 },
-    { time: "~dinner", item: "Ramen bowl from Ippin Ramen (Waite Park), full bowl", detail: "no published nutrition; restaurant ramen estimate ~800 kcal/30g protein/95g carb/30g fat/~2,400mg sodium (assumes some of the broth was drunk; sodium could be 1,800-3,000mg, calories 650-950 depending on the ramen type)", cal: 800 },
-    { time: "~dinner", item: "Regular boba milk tea from Ippin Ramen", detail: "estimate ~300 kcal/3g protein/60g carb/5g fat/~60mg sodium (~35-45g sugar, regular sweetness with tapioca)", cal: 300 },
+    { time: "~morning", item: "El Monterey Signature egg, sausage, potato & cheese burrito (frozen) + a little mango habanero hot sauce", detail: "label numbers for 1 burrito (128g): 290 kcal/11g protein/34g carb/12g fat/500mg sodium; sauce ~1 tbsp est. 15 kcal/3g carb/100mg sodium. Brand assumed from his usual frozen burrito", cal: 305 },
+    { time: "~midday", item: "Senor Rico rice pudding cup (3.75 oz)", detail: "per the Aldi label: 130 kcal/3g protein/24g carb/3g fat/45mg sodium", cal: 130 },
+    { time: "~dinner", item: "Lian Qin \"Qin Dynasty\" combo: Mongolian chicken", detail: "no published nutrition found for the restaurant; estimate for a plate-size entree portion ~300 kcal/22g protein/18g carb/15g fat/~900mg sodium (sweet soy based sauce carries most of the sodium)", cal: 300 },
+    { time: "~dinner", item: "Lian Qin combo: mango spicy chicken", detail: "estimate, modeled on a battered sweet-chili style entree like Panda Express SweetFire chicken: ~380 kcal/15g protein/45g carb/16g fat/~500mg sodium", cal: 380 },
+    { time: "~dinner", item: "Lian Qin combo: half fried rice, half noodles", detail: "estimate from Panda Express side numbers (fried rice ~520 kcal/850mg sodium, chow mein ~510 kcal/980mg sodium per full side), half of each: ~515 kcal/12g protein/82g carb/18g fat/~915mg sodium", cal: 515 },
   ];
 
   const drinksExercise = [
+    { what: "Diet Coke", detail: "0 kcal, ~40mg sodium" },
+    { what: "Diet Pepsi, medium (x2)", detail: "0 kcal, ~120mg sodium total (fountain size estimate)" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -549,6 +550,9 @@
     { date: "Nov 7", calories: 2427, protein: 120, carbs: 219, fat: 64.5, sodium: 4205, note: "A very low first half (daily coffee, two KIND minis, then two air fried chicken breasts over salad with fat-free ranch and pineapple habanero, ~650 kcal and 73g protein by dinner, plus doubles pickleball, ~200 kcal burned) followed by a party that more than reversed it: 3 beers (a Summit EPA and two lagers), a couple of shots, a Tielke's Italian sub (492 kcal, ranch and habanero on it), a pack of 6 powdered mini donuts, a frozen breakfast burrito with hot sauce, and half a zero sugar Dr Pepper. The planned salmon burger never happened. Net after the pickleball was about 2,230, sodium ran way over (~4,200mg), and protein still reached 120g. Weigh-in that morning was 184.0, scale unstated" },
     { date: "Nov 8", calories: 1840, protein: 84, carbs: 156, fat: 103, sodium: 4040, note: "A prep-and-recover Sunday after the party: coffee, an El Monterey breakfast burrito with hot sauce, a 6-inch deli sub (pepperoni, salami, provolone, pesto) with Old Dutch chips, two KIND minis, and a late night of two Trident salmon burgers on toasted sourdough with kimchi, Kewpie and sriracha, plus about 32 oz of water and a Day 2 back and biceps workout (everything except barbell rows, ~225 kcal burned). Protein was 84g, the best of the weekend, and the net after the workout was about 1,615 kcal, but sodium ran far over (~4,040mg, the sub, chips, burrito and sauces) and fat was high at 103g" },
     { date: "Nov 9", calories: 1701, protein: 101.8, carbs: 129, fat: 80, sodium: 3375, note: "Weigh-in 181.8 on the SJU scale in his new consistent spot. A salmon burger bowl lunch (2 Trident patties, basmati, broccoli, Kewpie, sriracha, kimchi, a seaweed pack), a Target and Aldi run, then crab rangoon dip with pretzel chips, 2 more salmon burgers for dinner, True Fruit chocolate covered strawberries and a diet cola, plus about 32 oz of water and 30 min of Spikeball (~200 kcal burned). Basketball may have followed that night but was never quantified, so it is not counted. Protein reached 102g, calories were comfortably under target, but sodium ran about 1,000mg over (~3,375mg), mostly the dip and the salmon patties" },
+    { date: "Nov 10", calories: 1505, protein: 60, carbs: 200, fat: 50, sodium: 3380, note: "Weigh-in 181.8 on the SJU scale, flat vs Nov 9. The daily coffee, a mapo tofu lunch (about 1/7 of the pot) with a third of a basmati pouch and an Aldi diet cola, then a full ramen bowl and a regular boba milk tea at Ippin Ramen in Waite Park. Calories came in under target, but protein was light at 60g, carbs ran over (~200g, the noodles and boba) and sodium ran about 1,100mg over (~3,380mg), mostly the ramen broth. Ramen and boba numbers are estimates, no published nutrition" },
+    { date: "Nov 11", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. No weigh-in, so the Wednesday checkpoint (target 178.5) has no reading." },
+    { date: "Nov 12", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
