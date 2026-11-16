@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 15, 2026</div>
+    <div class="updated">Updated Nov 16, 2026</div>
   </header>
 
   <section class="stats">
@@ -436,17 +436,16 @@
     sodium: 2300,
   };
 
-  // Today (Nov 15) so far.
-  const todayMacros = { calories: 830, protein: 55, carbs: 99, fat: 37, sodium: 2590 };
+  // Today (Nov 16) so far.
+  const todayMacros = { calories: 1950, protein: 102, carbs: 202, fat: 78, sodium: 2605 };
 
   const todayFoodLog = [
-    { time: "day", item: "Go-to meal 1: chicken tacos (1 thin chicken breast, air-fried, split across 2 zero-net-carb tortillas, Hawaiian zest crunch slaw, mango habanero)", detail: "same build as Nov 14: ~375 kcal/38g protein/47g carb (mostly fiber)/17g fat/~1,090mg sodium", cal: 375 },
-    { time: "day", item: "Ben's Original 90-second fried rice, half the pouch (~1 cup)", detail: "estimate from the usual label: ~200 kcal/4g protein/38g carb/3.5g fat/~640mg sodium per cup; send a label photo to firm it up", cal: 200 },
-    { time: "day", item: "Mapo tofu, 1 portion", detail: "brand not given, estimate ~220 kcal/13g protein/9g carb/15g fat/~850mg sodium; a label photo would tighten this", cal: 220 },
+    { time: "afternoon", item: "Raising Cane's: 6 naked chicken fingers, 1 Texas toast, fries with an extra fries swapped in for coleslaw, 1 Cane's sauce", detail: "estimates (Cane's doesn't publish naked-finger numbers): 6 naked fingers ~480 kcal/90g protein/12g fat/~1,500mg sodium; Texas toast ~150 kcal/4g protein/19g carb/6g fat/280mg; 2 fry portions ~780 kcal/8g protein/98g carb/38g fat/~460mg; Cane's sauce ~190 kcal/19g fat/330mg", cal: 1600 },
   ];
 
   const drinksExercise = [
-    { what: "Dunkin' K-Cup coffee with vanilla cinnamon creamer", detail: "~1 tbsp creamer est. 35 kcal/5g carb/1.5g fat/10mg sodium" },
+    { what: "2 coffees with creamer", detail: "~70 kcal/10g carb/3g fat" },
+    { what: "Medium sweet tea, Cane's", detail: "~280 kcal, ~70g sugar (est.)" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -552,6 +551,7 @@
     { date: "Nov 12", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Nov 13", calories: 1630, protein: 63, carbs: 206, fat: 64, sodium: 3120, note: "Frozen breakfast burrito with mango habanero sauce, an Aldi rice pudding cup, then a Lian Qin combo for dinner (Mongolian chicken, mango spicy chicken, half fried rice half noodles), plus a Diet Coke and two medium Diet Pepsis. Calories under target, but protein was light at 63g and carbs (~206g) and sodium (~3,120mg) ran over, almost all from the takeout combo. Restaurant numbers are estimates, no published nutrition. No weigh-in" },
     { date: "Nov 14", calories: 985, protein: 60, carbs: 121, fat: 41, sodium: 2325, note: "2 El Monterey breakfast burritos + the chicken tacos (now go-to meal 1) + Aldi diet cola. Light day, about 1,000 under target; protein low at 60g" },
+    { date: "Nov 15", calories: 830, protein: 55, carbs: 99, fat: 37, sodium: 2590, note: "Chicken tacos (go-to meal 1), half pouch of 90-second fried rice, a portion of mapo tofu, Dunkin K-Cup with vanilla cinnamon creamer. Light on calories, protein low (55g); fried rice and mapo tofu are estimates" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
