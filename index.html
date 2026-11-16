@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 14, 2026</div>
+    <div class="updated">Updated Nov 15, 2026</div>
   </header>
 
   <section class="stats">
@@ -436,17 +436,17 @@
     sodium: 2300,
   };
 
-  // Today (Nov 14) so far.
-  const todayMacros = { calories: 985, protein: 60, carbs: 121, fat: 41, sodium: 2325 };
+  // Today (Nov 15) so far.
+  const todayMacros = { calories: 830, protein: 55, carbs: 99, fat: 37, sodium: 2590 };
 
   const todayFoodLog = [
-    { time: "~6:45pm", item: "El Monterey Signature egg, sausage, potato & cheese burrito (frozen) + a little mango habanero hot sauce", detail: "same as Nov 13: label 290 kcal/11g protein/34g carb/12g fat/500mg sodium for 1 burrito; sauce ~1 tbsp est. 15 kcal/3g carb/100mg sodium. Jack said he may make a second one, then cook ground beef + chicken with mushrooms to use up the fridge (not logged until he confirms amounts)", cal: 305 },
-    { time: "~7:15pm", item: "Second El Monterey egg, sausage, potato & cheese burrito + a little mango habanero sauce", detail: "same label numbers as the first: 290 kcal/11g protein/34g carb/12g fat/500mg sodium, sauce ~15 kcal/100mg sodium. Batch cooking now: ground beef + mushrooms with stir-fry, and air-fried chicken (olive oil, salt, pepper, paprika, garlic powder) for tacos with the pineapple Hawaiian coleslaw later; log portions when eaten", cal: 305 },
-    { time: "~8:15pm", item: "Chicken tacos: 1 thin-sliced chicken breast (air-fried with olive oil, salt, pepper, paprika, garlic powder) split across 2 zero-net-carb flour tortillas, with Hawaiian zest crunch slaw and mango habanero hot sauce", detail: "estimates: chicken ~4.5 oz raw thin cut + ~1 tsp oil ~170 kcal/27g protein/7.5g fat/~270mg sodium with the seasoning; 2 zero-net-carb tortillas ~60 kcal each (Jack's number), ~10g protein/36g carb (mostly fiber)/5g fat/~600mg sodium together; ~1/2 cup pineapple slaw ~70 kcal/8g carb/4g fat/120mg sodium; sauce ~15 kcal/100mg sodium. Total ~375 kcal/38g protein/47g carb/17g fat/~1,090mg sodium", cal: 375 },
+    { time: "day", item: "Go-to meal 1: chicken tacos (1 thin chicken breast, air-fried, split across 2 zero-net-carb tortillas, Hawaiian zest crunch slaw, mango habanero)", detail: "same build as Nov 14: ~375 kcal/38g protein/47g carb (mostly fiber)/17g fat/~1,090mg sodium", cal: 375 },
+    { time: "day", item: "Ben's Original 90-second fried rice, half the pouch (~1 cup)", detail: "estimate from the usual label: ~200 kcal/4g protein/38g carb/3.5g fat/~640mg sodium per cup; send a label photo to firm it up", cal: 200 },
+    { time: "day", item: "Mapo tofu, 1 portion", detail: "brand not given, estimate ~220 kcal/13g protein/9g carb/15g fat/~850mg sodium; a label photo would tighten this", cal: 220 },
   ];
 
   const drinksExercise = [
-    { what: "Aldi diet cola", detail: "0 kcal, ~35mg sodium" },
+    { what: "Dunkin' K-Cup coffee with vanilla cinnamon creamer", detail: "~1 tbsp creamer est. 35 kcal/5g carb/1.5g fat/10mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -551,6 +551,7 @@
     { date: "Nov 11", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. No weigh-in, so the Wednesday checkpoint (target 178.5) has no reading." },
     { date: "Nov 12", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Nov 13", calories: 1630, protein: 63, carbs: 206, fat: 64, sodium: 3120, note: "Frozen breakfast burrito with mango habanero sauce, an Aldi rice pudding cup, then a Lian Qin combo for dinner (Mongolian chicken, mango spicy chicken, half fried rice half noodles), plus a Diet Coke and two medium Diet Pepsis. Calories under target, but protein was light at 63g and carbs (~206g) and sodium (~3,120mg) ran over, almost all from the takeout combo. Restaurant numbers are estimates, no published nutrition. No weigh-in" },
+    { date: "Nov 14", calories: 985, protein: 60, carbs: 121, fat: 41, sodium: 2325, note: "2 El Monterey breakfast burritos + the chicken tacos (now go-to meal 1) + Aldi diet cola. Light day, about 1,000 under target; protein low at 60g" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
