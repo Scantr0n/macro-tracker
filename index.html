@@ -260,18 +260,18 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 16, 2026</div>
+    <div class="updated">Updated Nov 21, 2026</div>
   </header>
 
   <section class="stats">
     <div class="stat">
       <div class="label">Current weight</div>
-      <div class="value">181.8 lb</div>
-      <div class="sub">Last known weight, from Nov 10 (SJU scale, same spot). No weigh-in Nov 11 to 13, so the Wed Nov 11 checkpoint (target 178.5) has no reading yet; the next weigh-in is the real read</div>
+      <div class="value">182.0 lb</div>
+      <div class="sub">Nov 21 morning, SJU scale, same spot. Up 0.2 lb vs Nov 10 and up 1.6 lb vs the 180.4 restart (Nov 4). No readings for the Nov 11 or Nov 18 checkpoints; next is Wed Nov 25 (target 175)</div>
     </div>
     <div class="stat">
       <div class="label">Lost since May 20</div>
-      <div class="value">33.2 lb</div>
+      <div class="value">33.0 lb</div>
       <div class="sub">from 215 lb</div>
     </div>
     <div class="stat">
@@ -281,8 +281,8 @@
     </div>
     <div class="stat">
       <div class="label">To goal (160)</div>
-      <div class="value">21.8 lb</div>
-      <div class="sub">~180 lb by mid-Aug</div>
+      <div class="value">22.0 lb</div>
+      <div class="sub">Realistic pace: about 167 to 170 by Dec 22</div>
     </div>
   </section>
 
@@ -423,6 +423,7 @@
     { date: "2026-11-07", time: "~morning", weight: 184.0, note: "Up 3.6 lb vs the 180.4 SJU baseline (Nov 4). Which scale was not stated; the home scale usually reads lower, so if this was home the gap would be even larger, treat it as a check, not a trend. The most likely cause is water: Nov 6 closed at ~3,585mg sodium (KFC) plus a hard first workout back, and Nov 5 had no logged eating at all. The Wednesday Nov 11 SJU weigh-in is the real checkpoint (ladder target 178.5)" },
     { date: "2026-11-09", time: "~morning", weight: 181.8, note: "On the SJU scale, now weighed in one consistent spot on the bathroom floor (the uneven floor was a likely cause of the earlier jumpy readings). Up 1.4 lb vs the 180.4 baseline (Nov 4) and down 2.2 lb vs the unstated-scale 184.0 (Nov 7). The last three days ran heavy on sodium (~3,590, ~4,200, ~4,040mg), so water is the likely driver. Not a checkpoint: that is Wednesday Nov 11 (ladder target 178.5). Jack says the scale may still not be exact, but consistent placement makes day to day changes meaningful" },
     { date: "2026-11-10", time: "~morning", weight: 181.8, note: "Flat vs Nov 9 (181.8) on the same SJU scale and spot. Jack expected lower after a net deficit, but the last four days ran ~3,600, ~4,200, ~4,000 and ~3,375mg of sodium, plus a hard first week of lifting (muscle holds water) and a lot of carbs. A one day deficit is worth only about 0.1-0.3 lb of real fat, which is smaller than the 1-3 lb water swings, so a flat reading here is expected. The Wednesday Nov 11 checkpoint (target 178.5) is the first real read" },
+    { date: "2026-11-21", time: "~morning", weight: 182.0, note: "SJU scale, same consistent spot. First weigh-in since Nov 10: no readings Nov 11 to 20, so the Nov 11 (178.5) and Nov 18 (176.5) checkpoints have none. Up 0.2 lb vs Nov 10 (181.8) and up 1.6 lb vs the 180.4 restart baseline (Nov 4). The eleven days between were mostly unlogged (Nov 17 partial, Nov 18 to 20 nothing) plus a big basketball day Nov 20, so read this as a fresh starting point, not a verdict. Next checkpoint is Wed Nov 25 (target 175)" },
   ];
 
   // 21 y/o, ~4-5 active days/week (pickleball, hockey, golf, basketball) though
@@ -436,16 +437,17 @@
     sodium: 2300,
   };
 
-  // Today (Nov 16) so far.
-  const todayMacros = { calories: 1950, protein: 102, carbs: 202, fat: 78, sodium: 2605 };
+  // Today (Nov 21) so far. Confirmed food only (coffee + brunch); the planned dinner below is NOT in these totals until Jack confirms it.
+  // With the planned dinner (2 eggs) the day would be ~1,005 kcal / 106g protein / 64g carb / 33g fat / ~2,255mg sodium.
+  const todayMacros = { calories: 645, protein: 68, carbs: 54, fat: 14, sodium: 1535 };
 
   const todayFoodLog = [
-    { time: "afternoon", item: "Raising Cane's: 6 naked chicken fingers, 1 Texas toast, fries with an extra fries swapped in for coleslaw, 1 Cane's sauce", detail: "estimates (Cane's doesn't publish naked-finger numbers): 6 naked fingers ~480 kcal/90g protein/12g fat/~1,500mg sodium; Texas toast ~150 kcal/4g protein/19g carb/6g fat/280mg; 2 fry portions ~780 kcal/8g protein/98g carb/38g fat/~460mg; Cane's sauce ~190 kcal/19g fat/330mg", cal: 1600 },
+    { time: "brunch", item: "Pan-cooked seasoned chicken breast (about 6 oz cooked, calorie-free olive oil spray), 2 large slices toasted sourdough, shaved parmesan (about 20 g), fat-free ranch (about 1 tbsp), pineapple habanero hot sauce (photo confirmed)", detail: "estimates: chicken ~280 kcal/52g protein/6g fat/~500mg (seasoning); sourdough 2 large slices ~240 kcal/9g protein/46g carb/2g fat/~480mg; parmesan ~80 kcal/7g protein/5g fat/~310mg; fat-free ranch ~15 kcal/3g carb/~135mg; hot sauce ~10 kcal/~100mg. Brunch total ~625 kcal, 68g protein, 52g carb, 13g fat, ~1,525mg sodium", cal: 625 },
+    { time: "dinner (planned, not confirmed)", item: "PLANNED, NOT CONFIRMED: last of the 4 servings of the 93/7 ground beef stir-fry mix, topped with 1 or 2 fried eggs (spray oil), maybe a little kimchi. Not counted in today's totals yet", detail: "estimate, no recipe numbers saved (go-to meal 2 is still TBD): 1 serving = 1/4 of the 1 lb batch, about 4 oz raw (about 3 oz cooked) beef plus mushrooms and stir-fry veg, ~210 kcal/26g protein/8g carb/9g fat/~400mg (sauce amount unknown); 2 fried eggs ~144 kcal/12g protein/1g carb/10g fat/~140mg; kimchi ~2 tbsp ~5 kcal/1g carb/~180mg. Total ~360 kcal, 38g protein, 10g carb, 19g fat, ~720mg sodium (1 egg instead: ~290 kcal, 32g protein). Food safety: if this is the batch cooked Nov 14 and it stayed in the fridge (not frozen), it is day 7, past the 3 to 4 day window for cooked meat", cal: 360 },
   ];
 
   const drinksExercise = [
-    { what: "2 coffees with creamer", detail: "~70 kcal/10g carb/3g fat" },
-    { what: "Medium sweet tea, Cane's", detail: "~280 kcal, ~70g sugar (est.)" },
+    { what: "SJU coffee, morning, with about 1 tbsp Forager cinnamon vanilla creamer", detail: "~20 kcal (creamer 15 kcal per tbsp per the label), ~2g carb, ~1g fat, ~10mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -552,6 +554,11 @@
     { date: "Nov 13", calories: 1630, protein: 63, carbs: 206, fat: 64, sodium: 3120, note: "Frozen breakfast burrito with mango habanero sauce, an Aldi rice pudding cup, then a Lian Qin combo for dinner (Mongolian chicken, mango spicy chicken, half fried rice half noodles), plus a Diet Coke and two medium Diet Pepsis. Calories under target, but protein was light at 63g and carbs (~206g) and sodium (~3,120mg) ran over, almost all from the takeout combo. Restaurant numbers are estimates, no published nutrition. No weigh-in" },
     { date: "Nov 14", calories: 985, protein: 60, carbs: 121, fat: 41, sodium: 2325, note: "2 El Monterey breakfast burritos + the chicken tacos (now go-to meal 1) + Aldi diet cola. Light day, about 1,000 under target; protein low at 60g" },
     { date: "Nov 15", calories: 830, protein: 55, carbs: 99, fat: 37, sodium: 2590, note: "Chicken tacos (go-to meal 1), half pouch of 90-second fried rice, a portion of mapo tofu, Dunkin K-Cup with vanilla cinnamon creamer. Light on calories, protein low (55g); fried rice and mapo tofu are estimates" },
+    { date: "Nov 16", calories: 1950, protein: 102, carbs: 202, fat: 78, sodium: 2605, note: "Raising Cane's day: 6 naked fingers, Texas toast, double fries instead of slaw, 1 Cane's sauce, a medium sweet tea, plus 2 coffees with creamer. Right at the calorie line, a bit over on sodium (about 300mg), protein about 100g." },
+    { date: "Nov 17", calories: 800, protein: 47, carbs: 80, fat: 32, sodium: 1770, note: "Partial day. A Sexton grilled chicken rice bowl with queso, corn, pico and a little guac, an Old Dutch chips bag and a KIND mini, plus a Diet Dr Pepper and water, all logged by the afternoon. Nothing came in after that, so treat this as a floor, not the full day. No weigh-in" },
+    { date: "Nov 18", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. No weigh-in, so the Wednesday Nov 18 checkpoint (target 176.5) has no reading." },
+    { date: "Nov 19", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
+    { date: "Nov 20", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. Jack played a lot of basketball (not quantified, so no burn is counted) and did not log food." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
@@ -586,6 +593,7 @@
   ];
 
   const recentLog = [
+    { when: "Nov 21, ~morning", what: "Weighed in: 182.0 lb on the SJU scale (up 0.2 lb vs Nov 10, up 1.6 lb vs the 180.4 Nov 4 restart; next checkpoint Wed Nov 25, target 175)" },
     { when: "Aug 25, ~morning", what: "Weighed in: 184.4 lb (up 0.6 lb from yesterday, still down from 184.6 two days ago — explainable by a heavy Aug 24)" },
     { when: "Aug 24, ~morning", what: "Weighed in: 183.8 lb (down 0.8 lb — continuing the clean-stretch payoff)" },
     { when: "Aug 23, ~morning", what: "Weighed in: 184.6 lb (down 1.6 lb — big drop, exactly the payoff from a clean Aug 22)" },
