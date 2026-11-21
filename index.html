@@ -437,17 +437,18 @@
     sodium: 2300,
   };
 
-  // Today (Nov 21) so far. Confirmed food only (coffee + brunch); the planned dinner below is NOT in these totals until Jack confirms it.
-  // With the planned dinner (2 eggs) the day would be ~1,005 kcal / 106g protein / 64g carb / 33g fat / ~2,255mg sodium.
-  const todayMacros = { calories: 645, protein: 68, carbs: 54, fat: 14, sodium: 1535 };
+  // Today (Nov 21) so far: coffee + brunch + the ~3:30pm beef stir-fry with 2 eggs (confirmed eaten at 3:44pm with a photo).
+  // Coffee 20/0/2/1/10 + brunch 625/68/52/13/1525 + stir-fry 395/39/18/19/590.
+  const todayMacros = { calories: 1040, protein: 107, carbs: 72, fat: 33, sodium: 2125 };
 
   const todayFoodLog = [
     { time: "brunch", item: "Pan-cooked seasoned chicken breast (about 6 oz cooked, calorie-free olive oil spray), 2 large slices toasted sourdough, shaved parmesan (about 20 g), fat-free ranch (about 1 tbsp), pineapple habanero hot sauce (photo confirmed)", detail: "estimates: chicken ~280 kcal/52g protein/6g fat/~500mg (seasoning); sourdough 2 large slices ~240 kcal/9g protein/46g carb/2g fat/~480mg; parmesan ~80 kcal/7g protein/5g fat/~310mg; fat-free ranch ~15 kcal/3g carb/~135mg; hot sauce ~10 kcal/~100mg. Brunch total ~625 kcal, 68g protein, 52g carb, 13g fat, ~1,525mg sodium", cal: 625 },
-    { time: "dinner (planned, not confirmed)", item: "PLANNED, NOT CONFIRMED: last of the 4 servings of the 93/7 ground beef stir-fry mix, topped with 1 or 2 fried eggs (spray oil), maybe a little kimchi. Not counted in today's totals yet", detail: "estimate, no recipe numbers saved (go-to meal 2 is still TBD): 1 serving = 1/4 of the 1 lb batch, about 4 oz raw (about 3 oz cooked) beef plus mushrooms and stir-fry veg, ~210 kcal/26g protein/8g carb/9g fat/~400mg (sauce amount unknown); 2 fried eggs ~144 kcal/12g protein/1g carb/10g fat/~140mg; kimchi ~2 tbsp ~5 kcal/1g carb/~180mg. Total ~360 kcal, 38g protein, 10g carb, 19g fat, ~720mg sodium (1 egg instead: ~290 kcal, 32g protein). Food safety: if this is the batch cooked Nov 14 and it stayed in the fridge (not frozen), it is day 7, past the 3 to 4 day window for cooked meat", cal: 360 },
+    { time: "about 3:30pm, late lunch", item: "Last of the 4 servings of the 93/7 ground beef stir-fry (ground beef, broccoli, peppers, carrots, mushrooms/olives, a few potato chunks) topped with 2 fried eggs (spray oil). No kimchi (none visible in the photo). Photo confirmed, eaten", detail: "estimate, no recipe numbers saved (go-to meal 2 is still TBD): 1 serving = 1/4 of the 1 lb batch, about 4 oz raw (about 3 oz cooked) beef plus mushrooms and stir-fry veg, ~210 kcal/26g protein/8g carb/9g fat/~400mg (sauce amount unknown); 2 fried eggs ~144 kcal/12g protein/1g carb/10g fat/~140mg; potato chunks were not in the earlier stir-fry estimate, added here at ~40 kcal/1g protein/9g carb/~50mg; the ~2 tbsp kimchi from the plan (~5 kcal/~180mg) is dropped since none was visible. Total ~395 kcal, 39g protein, 18g carb, 19g fat, ~590mg sodium. Food safety: the batch was cooked Nov 14 per the meals file and eaten Nov 21 (day 7); the usual fridge window for cooked meat is 3 to 4 days", cal: 395 },
   ];
 
   const drinksExercise = [
     { what: "SJU coffee, morning, with about 1 tbsp Forager cinnamon vanilla creamer", detail: "~20 kcal (creamer 15 kcal per tbsp per the label), ~2g carb, ~1g fat, ~10mg sodium" },
+    { what: "Water with the ~3:30pm stir-fry (amount not stated)", detail: "0 kcal" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
