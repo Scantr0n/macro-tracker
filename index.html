@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 21, 2026</div>
+    <div class="updated">Updated Nov 22, 2026</div>
   </header>
 
   <section class="stats">
@@ -437,19 +437,19 @@
     sodium: 2300,
   };
 
-  // Today (Nov 21) so far: coffee + brunch + the ~3:30pm beef stir-fry with 2 eggs and a little sriracha (confirmed eaten at 3:44pm with a photo) + a KIND bar at ~3:55pm.
-  // Coffee 20/0/2/1/10 + brunch 625/68/52/13/1525 + stir-fry 400/39/19/19/690 + KIND bar 180/6/16/15/140.
-  const todayMacros = { calories: 1225, protein: 113, carbs: 89, fat: 48, sodium: 2365 };
+  // Today (Nov 22) so far, dictated by Jack at ~5pm back home in Minnetonka: SJU coffee, 1 Chef Hak's Turkey Bolognese bowl with a little parmesan, 2 slices sourdough toast, 3 macaroons, a Zero Sugar Dr Pepper.
+  // Coffee 20/0/2/1/10 + bolognese 470/31/52/14/900 + parmesan 22/2/0/2/75 + sourdough 240/9/46/2/480 + macaroons 270/3/36/13/60 + Dr Pepper Zero 0/0/0/0/55.
+  const todayMacros = { calories: 1022, protein: 45, carbs: 136, fat: 32, sodium: 1580 };
 
   const todayFoodLog = [
-    { time: "brunch", item: "Pan-cooked seasoned chicken breast (about 6 oz cooked, calorie-free olive oil spray), 2 large slices toasted sourdough, shaved parmesan (about 20 g), fat-free ranch (about 1 tbsp), pineapple habanero hot sauce (photo confirmed)", detail: "estimates: chicken ~280 kcal/52g protein/6g fat/~500mg (seasoning); sourdough 2 large slices ~240 kcal/9g protein/46g carb/2g fat/~480mg; parmesan ~80 kcal/7g protein/5g fat/~310mg; fat-free ranch ~15 kcal/3g carb/~135mg; hot sauce ~10 kcal/~100mg. Brunch total ~625 kcal, 68g protein, 52g carb, 13g fat, ~1,525mg sodium", cal: 625 },
-    { time: "about 3:30pm, late lunch", item: "Last of the 4 servings of the 93/7 ground beef stir-fry (ground beef, broccoli, peppers, carrots, mushrooms/olives, a few potato chunks) topped with 2 fried eggs (spray oil) and a little sriracha (about 1 tsp, added 3:57pm). No kimchi (none visible in the photo). Photo confirmed, eaten", detail: "estimate, no recipe numbers saved (go-to meal 2 is still TBD): 1 serving = 1/4 of the 1 lb batch, about 4 oz raw (about 3 oz cooked) beef plus mushrooms and stir-fry veg, ~210 kcal/26g protein/8g carb/9g fat/~400mg (sauce amount unknown); 2 fried eggs ~144 kcal/12g protein/1g carb/10g fat/~140mg; potato chunks were not in the earlier stir-fry estimate, added here at ~40 kcal/1g protein/9g carb/~50mg; the ~2 tbsp kimchi from the plan (~5 kcal/~180mg) is dropped since none was visible; sriracha about 1 tsp ~5 kcal/1g carb/~100mg. Total ~400 kcal, 39g protein, 19g carb, 19g fat, ~690mg sodium. Food safety: the batch was cooked Nov 14 per the meals file and eaten Nov 21 (day 7); the usual fridge window for cooked meat is 3 to 4 days", cal: 400 },
-    { time: "afternoon snack, about 3:55pm", item: "KIND Dark Chocolate Nuts & Sea Salt bar (full size, 40 g)", detail: "per the KIND label for the 40 g bar: 180 kcal, 6g protein, 16g carb, 15g fat, ~140mg sodium (matches two of the 20 g minis logged Nov 6 to 8 at 90 kcal/3g/8g/7g/70mg each, within 1 g of fat)", cal: 180 },
+    { time: "earlier today", item: "Chef Hak's Turkey Bolognese Pasta Power Bowl, 1 bowl (12 oz, 1 of the 3 in the Costco-style box), cavatappi in turkey Bolognese with parmesan, plus a little extra grated parmesan on top (photo of the box)", detail: "PROTEIN FROM THE BOX FRONT: 31 g per 12 oz bowl. The rest is an ESTIMATE until the side-panel Nutrition Facts is read (no online listing found): ~470 kcal, 52g carb, 14g fat, ~900mg sodium for the bowl, in line with other 12 oz turkey Bolognese meals. Extra parmesan about 1 tbsp grated (~5 g): ~22 kcal/2g protein/2g fat/~75mg", cal: 492 },
+    { time: "earlier today", item: "2 slices toasted sourdough (plain, no butter stated)", detail: "same estimate used Nov 21 for 2 large slices: ~240 kcal, 9g protein, 46g carb, 2g fat, ~480mg sodium", cal: 240 },
+    { time: "earlier today", item: "3 macaroons", detail: "ESTIMATE, type not stated (coconut macaroon vs French macaron run about 70 to 100 kcal each): ~90 kcal each, so ~270 kcal, 3g protein, 36g carb, 13g fat, ~60mg sodium for 3", cal: 270 },
   ];
 
   const drinksExercise = [
-    { what: "SJU coffee, morning, with about 1 tbsp Forager cinnamon vanilla creamer", detail: "~20 kcal (creamer 15 kcal per tbsp per the label), ~2g carb, ~1g fat, ~10mg sodium" },
-    { what: "Water with the ~3:30pm stir-fry (amount not stated)", detail: "0 kcal" },
+    { what: "SJU coffee, assumed with the usual ~1 tbsp Forager creamer (creamer not mentioned)", detail: "~20 kcal, ~2g carb, ~1g fat, ~10mg sodium" },
+    { what: "Zero Sugar Dr Pepper, 12 oz can", detail: "0 kcal, ~55mg sodium" },
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -561,6 +561,7 @@
     { date: "Nov 18", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day. No weigh-in, so the Wednesday Nov 18 checkpoint (target 176.5) has no reading." },
     { date: "Nov 19", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged, nothing captured this day." },
     { date: "Nov 20", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. Jack played a lot of basketball (not quantified, so no burn is counted) and did not log food." },
+    { date: "Nov 21", calories: 1225, protein: 113, carbs: 89, fat: 48, sodium: 2365, note: "Partial day, logged through about 4pm only: SJU coffee, chicken and sourdough brunch with parmesan, the last 93/7 beef stir-fry serving with 2 fried eggs, and a KIND dark chocolate bar. Nothing logged after 4pm (Jack stayed at school that night), so the real total is higher. Protein was strong for the logged part (113 g). Weighed 182.0 that morning" },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
