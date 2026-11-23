@@ -1,0 +1,269 @@
+<title>Food Snap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f7f3ec; --card:#fffdf8; --ink:#231d16; --ink2:#6b6157; --line:#e6ddd0;
+  --accent:#d9531e; --accent-ink:#fff; --p:#2f7d4f; --c:#c98a12; --f:#8a4fb8; --na:#5b6b7a;
+  --soft:#f1e9dc; --warn:#a33a1a;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17140f; --card:#211c16; --ink:#f3ece2; --ink2:#b3a796; --line:#382f25;
+  --accent:#f07a43; --accent-ink:#1b120b; --p:#5fc58a; --c:#e9b44c; --f:#c393ea; --na:#9fb0c0;
+  --soft:#2a241c; --warn:#ff8a66; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17140f; --card:#211c16; --ink:#f3ece2; --ink2:#b3a796; --line:#382f25;
+  --accent:#f07a43; --accent-ink:#1b120b; --p:#5fc58a; --c:#e9b44c; --f:#c393ea; --na:#9fb0c0;
+  --soft:#2a241c; --warn:#ff8a66; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,sans-serif;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:30px;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.sub{color:var(--ink2);margin:2px 0 0;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.totals{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tot{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.tot b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:22px;font-weight:800;line-height:1.1}
+.tot span{font-size:11px;color:var(--ink2)}
+.tot.p b{color:var(--p)}.tot.c b{color:var(--c)}.tot.f b{color:var(--f)}.tot.na b{color:var(--na)}
+.snapbtn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--accent-ink);
+  border:0;border-radius:16px;padding:18px;font:600 18px Inter,sans-serif;cursor:pointer;width:100%}
+.snapbtn svg{width:26px;height:26px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{flex:1;min-width:120px;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px;font:500 14px Inter,sans-serif;cursor:pointer}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs div{position:relative}
+.thumbs img{width:76px;height:76px;object-fit:cover;border-radius:10px;border:1px solid var(--line);display:block}
+.thumbs button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);font-size:13px;line-height:22px;padding:0;cursor:pointer}
+textarea{width:100%;min-height:64px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg);color:var(--ink);font:15px Inter,sans-serif}
+.go{background:var(--ink);color:var(--bg);border:0;border-radius:12px;padding:14px;font:600 16px Inter,sans-serif;cursor:pointer}
+.go:disabled{opacity:.45;cursor:default}
+.status{font-size:13px;color:var(--ink2);min-height:1em}
+.status.err{color:var(--warn)}
+.entry{display:flex;gap:12px;align-items:flex-start;padding-block:12px;border-top:1px solid var(--line)}
+.entry:first-of-type{border-top:0;padding-top:0}
+.entry img{width:64px;height:64px;object-fit:cover;border-radius:10px;flex:none;background:var(--soft)}
+.entry .ph{width:64px;height:64px;border-radius:10px;flex:none;background:var(--soft);display:grid;place-items:center;color:var(--ink2);font-size:22px}
+.entry .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.entry .t{font-weight:600}
+.entry .m{font-size:13px;color:var(--ink2);overflow-wrap:anywhere}
+.chips{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.chip{padding:2px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.chip.ok{color:var(--p)}.chip.wait{color:var(--c)}
+.mini{background:none;border:0;color:var(--ink2);font:13px Inter,sans-serif;cursor:pointer;padding:0;text-decoration:underline}
+.mini.del{color:var(--warn)}
+.acts{display:flex;gap:14px;margin-top:4px}
+details summary{cursor:pointer;color:var(--ink2);font-size:14px}
+.how{font-size:13px;color:var(--ink2);margin:0}
+.empty{color:var(--ink2);font-size:14px}
+.confirm{display:flex;gap:8px;align-items:center;font-size:13px}
+.confirm button{border-radius:8px;border:1px solid var(--line);background:var(--soft);color:var(--ink);padding:4px 10px;font:13px Inter,sans-serif;cursor:pointer}
+.confirm .yes{background:var(--warn);color:#fff;border-color:var(--warn)}
+input[type=file]{display:none}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Food Snap</h1>
+    <p class="sub" id="dateLine">Snap it, add a note, done.</p>
+  </header>
+
+  <section class="card" aria-label="Today so far">
+    <div class="lbl">Today from snaps</div>
+    <div class="totals">
+      <div class="tot"><b id="tK">0</b><span>kcal</span></div>
+      <div class="tot p"><b id="tP">0</b><span>protein g</span></div>
+      <div class="tot c"><b id="tC">0</b><span>carbs g</span></div>
+      <div class="tot f"><b id="tF">0</b><span>fat g</span></div>
+      <div class="tot na"><b id="tN">0</b><span>sodium mg</span></div>
+    </div>
+  </section>
+
+  <section class="card" aria-label="New entry">
+    <button class="snapbtn" id="snapBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      Snap food or a label
+    </button>
+    <div class="row">
+      <button class="ghost" id="libBtn" type="button">Pick a photo</button>
+    </div>
+    <input type="file" id="cam" accept="image/*" capture="environment">
+    <input type="file" id="lib" accept="image/*" multiple>
+    <div class="thumbs" id="thumbs"></div>
+    <textarea id="note" placeholder="Optional note: &quot;ate half&quot;, &quot;1 of 3 servings&quot;, &quot;2 slices sourdough&quot;, &quot;large, no cheese&quot;. A note alone works too."></textarea>
+    <button class="go" id="goBtn" type="button" disabled>Log it</button>
+    <div class="status" id="status" role="status"></div>
+  </section>
+
+  <section class="card" aria-label="Today's entries">
+    <div class="lbl">Today</div>
+    <div id="todayList"><p class="empty">Nothing yet today.</p></div>
+  </section>
+
+  <section class="card" aria-label="Earlier days">
+    <details>
+      <summary>Earlier days</summary>
+      <div id="pastList" style="margin-top:12px"><p class="empty">None yet.</p></div>
+    </details>
+  </section>
+
+  <p class="how">Photos taken here go straight to this page's storage, not your camera roll. Claude estimates each entry right away (labels are read exactly), and every snap is folded into your macro tracker; a green "In tracker" tag means it is there.</p>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const pending = []; // {blob, url}
+  let db = null, assets = null, sample = null, canImages = false;
+  let entries = [];
+
+  const pad = n => String(n).padStart(2,'0');
+  const dayKey = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  const today = () => dayKey(new Date());
+  const fmtTime = ms => new Date(ms).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+  const fmtDay = k => { const [y,m,d] = k.split('-').map(Number); return new Date(y,m-1,d).toLocaleDateString([], {weekday:'short', month:'short', day:'numeric'}); };
+  const r0 = v => Math.round(Number(v)||0);
+  $('dateLine').textContent = new Date().toLocaleDateString([], {weekday:'long', month:'long', day:'numeric'});
+
+  function setStatus(t, err){ const s=$('status'); s.textContent=t||''; s.className='status'+(err?' err':''); }
+  function refreshGo(){ $('goBtn').disabled = !(pending.length || $('note').value.trim()) || !db; }
+
+  async function shrink(file){
+    try{
+      const bmp = await createImageBitmap(file);
+      const max = 1600, s = Math.min(1, max/Math.max(bmp.width,bmp.height));
+      const c = document.createElement('canvas'); c.width=Math.round(bmp.width*s); c.height=Math.round(bmp.height*s);
+      c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+      return await new Promise(res => c.toBlob(b => res(b||file), 'image/jpeg', 0.82));
+    }catch(e){ return file; }
+  }
+  async function addFiles(list){
+    for (const f of list){ const b = await shrink(f); pending.push({blob:b, url:URL.createObjectURL(b)}); }
+    drawThumbs(); refreshGo();
+  }
+  function drawThumbs(){
+    const t=$('thumbs'); t.textContent='';
+    pending.forEach((p,i)=>{ const d=document.createElement('div'); const im=document.createElement('img'); im.src=p.url; im.alt='Photo '+(i+1);
+      const x=document.createElement('button'); x.type='button'; x.textContent='×'; x.setAttribute('aria-label','Remove photo');
+      x.onclick=()=>{ URL.revokeObjectURL(p.url); pending.splice(i,1); drawThumbs(); refreshGo(); };
+      d.append(im,x); t.append(d); });
+  }
+  $('snapBtn').onclick = () => $('cam').click();
+  $('libBtn').onclick = () => $('lib').click();
+  $('cam').onchange = e => { addFiles([...e.target.files]); e.target.value=''; };
+  $('lib').onchange = e => { addFiles([...e.target.files]); e.target.value=''; };
+  $('note').oninput = refreshGo;
+
+  const PROMPT = note => `You are logging food for a macro tracker. Look at the attached photo(s), if any, and the note.
+Rules:
+- If a Nutrition Facts label is visible, read it exactly and scale it by the portion the note gives (for example "ate half", "1 of 3 servings", "2 slices"). Say which values came from the label.
+- Otherwise estimate from what you see, using typical US portion sizes and common restaurant or brand data you know. Be realistic, not optimistic.
+- If the photo is a packaged product without a visible label, use that product's known nutrition if you are confident; otherwise estimate.
+- Sodium in mg. Round to whole numbers.
+Note from the person: ${note ? JSON.stringify(note) : '(none)'}
+Reply with JSON only, this shape:
+{"title":"short name of the meal","items":[{"name":"","amount":"","kcal":0,"protein":0,"carbs":0,"fat":0,"sodium":0}],"totals":{"kcal":0,"protein":0,"carbs":0,"fat":0,"sodium":0},"source":"label|estimate|mixed","confidence":"high|medium|low","comment":"one short line on assumptions"}`;
+
+  async function estimate(note, blobs){
+    if (!sample) return null;
+    const opts = {modelTier:'default'};
+    if (blobs.length){ if(!canImages) return null; opts.images = blobs; }
+    const j = await sample.json(PROMPT(note), opts);
+    if (!j || !j.totals) return null;
+    return j;
+  }
+
+  $('goBtn').onclick = async () => {
+    const note = $('note').value.trim();
+    const shots = pending.slice();
+    if (!shots.length && !note) return;
+    $('goBtn').disabled = true;
+    try{
+      const ids = [];
+      if (shots.length){
+        if (!assets){ setStatus('Photo storage is not available in this view. Open this page in the Claude app while signed in.', true); $('goBtn').disabled=false; return; }
+        setStatus('Saving photo'+(shots.length>1?'s':'')+'...');
+        for (const s of shots){ const r = await assets.upload(s.blob, {type:'image/jpeg'}); ids.push(r.id); }
+      }
+      const now = Date.now();
+      const ref = db.collection('meals').doc();
+      const row = {ts:now, date:today(), photoIds:ids, note, status:'estimating', est:null, inTracker:false};
+      await ref.set(row);
+      pending.splice(0).forEach(p=>URL.revokeObjectURL(p.url)); drawThumbs(); $('note').value='';
+      setStatus('Saved. Claude is reading it...');
+      try{
+        const est = await estimate(note, shots.map(s=>s.blob));
+        if (est){ await ref.update({est, status:'estimated'}); setStatus('Logged: '+(est.title||'entry')+', '+r0(est.totals.kcal)+' kcal.'); }
+        else { await ref.update({status:'saved'}); setStatus('Saved. Claude will estimate it when it folds snaps into your tracker.'); }
+      }catch(e){
+        await ref.update({status:'saved'}).catch(()=>{});
+        setStatus(e && e.code==='not_granted' ? 'Saved. Estimates are off for this page, Claude will estimate it later.' : 'Saved. The estimate did not come back, Claude will do it later.');
+      }
+    }catch(e){
+      setStatus('Could not save: '+((e&&e.message)||'unknown error')+'. Try again.', true);
+    }
+    refreshGo();
+  };
+
+  function entryEl(e){
+    const wrap=document.createElement('div'); wrap.className='entry';
+    if (e.photoIds && e.photoIds.length){ const im=document.createElement('img'); im.loading='lazy'; im.alt=''; im.src='/_blob/'+e.photoIds[0]; im.onerror=()=>{im.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'·'}))}; wrap.append(im); }
+    else { const ph=document.createElement('div'); ph.className='ph'; ph.textContent='✎'; wrap.append(ph); }
+    const b=document.createElement('div'); b.className='body';
+    const t=document.createElement('div'); t.className='t'; t.textContent=(e.est&&e.est.title)||e.note||'Photo'; b.append(t);
+    const m=document.createElement('div'); m.className='m';
+    if (e.est&&e.est.totals){ const x=e.est.totals; m.textContent=`${r0(x.kcal)} kcal · ${r0(x.protein)}P ${r0(x.carbs)}C ${r0(x.fat)}F · ${r0(x.sodium)} mg Na`; }
+    else m.textContent = e.status==='estimating' ? 'Estimating...' : 'Waiting for Claude to estimate';
+    b.append(m);
+    if (e.note && e.est) { const n=document.createElement('div'); n.className='m'; n.textContent='Note: '+e.note; b.append(n); }
+    const ch=document.createElement('div'); ch.className='chips';
+    const tm=document.createElement('span'); tm.className='chip'; tm.textContent=fmtTime(e.ts); ch.append(tm);
+    if (e.est&&e.est.source){ const s=document.createElement('span'); s.className='chip'; s.textContent=e.est.source==='label'?'from label':e.est.source; ch.append(s); }
+    const st=document.createElement('span'); st.className='chip '+(e.inTracker?'ok':'wait'); st.textContent=e.inTracker?'In tracker':'Not in tracker yet'; ch.append(st);
+    b.append(ch);
+    const acts=document.createElement('div'); acts.className='acts';
+    const del=document.createElement('button'); del.type='button'; del.className='mini del'; del.textContent='Delete';
+    del.onclick=()=>{ const c=document.createElement('div'); c.className='confirm'; c.append('Delete this entry?');
+      const y=document.createElement('button'); y.className='yes'; y.type='button'; y.textContent='Delete';
+      const n=document.createElement('button'); n.type='button'; n.textContent='Keep';
+      n.onclick=()=>c.replaceWith(acts);
+      y.onclick=async()=>{ try{ await db.collection('meals').doc(e.id).delete(); }catch(err){ setStatus('Could not delete, try again.', true); c.replaceWith(acts);} };
+      c.append(y,n); acts.replaceWith(c); };
+    acts.append(del); b.append(acts);
+    wrap.append(b); return wrap;
+  }
+
+  function render(){
+    const tk=today(); const tod=entries.filter(e=>e.date===tk).sort((a,b)=>a.ts-b.ts);
+    const sum={kcal:0,protein:0,carbs:0,fat:0,sodium:0};
+    tod.forEach(e=>{ if(e.est&&e.est.totals) for(const k in sum) sum[k]+=Number(e.est.totals[k])||0; });
+    $('tK').textContent=r0(sum.kcal); $('tP').textContent=r0(sum.protein); $('tC').textContent=r0(sum.carbs); $('tF').textContent=r0(sum.fat); $('tN').textContent=r0(sum.sodium);
+    const tl=$('todayList'); tl.textContent='';
+    if(!tod.length) tl.append(Object.assign(document.createElement('p'),{className:'empty',textContent:'Nothing yet today.'}));
+    tod.forEach(e=>tl.append(entryEl(e)));
+    const past=entries.filter(e=>e.date!==tk).sort((a,b)=>b.ts-a.ts);
+    const pl=$('pastList'); pl.textContent='';
+    if(!past.length) pl.append(Object.assign(document.createElement('p'),{className:'empty',textContent:'None yet.'}));
+    let last='';
+    past.forEach(e=>{ if(e.date!==last){ last=e.date; const h=document.createElement('div'); h.className='lbl'; h.style.marginTop='8px'; h.textContent=fmtDay(e.date); pl.append(h);} pl.append(entryEl(e)); });
+  }
+
+  (async () => {
+    if (!window.claude || !claude.use){ setStatus('Open this page in the Claude app to log food.', true); return; }
+    const timer = setTimeout(()=>{ if(!entries.length) setStatus('Still connecting...'); }, 10000);
+    [db, assets, sample] = await Promise.all([claude.use('db'), claude.use('assets'), claude.use('sample')]);
+    if (sample){ try{ const l = await sample.limits(); canImages = !!(l && l.images); }catch(e){} }
+    if (!db){ clearTimeout(timer); setStatus('Sign in to Claude to save entries.', true); return; }
+    refreshGo();
+    db.collection('meals').orderBy('ts','desc').limit(400).onSnapshot(snap => {
+      clearTimeout(timer);
+      entries = snap.docs.map(d => ({id:d.id, ...d.data()}));
+      if ($('status').textContent==='Still connecting...') setStatus('');
+      render();
+    }, err => { clearTimeout(timer); setStatus('Could not load entries ('+(err&&err.code||'error')+').', true); });
+  })();
+})();
+</script>
