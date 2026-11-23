@@ -439,17 +439,22 @@
 
   // Today (Nov 22) so far, dictated by Jack at ~5pm back home in Minnetonka: SJU coffee, 1 Chef Hak's Turkey Bolognese bowl with a little parmesan, 2 slices sourdough toast, 3 macaroons, a Zero Sugar Dr Pepper.
   // Coffee 20/0/2/1/10 + bolognese 470/31/52/14/900 + parmesan 22/2/0/2/75 + sourdough 240/9/46/2/480 + macaroons 270/3/36/13/60 + Dr Pepper Zero 0/0/0/0/55.
-  const todayMacros = { calories: 1022, protein: 45, carbs: 136, fat: 32, sodium: 1580 };
+  // Food Snap dinner 9:38pm: ziti 330/15/38/13/600 + sourdough 240/9/46/2/480 + Rolo 25/0.3/3.6/1.1/10 + Dr Pepper Zero 0/0/0/0/55.
+  const todayMacros = { calories: 1617, protein: 69, carbs: 224, fat: 48, sodium: 2725 };
 
   const todayFoodLog = [
     { time: "earlier today", item: "Chef Hak's Turkey Bolognese Pasta Power Bowl, 1 bowl (12 oz, 1 of the 3 in the Costco-style box), cavatappi in turkey Bolognese with parmesan, plus a little extra grated parmesan on top (photo of the box)", detail: "PROTEIN FROM THE BOX FRONT: 31 g per 12 oz bowl. The rest is an ESTIMATE until the side-panel Nutrition Facts is read (no online listing found): ~470 kcal, 52g carb, 14g fat, ~900mg sodium for the bowl, in line with other 12 oz turkey Bolognese meals. Extra parmesan about 1 tbsp grated (~5 g): ~22 kcal/2g protein/2g fat/~75mg", cal: 492 },
     { time: "earlier today", item: "2 slices toasted sourdough (plain, no butter stated)", detail: "same estimate used Nov 21 for 2 large slices: ~240 kcal, 9g protein, 46g carb, 2g fat, ~480mg sodium", cal: 240 },
     { time: "earlier today", item: "3 macaroons", detail: "ESTIMATE, type not stated (coconut macaroon vs French macaron run about 70 to 100 kcal each): ~90 kcal each, so ~270 kcal, 3g protein, 36g carb, 13g fat, ~60mg sodium for 3", cal: 270 },
+    { time: "9:38pm", item: "Four cheese ziti (dinner, about half a 12 oz pasta bowl, about 6 oz cooked, no photo)", detail: "ESTIMATE, low confidence, no catalog match: ~330 kcal, 15g protein, 38g carb, 13g fat, ~600mg sodium (sodium could run higher by recipe)", cal: 330 }, // fs:e-c2923e3b035f
+    { time: "9:38pm", item: "Sourdough toast, 2 large slices (dinner, with the ziti)", detail: "CATALOG (saved estimate): 240 kcal, 9g protein, 46g carb, 2g fat, ~480mg sodium", cal: 240 }, // fs:e-961f972b7c1d
+    { time: "9:38pm", item: "Rolo candy, 1 piece", detail: "ESTIMATE from Rolo serving size, about 5 g: 25 kcal, 0.3g protein, 3.6g carb, 1.1g fat, ~10mg sodium", cal: 25 }, // fs:e-834d94d3e095
   ];
 
   const drinksExercise = [
     { what: "SJU coffee, assumed with the usual ~1 tbsp Forager creamer (creamer not mentioned)", detail: "~20 kcal, ~2g carb, ~1g fat, ~10mg sodium" },
     { what: "Zero Sugar Dr Pepper, 12 oz can", detail: "0 kcal, ~55mg sodium" },
+    { what: "Dr Pepper Zero Sugar, 12 oz can (dinner, 9:38pm)", detail: "CATALOG: 0 kcal, ~55mg sodium" }, // fs:e-c14ac596dfed
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
