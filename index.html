@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 24, 2026</div>
+    <div class="updated">Updated Nov 25, 2026</div>
   </header>
 
   <section class="stats">
@@ -437,15 +437,16 @@
     sodium: 2300,
   };
 
-  // Today (Nov 24), Food Snap entry logged at 3:27pm: lunch of one El Monterey frozen burrito, microwaved (variety unconfirmed, counted as beef and bean).
-  // Burrito 340/10/47/12/720 (low-confidence estimate).
-  const todayMacros = { calories: 340, protein: 10, carbs: 47, fat: 12, sodium: 720 };
+  // Today (Nov 25), Food Snap entries: a black home coffee at 9:00am and a Chipotle double chicken burrito with a Diet Dr Pepper at 1:15pm.
+  // Coffee 5/0/0/0/5, burrito meal 1270/84/107/58/2965 (Chipotle per-item numbers).
+  const todayMacros = { calories: 1275, protein: 84, carbs: 107, fat: 58, sodium: 2970 };
 
   const todayFoodLog = [
-    { time: "3:27pm", item: "El Monterey beef and bean burrito, microwaved (lunch; variety not confirmed)", detail: "ESTIMATE (low confidence), 1 burrito about 5 oz: 340 kcal, 10g protein, 47g carb, 12g fat, ~720mg sodium. Not the catalog El Monterey breakfast burrito", cal: 340 }, // fs:e-7bf9e373bd18
+    { time: "1:15pm", item: "Chipotle chicken burrito and Diet Dr Pepper (ate the whole thing: flour tortilla, double chicken, white rice, guac, queso, pico, lettuce; no beans, corn or fajita veggies)", detail: "Chipotle posted per-item numbers, standard scoops: tortilla 320, double chicken 360 (64g protein), white rice 210, guac 230, queso 120, pico 25, lettuce 5, Diet Dr Pepper 0. Total 84g protein, 107g carb, 58g fat, ~2,965mg sodium. Sodium flag: tortilla, double chicken and pico are each 550 to 620mg, the burrito alone is over the daily line, so expect tomorrow's weigh-in up from water", cal: 1270 }, // fs:e-e79cd4febffe
   ];
 
   const drinksExercise = [
+    { what: "Home coffee, black (9:00am)", detail: "1 cup, about 5 kcal, 5mg sodium. Estimate, assumed black (not the SRU one)" }, // fs:e-fa9b2610a648
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -560,6 +561,7 @@
     { date: "Nov 21", calories: 1225, protein: 113, carbs: 89, fat: 48, sodium: 2365, note: "Partial day, logged through about 4pm only: SJU coffee, chicken and sourdough brunch with parmesan, the last 93/7 beef stir-fry serving with 2 fried eggs, and a KIND dark chocolate bar. Nothing logged after 4pm (Jack stayed at school that night), so the real total is higher. Protein was strong for the logged part (113 g). Weighed 182.0 that morning" },
     { date: "Nov 22", calories: 1617, protein: 69, carbs: 224, fat: 48, sodium: 2725, note: "Back home in Minnetonka: SJU coffee, a Chef Hak's turkey Bolognese bowl with parmesan, 2 sourdough slices, 3 macaroons and a Dr Pepper Zero, then a Food Snap dinner of four cheese ziti, 2 more sourdough slices, a Rolo and another Dr Pepper Zero. Under on calories, short on protein (69 g), sodium over by about 425 mg" }, // fs:e-c2923e3b035f fs:e-961f972b7c1d fs:e-834d94d3e095 fs:e-c14ac596dfed
     { date: "Nov 23", calories: 2150, protein: 85, carbs: 246, fat: 95, sodium: 4740, note: "Food Snap day: Taco Bell lunch (Quesarito, Crunchwrap Supreme, Cheesy Fiesta Potatoes, Soft Taco Supreme, Baja Blast Zero), then 2 sourdough slices with a cheese slice, a Barebells bar and a Fresca. Over on calories, fat and carbs, sodium about 2,440 mg over (the Quesarito and Crunchwrap were each over 900 mg), protein short at 85 g. Expect tomorrow's weigh-in to be up from water." }, // fs:e-ed0b859d3b2e fs:e-133be25ef255 fs:e-a377ad51fc8f fs:e-b9d6a8983e3d fs:e-186f1a72e6ad fs:e-1545f929e011 fs:e-ae78e724e317 fs:e-d4c02ed92bfd fs:e-2937091bd84a
+    { date: "Nov 24", calories: 1992, protein: 81, carbs: 252, fat: 74, sodium: 3055, note: "Food Snap day: El Monterey beef and bean burrito lunch, a single Rolo, QuikTrip cheese breadsticks (Jack's 330 kcal) with a Diet Dr Pepper, a Cafe Zupas Athlete Bowl dinner with roll and chocolate strawberry (estimate, Zupas numbers not confirmed), Sunkist Zero, Fresca and about 22 oz water, then Drizzilicious s'mores, fun-size Milk Duds and a TJ's Apple Blossom pastry. Right on the calorie line, carbs over (252 g), protein short at 81 g, sodium about 755 mg over (the Zupas bowl plus roll was about 1,300 mg)." }, // fs:e-7bf9e373bd18 fs:e-543b5abbecfb fs:e-459924b5fb08 fs:e-2d58add4208d fs:e-f1b46b4f1cf0 fs:e-a6755cba7f2f
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
