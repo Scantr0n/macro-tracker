@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 23, 2026</div>
+    <div class="updated">Updated Nov 24, 2026</div>
   </header>
 
   <section class="stats">
@@ -437,23 +437,15 @@
     sodium: 2300,
   };
 
-  // Today (Nov 23), Food Snap entries logged at 1:56pm: Taco Bell lunch (Quesarito, Crunchwrap Supreme, Cheesy Fiesta Potatoes, Soft Taco Supreme, large Baja Blast Zero), then a snack of 2 sourdough slices with a cheese slice, a Barebells bar and a Fresca.
-  // Quesarito 650/22/66/33/1380 + Crunchwrap 530/16/71/21/1200 + potatoes 240/3/24/15/540 + soft taco 210/10/20/10/450 + Baja Blast Zero 0/0/0/0/115 + sourdough 240/9/46/2/480 + cheese 80/5/1/6/300 + Barebells 200/20/18/8/240 + Fresca 0/0/0/0/35.
-  const todayMacros = { calories: 2150, protein: 85, carbs: 246, fat: 95, sodium: 4740 };
+  // Today (Nov 24), Food Snap entry logged at 3:27pm: lunch of one El Monterey frozen burrito, microwaved (variety unconfirmed, counted as beef and bean).
+  // Burrito 340/10/47/12/720 (low-confidence estimate).
+  const todayMacros = { calories: 340, protein: 10, carbs: 47, fat: 12, sodium: 720 };
 
   const todayFoodLog = [
-    { time: "1:56pm", item: "Taco Bell Quesarito, beef (lunch)", detail: "CATALOG (saved estimate): 650 kcal, 22g protein, 66g carb, 33g fat, ~1,380mg sodium. Over 900 mg sodium on its own", cal: 650 }, // fs:e-ed0b859d3b2e
-    { time: "1:56pm", item: "Taco Bell Crunchwrap Supreme (lunch)", detail: "CATALOG (saved estimate): 530 kcal, 16g protein, 71g carb, 21g fat, ~1,200mg sodium. Over 900 mg sodium on its own", cal: 530 }, // fs:e-133be25ef255
-    { time: "1:56pm", item: "Taco Bell Cheesy Fiesta Potatoes (lunch)", detail: "CATALOG (saved estimate): 240 kcal, 3g protein, 24g carb, 15g fat, ~540mg sodium", cal: 240 }, // fs:e-a377ad51fc8f
-    { time: "1:56pm", item: "Taco Bell Soft Taco Supreme, beef (lunch)", detail: "CATALOG (saved estimate): 210 kcal, 10g protein, 20g carb, 10g fat, ~450mg sodium", cal: 210 }, // fs:e-b9d6a8983e3d
-    { time: "1:56pm", item: "Sourdough toast, 2 large slices (snack)", detail: "CATALOG (saved estimate): 240 kcal, 9g protein, 46g carb, 2g fat, ~480mg sodium", cal: 240 }, // fs:e-186f1a72e6ad
-    { time: "1:56pm", item: "Cheese slice on the toast (snack)", detail: "CATALOG (saved estimate): 80 kcal, 5g protein, 1g carb, 6g fat, ~300mg sodium", cal: 80 }, // fs:e-1545f929e011
-    { time: "1:56pm", item: "Barebells protein bar, brownie cookie style (snack)", detail: "CATALOG (saved estimate), 55 g bar: 200 kcal, 20g protein, 18g carb, 8g fat, ~240mg sodium", cal: 200 }, // fs:e-ae78e724e317
+    { time: "3:27pm", item: "El Monterey beef and bean burrito, microwaved (lunch; variety not confirmed)", detail: "ESTIMATE (low confidence), 1 burrito about 5 oz: 340 kcal, 10g protein, 47g carb, 12g fat, ~720mg sodium. Not the catalog El Monterey breakfast burrito", cal: 340 }, // fs:e-7bf9e373bd18
   ];
 
   const drinksExercise = [
-    { what: "Baja Blast Zero Sugar, large 30 oz (Taco Bell lunch, 1:56pm)", detail: "CATALOG: 0 kcal, ~115mg sodium" }, // fs:e-d4c02ed92bfd
-    { what: "Fresca, 12 oz can (snack, 1:56pm)", detail: "CATALOG: 0 kcal, ~35mg sodium" }, // fs:e-2937091bd84a
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -567,6 +559,7 @@
     { date: "Nov 20", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. Jack played a lot of basketball (not quantified, so no burn is counted) and did not log food." },
     { date: "Nov 21", calories: 1225, protein: 113, carbs: 89, fat: 48, sodium: 2365, note: "Partial day, logged through about 4pm only: SJU coffee, chicken and sourdough brunch with parmesan, the last 93/7 beef stir-fry serving with 2 fried eggs, and a KIND dark chocolate bar. Nothing logged after 4pm (Jack stayed at school that night), so the real total is higher. Protein was strong for the logged part (113 g). Weighed 182.0 that morning" },
     { date: "Nov 22", calories: 1617, protein: 69, carbs: 224, fat: 48, sodium: 2725, note: "Back home in Minnetonka: SJU coffee, a Chef Hak's turkey Bolognese bowl with parmesan, 2 sourdough slices, 3 macaroons and a Dr Pepper Zero, then a Food Snap dinner of four cheese ziti, 2 more sourdough slices, a Rolo and another Dr Pepper Zero. Under on calories, short on protein (69 g), sodium over by about 425 mg" }, // fs:e-c2923e3b035f fs:e-961f972b7c1d fs:e-834d94d3e095 fs:e-c14ac596dfed
+    { date: "Nov 23", calories: 2150, protein: 85, carbs: 246, fat: 95, sodium: 4740, note: "Food Snap day: Taco Bell lunch (Quesarito, Crunchwrap Supreme, Cheesy Fiesta Potatoes, Soft Taco Supreme, Baja Blast Zero), then 2 sourdough slices with a cheese slice, a Barebells bar and a Fresca. Over on calories, fat and carbs, sodium about 2,440 mg over (the Quesarito and Crunchwrap were each over 900 mg), protein short at 85 g. Expect tomorrow's weigh-in to be up from water." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
