@@ -437,16 +437,20 @@
     sodium: 2300,
   };
 
-  // Today (Nov 25), Food Snap entries: a black home coffee at 9:00am and a Chipotle double chicken burrito with a Diet Dr Pepper at 1:15pm.
-  // Coffee 5/0/0/0/5, burrito meal 1270/84/107/58/2965 (Chipotle per-item numbers).
-  const todayMacros = { calories: 1275, protein: 84, carbs: 107, fat: 58, sodium: 2970 };
+  // Today (Nov 25), Food Snap entries: black home coffee 9:00am, Chipotle double chicken burrito + Diet Dr Pepper 1:15pm,
+  // Taco Bell Discovery Luxe Box + Baja Blast Zero 5:30pm, Michelob Ultra at the Wild game 8:00pm, fun size candy 9:30pm.
+  // Coffee 5/0/0/0/5, burrito 1270/84/107/58/2965, Taco Bell 1120/42/120/53/2500, beer 95/1/3/0/10, candy 197/2/30/8/70.
+  const todayMacros = { calories: 2687, protein: 129, carbs: 260, fat: 119, sodium: 5550 };
 
   const todayFoodLog = [
     { time: "1:15pm", item: "Chipotle chicken burrito and Diet Dr Pepper (ate the whole thing: flour tortilla, double chicken, white rice, guac, queso, pico, lettuce; no beans, corn or fajita veggies)", detail: "Chipotle posted per-item numbers, standard scoops: tortilla 320, double chicken 360 (64g protein), white rice 210, guac 230, queso 120, pico 25, lettuce 5, Diet Dr Pepper 0. Total 84g protein, 107g carb, 58g fat, ~2,965mg sodium. Sodium flag: tortilla, double chicken and pico are each 550 to 620mg, the burrito alone is over the daily line, so expect tomorrow's weigh-in up from water", cal: 1270 }, // fs:e-e79cd4febffe
+    { time: "5:30pm", item: "Taco Bell Discovery Luxe Box + Baja Blast Zero (Taco Bell $9 Discovery Luxe Box, medium Baja Blast Zero Sugar)", detail: "Estimate, box contents per Jack: steak Grilled Cheese Burrito 720 (27g protein, 1,650mg sodium), carne asada soft taco 180, chips and nacho cheese 220, medium Baja Blast Zero 0. Total 42g protein, 120g carb, 53g fat, ~2,500mg sodium. Taco Bell lists the box at 1,010 to 1,290 cal. Sodium flag: the burrito alone is ~1,650mg, expect tomorrow's weigh-in up from water", cal: 1120 }, // fs:e-1ece880d9704
+    { time: "9:30pm", item: "Fun size Hershey bar + 2 Milk Duds (fun size Hershey bar and 2 fun size Milk Duds)", detail: "Estimate, Halloween fun size portions: Hershey bar 67, 2 Milk Duds boxes 130. Total 2g protein, 30g carb, 8g fat, ~70mg sodium", cal: 197 }, // fs:e-94c482cd454c
   ];
 
   const drinksExercise = [
     { what: "Home coffee, black (9:00am)", detail: "1 cup, about 5 kcal, 5mg sodium. Estimate, assumed black (not the SRU one)" }, // fs:e-fa9b2610a648
+    { what: "Michelob Ultra at the Wild game (8:00pm)", detail: "12 oz, about 95 kcal, 1g protein, 3g carb, 10mg sodium. Estimate; an arena pour of 16 oz or more is about 125 kcal" }, // fs:e-f7cfe98ee1d8
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
