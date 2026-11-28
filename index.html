@@ -260,7 +260,7 @@
 
   <header>
     <h1>Macro &amp; Weight Tracker</h1>
-    <div class="updated">Updated Nov 25, 2026</div>
+    <div class="updated">Updated Nov 27, 2026</div>
   </header>
 
   <section class="stats">
@@ -437,20 +437,17 @@
     sodium: 2300,
   };
 
-  // Today (Nov 25), Food Snap entries: black home coffee 9:00am, Chipotle double chicken burrito + Diet Dr Pepper 1:15pm,
-  // Taco Bell Discovery Luxe Box + Baja Blast Zero 5:30pm, Michelob Ultra at the Wild game 8:00pm, fun size candy 9:30pm.
-  // Coffee 5/0/0/0/5, burrito 1270/84/107/58/2965, Taco Bell 1120/42/120/53/2500, beer 95/1/3/0/10, candy 197/2/30/8/70.
-  const todayMacros = { calories: 2687, protein: 129, carbs: 260, fat: 119, sodium: 5550 };
+  // Today (Nov 27, Thanksgiving), Food Snap entries: Thanksgiving plate with rolls and Dr Pepper Zero 4:43pm,
+  // small bowl of house special pho at Asia Mall Eden Prairie 4:55pm.
+  // Plate 1000/50/118/35/2535, pho 600/38/75/12/1000.
+  const todayMacros = { calories: 1600, protein: 88, carbs: 193, fat: 47, sodium: 3535 };
 
   const todayFoodLog = [
-    { time: "1:15pm", item: "Chipotle chicken burrito and Diet Dr Pepper (ate the whole thing: flour tortilla, double chicken, white rice, guac, queso, pico, lettuce; no beans, corn or fajita veggies)", detail: "Chipotle posted per-item numbers, standard scoops: tortilla 320, double chicken 360 (64g protein), white rice 210, guac 230, queso 120, pico 25, lettuce 5, Diet Dr Pepper 0. Total 84g protein, 107g carb, 58g fat, ~2,965mg sodium. Sodium flag: tortilla, double chicken and pico are each 550 to 620mg, the burrito alone is over the daily line, so expect tomorrow's weigh-in up from water", cal: 1270 }, // fs:e-e79cd4febffe
-    { time: "5:30pm", item: "Taco Bell Discovery Luxe Box + Baja Blast Zero (Taco Bell $9 Discovery Luxe Box, medium Baja Blast Zero Sugar)", detail: "Estimate, box contents per Jack: steak Grilled Cheese Burrito 720 (27g protein, 1,650mg sodium), carne asada soft taco 180, chips and nacho cheese 220, medium Baja Blast Zero 0. Total 42g protein, 120g carb, 53g fat, ~2,500mg sodium. Taco Bell lists the box at 1,010 to 1,290 cal. Sodium flag: the burrito alone is ~1,650mg, expect tomorrow's weigh-in up from water", cal: 1120 }, // fs:e-1ece880d9704
-    { time: "9:30pm", item: "Fun size Hershey bar + 2 Milk Duds (fun size Hershey bar and 2 fun size Milk Duds)", detail: "Estimate, Halloween fun size portions: Hershey bar 67, 2 Milk Duds boxes 130. Total 2g protein, 30g carb, 8g fat, ~70mg sodium", cal: 197 }, // fs:e-94c482cd454c
+    { time: "4:43pm", item: "Thanksgiving plate with rolls and Dr Pepper Zero", detail: "Photo estimate, low confidence, portions guessed: roast turkey with some skin ~4 oz 190 (32g protein), stuffing and cornbread dressing ~1 cup 300, mashed potatoes ~1 cup 240, gravy ~1/2 cup 50, 2 dinner rolls 220, Dr Pepper Zero 0 (catalog). Total 50g protein, 118g carb, 35g fat, ~2,535mg sodium. Sodium flag: stuffing, potatoes and gravy put this plate over the daily line by itself, so expect the next weigh-in up from water", cal: 1000 }, // fs:e-d0bc205b6a8a
+    { time: "4:55pm", item: "House special pho (small bowl of house special pho at a Vietnamese restaurant in Asia Mall, Eden Prairie)", detail: "Catalog entry (special combo pho), 1 bowl: 38g protein, 75g carb, 12g fat, ~1,000mg sodium. A small bowl may run a bit lower; drinking all the broth pushes sodium higher. Sodium flag: over the 900mg single-item line", cal: 600 }, // fs:e-c397716f3abf
   ];
 
   const drinksExercise = [
-    { what: "Home coffee, black (9:00am)", detail: "1 cup, about 5 kcal, 5mg sodium. Estimate, assumed black (not the SRU one)" }, // fs:e-fa9b2610a648
-    { what: "Michelob Ultra at the Wild game (8:00pm)", detail: "12 oz, about 95 kcal, 1g protein, 3g carb, 10mg sodium. Estimate; an arena pour of 16 oz or more is about 125 kcal" }, // fs:e-f7cfe98ee1d8
   ];
 
   // Past days, archived once the calendar rolls over — todayMacros above is always the live day.
@@ -566,6 +563,8 @@
     { date: "Nov 22", calories: 1617, protein: 69, carbs: 224, fat: 48, sodium: 2725, note: "Back home in Minnetonka: SJU coffee, a Chef Hak's turkey Bolognese bowl with parmesan, 2 sourdough slices, 3 macaroons and a Dr Pepper Zero, then a Food Snap dinner of four cheese ziti, 2 more sourdough slices, a Rolo and another Dr Pepper Zero. Under on calories, short on protein (69 g), sodium over by about 425 mg" }, // fs:e-c2923e3b035f fs:e-961f972b7c1d fs:e-834d94d3e095 fs:e-c14ac596dfed
     { date: "Nov 23", calories: 2150, protein: 85, carbs: 246, fat: 95, sodium: 4740, note: "Food Snap day: Taco Bell lunch (Quesarito, Crunchwrap Supreme, Cheesy Fiesta Potatoes, Soft Taco Supreme, Baja Blast Zero), then 2 sourdough slices with a cheese slice, a Barebells bar and a Fresca. Over on calories, fat and carbs, sodium about 2,440 mg over (the Quesarito and Crunchwrap were each over 900 mg), protein short at 85 g. Expect tomorrow's weigh-in to be up from water." }, // fs:e-ed0b859d3b2e fs:e-133be25ef255 fs:e-a377ad51fc8f fs:e-b9d6a8983e3d fs:e-186f1a72e6ad fs:e-1545f929e011 fs:e-ae78e724e317 fs:e-d4c02ed92bfd fs:e-2937091bd84a
     { date: "Nov 24", calories: 1992, protein: 81, carbs: 252, fat: 74, sodium: 3055, note: "Food Snap day: El Monterey beef and bean burrito lunch, a single Rolo, QuikTrip cheese breadsticks (Jack's 330 kcal) with a Diet Dr Pepper, a Cafe Zupas Athlete Bowl dinner with roll and chocolate strawberry (estimate, Zupas numbers not confirmed), Sunkist Zero, Fresca and about 22 oz water, then Drizzilicious s'mores, fun-size Milk Duds and a TJ's Apple Blossom pastry. Right on the calorie line, carbs over (252 g), protein short at 81 g, sodium about 755 mg over (the Zupas bowl plus roll was about 1,300 mg)." }, // fs:e-7bf9e373bd18 fs:e-543b5abbecfb fs:e-459924b5fb08 fs:e-2d58add4208d fs:e-f1b46b4f1cf0 fs:e-a6755cba7f2f
+    { date: "Nov 25", calories: 2687, protein: 129, carbs: 260, fat: 119, sodium: 5550, note: "Food Snap day: black home coffee, a Chipotle double chicken burrito with guac and queso plus Diet Dr Pepper (Chipotle posted numbers), a Taco Bell Discovery Luxe Box with Baja Blast Zero, a Michelob Ultra at the Wild game, and fun size Hershey and Milk Duds. Well over on calories (687 over), carbs and fat, protein short at 129 g, sodium about 3,250 mg over (the burrito and the Taco Bell grilled cheese burrito were each over 1,600 mg)." }, // fs:e-fa9b2610a648 fs:e-e79cd4febffe fs:e-1ece880d9704 fs:e-f7cfe98ee1d8 fs:e-94c482cd454c
+    { date: "Nov 26", calories: null, protein: null, carbs: null, fat: null, sodium: null, note: "Not logged. No Food Snap entries this day." },
   ];
 
   // Grocery list built from this week's actual data: every low-sodium day traced back to fresh,
